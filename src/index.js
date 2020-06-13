@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+
+import Router from './routers';
+
 import * as serviceWorker from './serviceWorker';
+
+import 'amfe-flexible';
+import 'reset.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Suspense fallback={(<div>loading</div>)}>
+      <Router />
+    </Suspense>
   </React.StrictMode>,
   document.getElementById('root')
 );
