@@ -5,8 +5,10 @@ import Router from './routers';
 
 import * as serviceWorker from './serviceWorker';
 
+import './index.scss';
+
 import 'amfe-flexible';
-import 'reset.css';
+import './assets/css/reset.css';
 
 ReactDOM.render(
   <React.StrictMode>

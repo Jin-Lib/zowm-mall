@@ -1,0 +1,25 @@
+.am-wingblank .am-wingblank-lg,
+.am-wingblank.am-wingblank-lg{
+    margin: 0;
+    position: relative;
+}
+
+.carousel-item-img {
+    width: auto;
+    height: 9.333333rem /* 350/37.5 */;
+    vertical-align: top;
+}
+
+.carousel-dot {
+    width: 1.333333rem /* 50/37.5 */;
+    height: .8rem /* 30/37.5 */;
+    border-radius: .533333rem /* 20/37.5 */;
+    background: rgba(0, 0, 0, .2);
+    text-align: center;
+    line-height: .8rem /* 30/37.5 */;
+    color: white;
+    font-size: .373333rem /* 14/37.5 */;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}

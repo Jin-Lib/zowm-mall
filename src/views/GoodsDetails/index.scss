@@ -1,0 +1,96 @@
+.goods-details {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  .goods-details-info {
+    background: #fff;
+    padding: .266667rem /* 10/37.5 */;
+    .goods-details-info-price {
+      color: red;
+      font-size: .48rem /* 18/37.5 */;
+      font-weight: 600;
+      span {
+        font-size: .373333rem /* 14/37.5 */;
+      }
+    }
+    .goods-details-info-name {
+      font-size: .48rem /* 18/37.5 */;
+      line-height: .72rem /* 27/37.5 */;
+      text-indent: 1em;
+      margin-top: .266667rem /* 10/37.5 */;
+      overflow: hidden;
+      text-overflow:ellipsis;//文本溢出显示省略号
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+  }
+  .goods-detail-item {
+    width: 100%;
+    height: 1.333333rem /* 50/37.5 */;
+    background: white;
+    padding-left: .533333rem /* 20/37.5 */;
+  }
+  .goods-details-select {
+    margin-top: .266667rem /* 10/37.5 */;
+    .goods-details-select-label {
+      font-size: .373333rem /* 14/37.5 */;
+      color: #666;
+    }
+  }
+  .goods-details-send {
+    margin-top: .266667rem /* 10/37.5 */;
+    .goods-details-send-label {
+      font-size: .373333rem /* 14/37.5 */;
+      color: #666;
+    }
+    .goods-details-send-label-address {
+      width: 20px;
+      height: 20px;
+      vertical-align: middle;
+      margin-left: 20px;
+      position: relative;
+      top: 2px;
+    }
+    .goods-details-send-address {
+      font-size: .426667rem /* 16/37.5 */;
+      margin-left: 10px;
+    }
+  }
+  .goods-details-goodsDetail-desc {
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    .goods-details-goodsDetail-desc-title {
+      font-size: .373333rem /* 14/37.5 */;
+      color: #666;
+      text-align: center;
+      position: relative;
+      padding: 20px 0;
+      &::before {
+        content: ' ';
+        height: 1px;
+        width: 30%;
+        background: #ccc;
+        position: absolute;
+        left: 10%;
+        top: 50%;
+        margin-top: -0.5px;
+      }
+      &::after {
+        content: ' ';
+        height: 1px;
+        width: 30%;
+        background: #ccc;
+        position: absolute;
+        right: 10%;
+        top: 50%;
+        margin-top: -0.5px;
+      }
+    }
+  }
+  .goods-details-goodsDetail-desc-container {
+    width: 100%;
+    height: auto;
+  }
+}
