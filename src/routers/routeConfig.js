@@ -28,5 +28,9 @@ export const routerConfig = [
   {
     path: '/myCourse',
     component: React.lazy(() => import('../views/PersonalCenter/MyCourse/index.js'))
+  },
+  {
+    path: '/myData',
+    component: React.lazy(() => import('../views/PersonalCenter/MyData/index.js'))
   }
 ]

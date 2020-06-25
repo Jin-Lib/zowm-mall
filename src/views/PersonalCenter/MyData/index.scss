@@ -1,0 +1,157 @@
+.my-data-page {
+    width: 100%;
+    height: 100%;
+    padding-top: 1.17333rem;
+    background: white;
+    .my-data-page-body {
+        .my-data-page-body-av {
+            width: 1.173333rem /* 44/37.5 */;
+            height: 1.173333rem /* 44/37.5 */;
+            border-radius: 50%;
+            background: red;
+            margin-top: .32rem /* 12/37.5 */;
+            display: inline-block;
+        }
+        .my-data-page-body-name {
+            width: 100%;
+            height: 1.733333rem /* 65/37.5 */;
+            text-align: right;
+            border: none;
+            input {
+                text-align: right;
+            }
+        }
+        .my-data-page-body-phone {
+            width: 100%;
+            height: 1.733333rem /* 65/37.5 */;
+            text-align: right;
+            border: none;
+            input {
+                text-align: right;
+            }
+        }
+        .my-data-page-body-sex-box {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            .my-data-page-body-icon-right {
+                width: .693333rem /* 26/37.5 */;
+                height: .426667rem /* 16/37.5 */;
+                margin-left: .16rem /* 6/37.5 */;
+            }
+        }
+        .my-data-page-body-dance-box {
+            width: 6.666667rem /* 250/37.5 */;
+            height: 100%;
+            overflow-x: scroll;
+        }
+        .my-data-page-body-dance {
+            height: 100%;
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: flex-end;
+            li {
+                min-width: 2.666667rem /* 100/37.5 */;
+                height: .773333rem /* 29/37.5 */;
+                padding: 0 .266667rem /* 10/37.5 */;
+                line-height: .773333rem /* 29/37.5 */;
+                text-align: center;
+                background:rgba(255,255,255,1);
+                border:2px dashed rgba(255,123,0,1);
+                margin-right: .266667rem /* 10/37.5 */;
+                font-size: .32rem /* 12/37.5 */;
+                font-family:PingFang SC;
+                font-weight:400;
+                color:rgba(255,123,0,1);
+                &:nth-last-child(1) {
+                    margin-right: 0;
+                }
+            }
+            .my-data-page-body-dance-add {
+                border-color: #D8D8D8;
+                color: #AAAAAA;
+            }
+        }
+    }
+}
+
+.sex-piacker {
+    // width: 6.4rem /* 240/37.5 */;
+    width: 100%;
+    height: 3.733333rem /* 140/37.5 */;
+    border-top: 1px solid #EEEEEE;
+    border-bottom: 1px solid #EEEEEE;
+    overflow: hidden;
+}
+
+.sex-piacker-col {
+    // width: 6.4rem /* 240/37.5 */;
+    width: 100%;
+    height: 3.733333rem /* 140/37.5 */;
+    font-size: .48rem /* 18/37.5 */;
+    font-family:PingFang SC;
+    font-weight:400;
+    color:rgba(34,34,34,1);
+    margin: 0 auto;
+    position: relative;
+    padding-top: 1.066667rem /* 40/37.5 */;
+}
+
+.sex-piacker-col-indicator {
+    width: 2.133333rem /* 80/37.5 */;
+    height: 1.306667rem /* 49/37.5 */;
+    border-top: 1px solid #D8D8D8;
+    border-bottom: 1px solid #D8D8D8;
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    margin-left: -1.066667rem /* 40/37.5 */;
+    margin-top: 1.066667rem /* 40/37.5 */;
+}
+
+.sex-modal {
+    .am-modal-transparent {
+        width: 7.733333rem /* 290/37.5 */;
+        height: 6.4rem /* 240/37.5 */;
+    }
+    .am-modal-body {
+        padding: 0!important;
+    }
+    .am-modal-content {
+        padding-top: 0!important;
+    }
+    .sex-modal-title {
+        width: 100%;
+        height: 1.333333rem /* 50/37.5 */;
+        line-height: 1.333333rem /* 50/37.5 */;
+        position: relative;
+        h6 {
+            font-family:PingFang SC;
+            font-weight:500;
+            color:rgba(34,34,34,1);
+            font-size: .48rem /* 18/37.5 */;
+        }
+        img {
+            width: .48rem /* 18/37.5 */;
+            height: .48rem /* 18/37.5 */;
+            position: absolute;
+            right: .4rem /* 15/37.5 */;
+            top: .426667rem /* 16/37.5 */;
+        }
+    }
+    .sex-modal-ok {
+        width: 100%;
+        height: 1.32rem /* 49.5/37.5 */;
+        line-height: 1.32rem /* 49.5/37.5 */;
+        text-align: center;
+        font-family:PingFang SC;
+        font-weight:500;
+        color:rgba(255,94,107,1);
+        font-size: .426667rem /* 16/37.5 */;
+        letter-spacing: .4rem /* 15/37.5 */;
+        padding-left: .4rem /* 15/37.5 */;
+    }
+}
