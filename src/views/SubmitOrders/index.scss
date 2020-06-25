@@ -1,0 +1,236 @@
+.submit-orders-page {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    background: #EEE;
+    .submit-orders-page-select-address {
+        width: 90%;
+        height: 80px;
+        margin: 10px 5%;
+        border-radius: 10px;
+        background: #fff;
+        display: flex;
+        font-size: .373333rem /* 14/37.5 */;
+        align-items: center;
+        padding: 0 20px;
+        box-sizing: border-box;
+        svg {
+            width: 20px;
+            height: 20px;
+        }
+        span {
+            flex: 1;
+            margin-left: 10px;
+        }
+    }
+    .submit-orders-page-goods-info {
+        width: 90%;
+        height: auto;
+        margin: 10px 5%;
+        border-radius: 10px;
+        background: #fff;
+        display: flex;
+        font-size: .373333rem /* 14/37.5 */;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+    .submit-orders-page-pay-area {
+        width: 90%;
+        margin: 10px 5%;
+        border-radius: 10px;
+        background: #fff;
+        font-size: .373333rem /* 14/37.5 */;
+        padding: 0 20px;
+        box-sizing: border-box;
+        .submit-orders-page-pay-area-wxPay,
+        .submit-orders-page-pay-area-aliPay {
+            display: flex;
+            svg {
+                width: 20px;
+                height: 20px;
+                margin-right: 10px;
+            }
+        }
+    }
+    .submit-orders-page-pay {
+        width: 100%;
+        height: 60px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        p {
+            flex: 1;
+            text-align: right;
+            margin-right: 20px;
+            span {
+                margin-left: 5px;
+                font-size: 22px;
+                font-weight: 600;
+                color: red;
+            }
+        }
+        button {
+            width: 4rem /* 150/37.5 */;
+            height: 1.066667rem /* 40/37.5 */;
+            border-radius: 20px;
+            color: #FFF;
+            background: red;
+            margin-right: 10px;
+        }
+    }
+}
+
+/* 商品列表 */
+
+.prod-item {
+    width: 100%;
+    height: auto;
+    font-size: 28px;
+    padding: 10px 0;
+}
+  
+.prod-item .order-num {
+    display: flex;
+    justify-content: space-between;
+    font-size: 28px;
+}
+  
+.prod-item .item-cont {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.prod-item .order-num .clear-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 0;
+    vertical-align: top;
+    margin-top: 6px;
+    margin-left: 42px;
+    position: relative;
+}
+
+.prod-item .order-num .clear-btn::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    left: -10px;
+    top: 1px;
+    width: 1px;
+    height: 12px;
+    background: #ddd;
+}
+
+.prod-item .order-num .clear-btn .clear-list-btn {
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.prod-item .item-cont .prod-pic {
+    font-size: 0;
+    display: block;
+    width: 4.266667rem /* 160/37.5 */;
+    height: 4.266667rem /* 160/37.5 */;
+    overflow: hidden;
+    background: red;
+    margin-right: 16px;
+}
+
+.prod-item .item-cont .prod-pic img {
+    width: 100%;
+    height: 100%;
+}
+
+.prod-item .item-cont .prod-info {
+    margin-left: 10px;
+    font-size: 28px;
+    width: 100%;
+    position: relative;
+    height: 160px;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    flex: 1;
+}
+
+.prod-item .item-cont .prod-info .prodname {
+    font-size: .746667rem /* 28/37.5 */;
+    line-height: .933333rem /* 35/37.5 */;
+    max-height: 2.293333rem /* 86/37.5 */;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    word-break: break-all;
+}
+
+.prod-item .item-cont .prod-info .prod-info-cont {
+    color: #999;
+    line-height: 1.066667rem /* 40/37.5 */;
+    margin-top: .266667rem /* 10/37.5 */;
+    font-size: .586667rem /* 22/37.5 */;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    word-break: break-all;
+}
+
+.prod-item  .total-num {
+    text-align: right;
+    padding: 20px 30px;
+    font-size: 28px;
+}
+
+.price-nums {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    text-align: right;
+    color: #333;
+}
+
+.prod-item .price-nums .prodprice {
+    text-align: right;
+}
+
+.prod-item  .price-nums .prodcount {
+    position: absolute;
+    bottom: 20px;
+    right: 0;
+    color: #999;
+    font-family: verdana;
+}
+
+.prod-item .total-num .prodprice {
+    display: inline-block;
+    color: #333;
+}
+
+.prod-item .total-num .prodcount {
+    margin-right: 20px;
+}
+.totalPrice {
+    height: 40px;
+    line-height: 40px;
+    text-align: right;
+    border-top: 2px solid #f1f1f1;
+    p {
+        display: inline-block;
+        color: red;
+        font-weight: 600;
+    }
+    .big-num {
+        font-size: 22px;
+    }
+}

@@ -1,0 +1,182 @@
+.my-order-goods-info {
+    width: 9.2rem /* 345/37.5 */;
+    height: 6.973333rem /* 261.5/37.5 */;
+    background:rgba(255,255,255,1);
+    border-radius: .266667rem /* 10/37.5 */;
+    overflow: hidden;
+    margin-bottom: .4rem /* 15/37.5 */;
+    &:nth-last-child(1) {
+        margin-bottom: 0;
+    }
+    .my-order-goods-info-title {
+        width: 100%;
+        height: 1.466667rem /* 55/37.5 */;
+        padding-left: .4rem /* 15/37.5 */;
+        padding-right: .426667rem /* 16/37.5 */;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: .026667rem /* 1/37.5 */ solid #EEEEEE;
+        .my-order-goods-info-title-info {
+            display: flex;
+            align-items: center;
+            img {
+                width: .8rem /* 30/37.5 */;
+                height: .8rem /* 30/37.5 */;
+                border-radius: 50%;
+                margin-right: .266667rem /* 10/37.5 */;
+            }
+            h6 {
+                font-size: .426667rem /* 16/37.5 */;
+                font-family:PingFang SC;
+                font-weight:500;
+                color:rgba(34,34,34,1);
+            }
+        }
+        .my-order-goods-info-title-status {
+            font-size: .373333rem /* 14/37.5 */;
+            font-family:PingFang SC;
+            font-weight:400;
+            color: #AAAAAA;
+        }
+        .my-order-goods-info-title-status-pay {
+            color:rgba(255,123,0,1);
+        }
+    }
+    .my-order-goods-info-content {
+        width: 100%;
+        height: 5.506667rem /* 206.5/37.5 */;
+        padding: .4rem /* 15/37.5 */ .4rem /* 15/37.5 */ .533333rem /* 20/37.5 */ .4rem /* 15/37.5 */;
+        overflow: hidden;
+        .my-order-goods-info-content-goods-info {
+            width: 100%;
+            height: 2.4rem /* 90/37.5 */;
+            border-bottom: 1px solid #EEEEEE;
+            padding-bottom: .4rem /* 15/37.5 */;
+            display: flex;
+            overflow: hidden;
+            .my-order-goods-info-content-goods-info-img {
+                width: 2.133333rem /* 80/37.5 */;
+                min-width: 2.133333rem /* 80/37.5 */;
+                height:  2.133333rem /* 80/37.5 */;
+                border-radius: .133333rem /* 5/37.5 */;
+                margin-right: .28rem /* 10.5/37.5 */;
+                background: pink;
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .my-order-goods-info-content-goods-info-info {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                flex: 1;
+                overflow: hidden;
+                .my-order-goods-info-content-goods-info-info-title {
+                    margin-top: .12rem /* 4.5/37.5 */;
+                    display: flex;
+                    justify-content: space-between;
+                    p {
+                        font-size: .4rem /* 15/37.5 */;
+                        font-family:PingFang SC;
+                        font-weight:400;
+                        color:rgba(34,34,34,1);
+                        display: inline-block;
+                        flex: 1;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        margin-right: .32rem /* 12/37.5 */;
+                    }
+                    span {
+                        font-size: .4rem /* 15/37.5 */;
+                        font-family:PingFang SC;
+                        font-weight:500;
+                        color:rgba(255,94,107,1);
+                    }
+                }
+                .my-order-goods-info-content-goods-info-info-series {
+                    display: flex;
+                    justify-content: space-between;
+                    p {
+                        font-family:PingFang SC;
+                        font-weight:400;
+                        color:rgba(170,170,170,1);
+                        font-size: .373333rem /* 14/37.5 */;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        margin-right: .32rem /* 12/37.5 */;
+                    }
+                    span {
+                        flex: 1;
+                        text-align: right;
+                        min-width: 1.066667rem /* 40/37.5 */;
+                    }
+                }
+            }
+        }
+        .my-order-goods-info-content-goods-price {
+            width: 100%;
+            height: 1.266667rem /* 47.5/37.5 */;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .my-order-goods-info-content-goods-price-type {
+                font-size: .346667rem /* 13/37.5 */;
+                font-family:PingFang SC;
+                font-weight:400;
+                color:rgba(34,34,34,1);
+            }
+            .my-order-goods-info-content-goods-price-count {
+                font-size: .346667rem /* 13/37.5 */;
+                font-family:PingFang SC;
+                font-weight:400;
+                color:rgba(170,170,170,1);
+                margin-right: .426667rem /* 16/37.5 */;
+                display: inline-block;
+            }
+            .my-order-goods-info-content-goods-price-pay-count {
+                display: inline-block;
+                span {
+                    &:nth-child(1) {
+                        font-family:PingFang SC;
+                        font-weight:400;
+                        color:rgba(34,34,34,1);
+                        font-size: .346667rem /* 13/37.5 */;
+                        margin-right: .24rem /* 9/37.5 */;
+                    }
+                    &:nth-child(2) {
+                        font-family:PingFang SC;
+                        font-weight:400;
+                        color: #FF5E6B;
+                        font-size: .346667rem /* 13/37.5 */;
+                    }
+                }
+            }
+        }
+        .my-order-goods-info-content-goods-op {
+            display: flex;
+            justify-content: flex-end;
+            .my-order-goods-info-content-goods-op-button {
+                width: 2.08rem /* 78/37.5 */;
+                height: .693333rem /* 26/37.5 */;
+                border: .026667rem /* 1/37.5 */ solid rgba(238,238,238,1);
+                border-radius: .373333rem /* 14/37.5 */;
+                margin-right: .266667rem /* 10/37.5 */;
+                font-size: .32rem /* 12/37.5 */;
+                font-family:PingFang SC;
+                font-weight:400;
+                color:rgba(120,120,120,1);
+                background: #FFF;
+                &:nth-last-child(1) {
+                    margin-right: 0;
+                }
+            }
+            .my-order-goods-info-content-goods-op-button-pay {
+                border-color: #FF5E6B;
+            }
+        }
+    }
+}

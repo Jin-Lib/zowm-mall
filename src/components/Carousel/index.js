@@ -5,7 +5,7 @@ import './index.scss';
 
 class CarouselCom extends React.Component {
     state = {
-        data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
+        data: [],
         currentIndex: 0,
     }
 
@@ -16,7 +16,8 @@ class CarouselCom extends React.Component {
     }
 
     render() {
-        const { currentIndex, data } = this.state;
+        const { currentIndex } = this.state;
+        const { data = [] } = this.props;
 
         return (
             <WingBlank>
@@ -27,11 +28,11 @@ class CarouselCom extends React.Component {
                     dots={false}
                     cellSpacing={0}
                 >
-                    {data.map(val => (
+                    {data && Array.isArray(data) && data.length > 0 && data.map(val => (
                         <img
                             className="carousel-item-img"
                             key={val}
-                            src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
+                            src={val}
                             alt=""
                         />
                     ))}

@@ -1,0 +1,1 @@
+export { default as GoodsInfo } from './GoodsInfo'

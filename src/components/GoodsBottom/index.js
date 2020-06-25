@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.scss';
 
-function GoodsBottom() {
+function GoodsBottom({ buyNow }) {
     return (<div className="goods-bottom">
         <ul className="goods-bottom-left">
             <li>
@@ -18,7 +18,7 @@ function GoodsBottom() {
             </li>
         </ul>
         <div className="goods-bottom-right">
-            <button>购买</button>
+            <button onClick={buyNow}>购买</button>
         </div>
     </div>)
 }
