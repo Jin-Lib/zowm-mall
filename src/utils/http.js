@@ -9,7 +9,7 @@ if (process.env.NODE_ENV == 'development') {
   axios.defaults.baseURL = 'http://47.114.81.48:8086';
 }
 
-// axios.defaults.headers.common['Authorization'] = "bearer" + "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNjJkNjMyYy1kYmYyLTQyNWYtODVhNS05ZGQ1YmQzZWEwZWUiLCJ6b3dtMTIzIjoiSEZORElJIiwiZXhwIjoxNTkyODI4OTQyLCJpYXQiOjE1OTIyMjQxNDJ9.qL3PllQ-CZOnezPuYnNHBH26L_DGqxtW4Mt_N2ZtuL4rfbUR_MpRzmk5HksgJs_t9_zll0PLILCItsIJwZXUsA"
+axios.defaults.headers.common['Authorization'] = "bearerey" + "JhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNjJkNjMyYy1kYmYyLTQyNWYtODVhNS05ZGQ1YmQzZWEwZWUiLCJ6b3dtMTIzIjoiRFlEUU9VIiwiZXhwIjoxNTk1NjQ5MzM0LCJpYXQiOjE1OTMwNTczMzR9.Mo9OqclnYRM2jCirrcpQdFWLghKxcWU1K4fpyuXFDRQk_p0IeJxgTXVl06XaMu09U01Agg5M1CAblUndtrxWLQ"
 
 // 请求拦截器
 axios.interceptors.request.use(    
@@ -20,7 +20,7 @@ axios.interceptors.request.use(
     // token && (config.headers.Authorization = token);        
     return config;    
   },    
-  error => {        
+  error => {
     return Promise.error(error);    
   })
 
@@ -99,7 +99,7 @@ export function request(params){
       header: {
         'content-type': params.method == "GET" ? 'application/x-www-form-urlencoded' : 'application/json;charset=utf-8',
         // Authorization: params.login ? undefined : Taro.getStorageSync('token')
-        Authorization: "bearer" + "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNjJkNjMyYy1kYmYyLTQyNWYtODVhNS05ZGQ1YmQzZWEwZWUiLCJ6b3dtMTIzIjoiSEZORElJIiwiZXhwIjoxNTkyODI4OTQyLCJpYXQiOjE1OTIyMjQxNDJ9.qL3PllQ-CZOnezPuYnNHBH26L_DGqxtW4Mt_N2ZtuL4rfbUR_MpRzmk5HksgJs_t9_zll0PLILCItsIJwZXUsA"
+        'Authorization': "bearer" + "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNjJkNjMyYy1kYmYyLTQyNWYtODVhNS05ZGQ1YmQzZWEwZWUiLCJ6b3dtMTIzIjoiSEZORElJIiwiZXhwIjoxNTkyODI4OTQyLCJpYXQiOjE1OTIyMjQxNDJ9.qL3PllQ-CZOnezPuYnNHBH26L_DGqxtW4Mt_N2ZtuL4rfbUR_MpRzmk5HksgJs_t9_zll0PLILCItsIJwZXUsA"
       },
       method: params.method == undefined ? 'POST' : params.method,
       dataType: 'json',
