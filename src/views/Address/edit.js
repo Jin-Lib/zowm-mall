@@ -57,44 +57,26 @@ class AddressEdit extends Component {
   };
 
   API = {
-    'areaList': '/p/area/listByPid',
-    'addAddr': '/p/address/addAddr'
+    'addAddr': '/p/address/addAddr',
+    'updateAddr': '/p/address/updateAddr',
+    'deleteAddr': '/p/address/deleteAddr'
   }
 
-  // getAreaList = () => {
-  //   let params = {
-  //     url: this.API.areaList + '?pid=0',
-  //     method: "GET",
-  //     data: {
-  //       pid: '0'
-  //     }
-  //   };
-
-  //   Toast.loading('', 0);
-  //   request(params)
-  //     .then((res) => {
-  //       console.log(res);
-  //       Toast.hideLoading();
-  //     })
-  //     .catch((error) => {
-  //       const { data } = error;
-  //       const { error: errMsg } = data || {};
-  //       Toast.info(errMsg)
-  //     })
-  // }
-
+  /**
+   * 增加和修改地址
+   */
   addAddress = () => {
-    let { name, phone, detail, address } = this.state;
+    let { name, phone, detail, address, isEdit, addrId } = this.state;
     let address0 = address[0].split('-');
     let address1 = address[1].split('-');
     let address2 = address[2].split('-');
+    let url = isEdit ? this.API.updateAddr : this.API.addAddr;
 
     let params = {
-      url: this.API.addAddr,
-      method: "POST",
+      url: url,
+      method: isEdit ? "PUT" : "POST",
       data: {
         "addr": detail,
-        // "addrId": 0,
         "area": address2[1],
         "areaId": parseInt(address2[0]),
         "city": address1[1],
@@ -107,6 +89,10 @@ class AddressEdit extends Component {
       }
     };
 
+    if(isEdit) {
+      params.data.addrId = addrId;
+    }
+
     Toast.loading('请求中', 0);
     request(params)
       .then((res) => {
@@ -114,6 +100,33 @@ class AddressEdit extends Component {
         const { history } = this.props;
 
         history.go(-1);
+      })
+      .catch((error) => {
+        const { data } = error;
+        const { error: errMsg } = data || {};
+        Toast.info(errMsg)
+      })
+  }
+
+  /**
+   * 删除地址
+   */
+  delAddress = () => {
+    const { addrId } = this.state;
+    let params = {
+      url: this.API.deleteAddr + '/' + addrId,
+      method: "DELETE",
+      data: {
+      }
+    };
+
+    Toast.loading('删除中', 0);
+    request(params)
+      .then((res) => {
+        Toast.hide();
+        const { history } = this.props;
+
+        history.replace('/addressList');
       })
       .catch((error) => {
         const { data } = error;
@@ -181,12 +194,32 @@ class AddressEdit extends Component {
         </List>
 
         <CButton type="primary" className="address-btn" onClick={this.addAddress}>保存</CButton>
+        <CButton type="primary" className="del-btn" onClick={this.delAddress}>删除</CButton>
       </div>
     );
   }
 
   componentDidMount() {
     // this.getAreaList();
+    const { location } = this.props;
+    const { state } = location || {};
+
+    if(state && state.addrId) {
+      const { addrId, addr, area, areaId, city, cityId, mobile, province, provinceId, receiver } = state;
+      this.setState({
+        isEdit: true,
+        name: receiver,
+        phone: mobile,
+        detail: addr,
+        addrId,
+        address: [ `${provinceId}-${province}`, `${cityId}-${city}`, `${areaId}-${area}` ]
+      });
+    } else {
+      this.setState({
+        isEdit: false
+      });
+    }
+    
   }
 }
 

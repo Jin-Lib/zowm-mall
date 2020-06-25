@@ -8,15 +8,16 @@
  */
 import React, { Component, Fragment } from 'react';
 import ListView from '../ListView';
-// import Loading from '../Loading';
+import Loading from '../Loading';
 import request from '../../utils/http';
+import './index.scss';
 
 class ListPageData extends Component {
   state = {
     
     pagination: {
-      page: 1,
-      pageSize: 20
+      current: 1,
+      size: 8
     },
 
     dataSource: [],
@@ -42,12 +43,12 @@ class ListPageData extends Component {
       },
       method: "GET",
     }).then(data => {
-      let { resultData, total } = data || {};
-      let dataResult = dataSourceCopy.concat(resultData || []);
+      let { records, total } = data || {};
+      let dataResult = dataSourceCopy.concat(records || []);
 
       this.setState({
         hasMore: dataResult.length < total,
-        dataSource: [{}, {}, {}, {}],
+        dataSource: dataResult,
         isLoading: false
       });
     })
@@ -61,10 +62,10 @@ class ListPageData extends Component {
     this.setState({
       pagination: {
         ...pagination,
-        page: ++pagination.page
+        current: ++pagination.current
       }
     }, () => {
-      this.loadTask();
+      this.loadList();
     });
   }
 
@@ -73,18 +74,23 @@ class ListPageData extends Component {
     return (
       <Fragment>
         {
-          data && data.length === 0 && !this.state.isLoading ? <div className="task-empty">暂无数据</div> : null
+          data && data.length === 0 && !this.state.isLoading ? <div className="list-empty">暂无数据</div> : null
         }
         {
           data.map((item, index) => { return renderItem(item, index) })
         }
-        {/* <TaskItem key={index} data={item} onClick={this.onTaskItemClick} onFinishClick={this.onFinishClick} /> */}
+        {
+          this.state.isLoading ? <Loading /> : null
+        }
+        <div style={{ width: '100%' }}></div>
+        {
+          data && data.length > 0 && !this.state.isLoading && !this.state.hasMore ? <div className="list-empty">没有更多数据了</div> : null
+        }
       </Fragment>
     );
   }
 
   render() {
-    console.log(this.state.dataSource);
 
     return(
       <Fragment>
@@ -106,18 +112,24 @@ class ListPageData extends Component {
     this.loadList();
   }
 
-}
+  componentWillReceiveProps(nextProps) {
+    if(this.props.active !== nextProps.active || JSON.stringify(this.props.params) !== JSON.stringify(nextProps.params)) {
+      this.setState({
+        pagination: {
+          current: 1,
+          size: 8
+        },
+    
+        dataSource: [],
+    
+        isLoading: false,
+        hasMore: true,
+      }, () => {
+        this.loadList();
+      });
+    }
+  }
 
-
-
-const TaskItem = (props) => {
-  const { data, onClick, onFinishClick } = props;
-
-  return (
-    <div className="task-item-container">
-      test
-    </div>
-  );
 }
 
 export default ListPageData;

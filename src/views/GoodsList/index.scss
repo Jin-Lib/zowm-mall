@@ -1,28 +1,38 @@
 .goods-list-container {
+  height: 100%;
   background-color: #f2f2f2;
+  position: relative;
 
   .good-list-box {
     display: flex;
     flex-direction: column;
-    padding: 0 20px;
+    height: 100%;
+    margin-top: 1.333333rem /* 50/37.5 */;
 
     .good-list-row {
       display: flex;
       flex-wrap: wrap;
+      height: 100%;
+      overflow-y: auto;
 
       .good-item-container {
-        width: 50%;
+        width: 46%;
         flex-direction: column;
+        margin-left: 2%;
+        margin-right: 2%;
 
         .good-item-img {
           width: 100%;
           height: 3.2rem /* 120/37.5 */;
-          background-color: red;
+          background-color: #eee;
         }
       }
     }
 
     .good-list-col {
+      height: 100%;
+      overflow-y: auto;
+      padding: 0 .266667rem /* 10/37.5 */;
 
       .good-item-container {
         width: 100%;

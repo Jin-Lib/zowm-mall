@@ -47,6 +47,13 @@ class AddressList extends Component {
     history && history.replace('/submitOrders', { ...(data || {}) })
   }
 
+  editAddress = (e, data) => {
+    const { history } = this.props;
+    e.stopPropagation();
+
+    history.push('/addressAdd', { ...(data || {}) });
+  }
+
   render() {
     const { addressList } = this.state;
 
@@ -60,7 +67,7 @@ class AddressList extends Component {
                   <div className="address-info-name">{ item.receiver } { item.mobile }</div>
                   <div className="address-info-addr">{ item.province + item.city + item.area + item.addr }</div>
                 </div>
-                <div className="address-edit-btn">
+                <div className="address-edit-btn" onClick={e => { this.editAddress(e, item) }}>
                   编辑
                 </div>
               </div>

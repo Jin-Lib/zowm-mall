@@ -92,12 +92,11 @@ axios.interceptors.response.use(
 
 
 export function request(params){    
-  return new Promise((resolve, reject) =>{  
-    axios({
+  return new Promise((resolve, reject) =>{ 
+    let config = {
       url: params.url, //接口请求地址
-      data: params.data,
       header: {
-        'content-type': params.method == "GET" ? 'application/x-www-form-urlencoded' : 'application/json;charset=utf-8',
+        'ContentType': params.method == "GET" ? 'application/x-www-form-urlencoded' : 'application/json;charset=utf-8',
         // Authorization: params.login ? undefined : Taro.getStorageSync('token')
         'Authorization': "bearer" + "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNjJkNjMyYy1kYmYyLTQyNWYtODVhNS05ZGQ1YmQzZWEwZWUiLCJ6b3dtMTIzIjoiSEZORElJIiwiZXhwIjoxNTkyODI4OTQyLCJpYXQiOjE1OTIyMjQxNDJ9.qL3PllQ-CZOnezPuYnNHBH26L_DGqxtW4Mt_N2ZtuL4rfbUR_MpRzmk5HksgJs_t9_zll0PLILCItsIJwZXUsA"
       },
@@ -105,7 +104,15 @@ export function request(params){
       dataType: 'json',
       responseType:
         params.responseType == undefined ? 'text' : params.responseType,
-    }).then(res => {            
+    };
+
+    if(params.method === 'GET') {
+      config.params = params.data || {};
+    } else {
+      config.data = params.data || {};
+    }
+    
+    axios(config).then(res => {            
       resolve(res.data);
     })        
     .catch(err => {            
