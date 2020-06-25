@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ConditionBar from '../../components/ConditionBar';
 import ListPageData from '../../components/ListPageData';
+import { Icon, InputItem } from 'antd-mobile'
 import './index.scss';
 
 const conditios = {
@@ -13,7 +14,8 @@ class GoodsList extends Component {
   state = {
     type: 'row',
     active: 'all',
-    orderBy: 0
+    orderBy: 0,
+    keyword: ''
   }
 
   API = {
@@ -28,9 +30,7 @@ class GoodsList extends Component {
 
   onClickCondition = (newActive) => {
     const { active } = this.state;
-    console.log(active, newActive);
     let orderBy = active === newActive ? ( this.state.orderBy === 0 ? 1 : 0 ) : 0;
-    console.log(this.state.orderBy, orderBy);
 
     this.setState({
       active: newActive,
@@ -38,10 +38,23 @@ class GoodsList extends Component {
     });
   }
 
+  onKeywordChange = (value) => {
+    console.log(value);
+    this.setState({
+      keyword: value
+    });
+  }
+
+  toDetail = (data) => {
+    const { history } = this.props;
+
+    history && history.push(`/goodsDetails/${data.prodId}`)
+  }
+
   renderGoodItem = (data, key) => {
 
     return (
-      <div className="good-item-container" key={key}>
+      <div className="good-item-container" key={key} onClick={() => { this.toDetail(data) }}>
         <img className="good-item-img" src={data.pic} alt="" />
         <div className="good-item-content">
           <div className="good-item-name">
@@ -60,19 +73,26 @@ class GoodsList extends Component {
 
     return (
       <div className="goods-list-container">
-        <ConditionBar
-          toggerType={this.onToggerType}
-          onClick={this.onClickCondition}
-          type={this.state.type}
-          active={this.state.active}
-        />
+        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%' }}>
+          <SearchInput
+            value={this.state.keyword}
+            onChange={this.onKeywordChange}
+          />
+          <ConditionBar
+            toggerType={this.onToggerType}
+            onClick={this.onClickCondition}
+            type={this.state.type}
+            active={this.state.active}
+          />
 
+        </div>
+        
         <div className="good-list-box">
           <ListPageData
             className={ this.state.type === 'row' ? 'good-list-row' : 'good-list-col'}
             url={this.API.searchProdPage}
             params={{
-              prodName: '',
+              prodName: this.state.keyword,
               sort: conditios[this.state.active],
               orderBy: this.state.orderBy
             }}
@@ -83,6 +103,27 @@ class GoodsList extends Component {
       </div>
     );
   }
+}
+
+const SearchInput = (props) => {
+  const { value, onChange } = props;
+
+  const onChangeValue = (value) => {
+    onChange && onChange(value);
+  }
+
+  return (
+    <div className="search-input-container">
+      <div className="search-input-box">
+        <Icon type="search" size="xs" color="#474747" /> 
+        <InputItem
+          value={value}
+          onChange={onChangeValue}
+          placeholder="请输入关键字"
+        />
+      </div>
+    </div>
+  );
 }
 
 export default GoodsList;

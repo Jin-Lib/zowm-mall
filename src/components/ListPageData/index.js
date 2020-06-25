@@ -17,7 +17,7 @@ class ListPageData extends Component {
     
     pagination: {
       current: 1,
-      size: 8
+      size: 20
     },
 
     dataSource: [],
@@ -117,7 +117,7 @@ class ListPageData extends Component {
       this.setState({
         pagination: {
           current: 1,
-          size: 8
+          size: 20
         },
     
         dataSource: [],
