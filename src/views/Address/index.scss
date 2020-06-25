@@ -1,0 +1,56 @@
+.address-edit-container {
+  margin: 0 10px;
+  position: relative;
+
+  .address-edit-box {
+    background-color: #fff;
+    margin: 10px 0;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+}
+
+.address-list-container {
+
+  .address-list-item {
+    display: flex;
+    background-color: #fff;
+    align-items: center;
+    height: 1.866667rem /* 70/37.5 */;
+    padding: 0 .4rem /* 15/37.5 */;
+    border-radius: .133333rem /* 5/37.5 */;
+    margin: .266667rem /* 10/37.5 */ .266667rem /* 10/37.5 */ 0 .266667rem /* 10/37.5 */;
+
+    .address-info {
+      flex: 1;
+
+      .address-info-name {
+        font-size: .426667rem /* 16/37.5 */;
+        color: #666;
+        margin-bottom: .266667rem /* 10/37.5 */;
+      }
+
+      .address-info-addr {
+        font-size: .373333rem /* 14/37.5 */;
+        color: #666;
+      }
+    }
+
+    .address-edit-btn {
+      width: 30px;
+      height: 30px;
+      background-color: #eee;
+    }
+  }
+
+  .address-list-footer-btn {
+    position: fixed;
+    bottom: 0;
+    margin-top: .266667rem /* 10/37.5 */;
+    width: 100%;
+    padding: .266667rem /* 10/37.5 */ .266667rem /* 10/37.5 */;
+    box-sizing: border-box;
+    background-color: #fff;
+  }
+}

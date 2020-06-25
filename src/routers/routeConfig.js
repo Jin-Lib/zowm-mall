@@ -8,5 +8,13 @@ export const routerConfig = [
   {
     path: '/goodsList',
     component: React.lazy(() => import('../views/GoodsList'))
+  },
+  {
+    path: '/addressAdd',
+    component: React.lazy(() => import('../views/Address/edit'))
+  },
+  {
+    path: '/addressList',
+    component: React.lazy(() => import('../views/Address/list'))
   }
 ]

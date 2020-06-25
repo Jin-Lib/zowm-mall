@@ -26,7 +26,7 @@ class ListPageData extends Component {
   }
 
   // 请求任务列表
-  loadTask = () => {
+  loadList = () => {
     let { params, url } = this.props;
     let { pagination, dataSource } = this.state;
     let dataSourceCopy = dataSource.concat([]);
@@ -41,19 +41,13 @@ class ListPageData extends Component {
         ...pagination
       },
       method: "GET",
-    }).then(res => {
-      let { data, success } = res || {};
+    }).then(data => {
       let { resultData, total } = data || {};
       let dataResult = dataSourceCopy.concat(resultData || []);
 
-      if(success) {
-        this.setState({
-          hasMore: dataResult.length < total,
-          dataSource: dataResult
-        });
-      }
-      
       this.setState({
+        hasMore: dataResult.length < total,
+        dataSource: [{}, {}, {}, {}],
         isLoading: false
       });
     })
@@ -74,20 +68,23 @@ class ListPageData extends Component {
     });
   }
 
-  renderTaskList = (data) => {
+  renderList = (data) => {
+    const { renderItem } = this.props;
     return (
       <Fragment>
         {
           data && data.length === 0 && !this.state.isLoading ? <div className="task-empty">暂无数据</div> : null
         }
         {
-          data.map((item, index) => <TaskItem key={index} data={item} onClick={this.onTaskItemClick} onFinishClick={this.onFinishClick} />)
+          data.map((item, index) => { return renderItem(item, index) })
         }
+        {/* <TaskItem key={index} data={item} onClick={this.onTaskItemClick} onFinishClick={this.onFinishClick} /> */}
       </Fragment>
     );
   }
 
   render() {
+    console.log(this.state.dataSource);
 
     return(
       <Fragment>
@@ -96,7 +93,7 @@ class ListPageData extends Component {
           onEndReached={this.onEndReached}
         >
           {
-            this.renderTaskList(this.state.dataSource)
+            this.renderList(this.state.dataSource)
           }
           {/* <Loading isLoading={this.state.isLoading} text={this.state.hasMore ? "上拉加载更多" : "没有更多数据啦..."} /> */}
         </ListView>
@@ -106,7 +103,7 @@ class ListPageData extends Component {
   }
 
   componentDidMount() {
-    this.loadTask();
+    this.loadList();
   }
 
 }

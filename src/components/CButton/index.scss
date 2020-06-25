@@ -1,0 +1,8 @@
+.cbutton {
+  background:linear-gradient(-90deg,rgba(255,167,128,1) 0%,rgba(255,60,97,1) 100%);
+  border-radius:5px;
+}
+
+.am-button-primary::before {
+  border: none !important;
+}
