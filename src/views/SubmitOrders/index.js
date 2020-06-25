@@ -44,7 +44,7 @@ export default class SubmitOrders extends Component{
     }
 
     submitPay = () => {
-
+        console.log(this.props.history)
     }
 
     payChange = (value) => {
@@ -60,6 +60,8 @@ export default class SubmitOrders extends Component{
      */
     toAddrListPage = () => {
         // 跳转到地址页
+        const { history } = this.props;
+        history.push('/addressList')
     }
 
     /**
@@ -85,7 +87,7 @@ export default class SubmitOrders extends Component{
             method: "POST",
             data: {
                 addrId: addrId,
-                orderItem: this.state.orderEntry === "1" ? JSON.parse(localStorage.getItem("orderItem")) : undefined,
+                orderItem: JSON.parse(localStorage.getItem("orderItem")),
                 basketIds: this.state.orderEntry === "0" ? JSON.parse(localStorage.getItem("basketIds")) : undefined,
                 couponIds: this.state.couponIds,
                 userChangeCoupon: 1
@@ -129,18 +131,23 @@ export default class SubmitOrders extends Component{
                 });
             })
             .catch(error => {
-                Toast.hide();
+                console.log('error', error)
+                const { data } = error;
+                if (typeof data === 'string') {
+                    Toast.hide();
+                    Toast.info(data);
+                } else {
+                    Toast.hide();
+                }
             })
     }
 
     render() {
         const {
             selectValue, payCount, 
-            // orderItems, 
+            orderItems, 
             total,
         } = this.state;
-
-        const orderItems = [{pic: '', prodName: 'xxxx', skuName: 'xxxx', price: '100', prodCount: '1'}]
 
         return (<div className="submit-orders-page">
             <div className="submit-orders-page-select-address" onClick={this.toAddrListPage}>
@@ -153,8 +160,8 @@ export default class SubmitOrders extends Component{
                     {
                         orderItems && orderItems.map((item, key) => {
                             return (
-                                <>
-                                    <div key={key} className="item-cont">
+                                <React.Fragment key={key}>
+                                    <div className="item-cont">
                                         <div className="prod-pic">
                                             <img src={item.pic} alt=""/>
                                         </div>
@@ -169,7 +176,7 @@ export default class SubmitOrders extends Component{
                                         <p className='symbol'>￥</p>
                                         <p className='big-num'>{item.price}</p>
                                     </div>
-                                </>
+                                </React.Fragment>
                             )
                         })
                     }

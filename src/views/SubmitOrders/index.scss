@@ -133,8 +133,8 @@
 .prod-item .item-cont .prod-pic {
     font-size: 0;
     display: block;
-    width: 4.266667rem /* 160/37.5 */;
-    height: 4.266667rem /* 160/37.5 */;
+    width: 2.133333rem /* 80/37.5 */;
+    height: 2.133333rem /* 80/37.5 */;
     overflow: hidden;
     background: red;
     margin-right: 16px;
@@ -147,10 +147,10 @@
 
 .prod-item .item-cont .prod-info {
     margin-left: 10px;
-    font-size: 28px;
+    font-size: .373333rem /* 14/37.5 */;
     width: 100%;
     position: relative;
-    height: 160px;
+    height: 2.133333rem /* 80/37.5 */;
     -webkit-flex: 1;
     -ms-flex: 1;
     -webkit-box-flex: 1;
@@ -159,7 +159,7 @@
 }
 
 .prod-item .item-cont .prod-info .prodname {
-    font-size: .746667rem /* 28/37.5 */;
+    font-size: .426667rem /* 16/37.5 */;
     line-height: .933333rem /* 35/37.5 */;
     max-height: 2.293333rem /* 86/37.5 */;
     overflow: hidden;
@@ -174,7 +174,7 @@
     color: #999;
     line-height: 1.066667rem /* 40/37.5 */;
     margin-top: .266667rem /* 10/37.5 */;
-    font-size: .586667rem /* 22/37.5 */;
+    font-size: .373333rem /* 14/37.5 */;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 1;
