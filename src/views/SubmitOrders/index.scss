@@ -14,6 +14,7 @@
         align-items: center;
         padding: 0 20px;
         box-sizing: border-box;
+        position: relative;
         svg {
             width: 20px;
             height: 20px;
@@ -21,6 +22,21 @@
         span {
             flex: 1;
             margin-left: 10px;
+        }
+        .submit-orders-page-select-address-info {
+            p {
+                font-family:PingFang SC;
+                font-weight:400;
+                color:rgba(34,34,34,1);
+                font-size: .4rem /* 15/37.5 */;
+                &:nth-child(2) {
+                    margin-top: .266667rem /* 10/37.5 */;
+                }
+            }
+        }
+        .submit-orders-page-select-address-right {
+            position: absolute;
+            right: .266667rem /* 10/37.5 */;
         }
     }
     .submit-orders-page-goods-info {
