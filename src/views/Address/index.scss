@@ -38,9 +38,12 @@
     }
 
     .address-edit-btn {
-      width: 30px;
-      height: 30px;
-      background-color: #eee;
+      // width: 30px;
+      height: .8rem /* 30/37.5 */;
+      line-height: .8rem /* 30/37.5 */;
+      // background-color: #eee;
+      font-size: .373333rem /* 14/37.5 */;
+      color: #666;
     }
   }
 
