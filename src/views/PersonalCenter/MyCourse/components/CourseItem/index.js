@@ -20,7 +20,10 @@ function CourseItem (params) {
                     <p>{courseDesc}</p>
                 </div>
             </div>
-            <div className="course-item-body-right"></div>
+            <div className="course-item-body-right">
+                <img src={require("../../../../../assets/imgs/upload.png")} alt=""/>
+                <p>上传作业</p>
+            </div>
         </div>
     </div>)
 }

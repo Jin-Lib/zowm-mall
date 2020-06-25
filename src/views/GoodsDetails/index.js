@@ -2,6 +2,7 @@ import React, { PureComponent, useState, useEffect } from 'react';
 import { Toast } from 'antd-mobile';
 
 import request from '../../utils/http'
+
 import { formatHtml } from '../../utils'
 import config from '../../utils/config'
 
@@ -12,6 +13,7 @@ import './index.scss';
 
 class GoodsDetails extends PureComponent {
     constructor(props) {
+
         super(props);
 
         this.state = {
@@ -328,6 +330,7 @@ class GoodsDetails extends PureComponent {
      * 立即购买
      */
     buyNow = () => {
+        const { history } = this.props;
         const {
             findSku, prodId, defaultSku, prodNum, shopId
         } = this.state;
@@ -340,6 +343,10 @@ class GoodsDetails extends PureComponent {
             prodCount: prodNum,
             shopId: shopId
         }));
+
+        history.push('/submitOrders')
+
+        // browserHistory.push('')
         // 跳转至购物页面，
         // wx.navigateTo({
         // url: '/pages/submit-order/submit-order?orderEntry=1',
@@ -434,7 +441,7 @@ class GoodsDetails extends PureComponent {
                                 </div>
                             </div>
                             <div className={findSku ? "sku-footer-buttonGroup" : "sku-footer-buttonGroup-disabled"}>
-                                <button onClick={this.addToCart}>加入购物车</button>
+                                {/* <button onClick={this.addToCart}>加入购物车</button> */}
                                 <button onClick={this.buyNow}>立即购买</button>
                             </div>
                         </div>

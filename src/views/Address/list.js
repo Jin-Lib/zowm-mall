@@ -43,8 +43,9 @@ class AddressList extends Component {
 
   nagivateToOrder = (data) => {
     const { history } = this.props;
-
-    history && history.replace('/submitOrders', { ...(data || {}) })
+    history.goBack()
+    window.localStorage.setItem("addressInfo", JSON.stringify(data));
+    // history && history.push('/submitOrders', { ...(data || {}) })
   }
 
   editAddress = (e, data) => {
