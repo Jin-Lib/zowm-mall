@@ -24,10 +24,21 @@
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
     }
+    .goods-details-info-desc {
+      font-size: .48rem /* 18/37.5 */;
+      line-height: .72rem /* 27/37.5 */;
+      margin-top: .266667rem /* 10/37.5 */;
+      overflow: hidden;
+      text-overflow:ellipsis;//文本溢出显示省略号
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
   }
   .goods-detail-item {
     width: 100%;
     height: 1.333333rem /* 50/37.5 */;
+    line-height: 1.333333rem /* 50/37.5 */;
     background: white;
     padding-left: .533333rem /* 20/37.5 */;
   }
@@ -92,5 +103,145 @@
   .goods-details-goodsDetail-desc-container {
     width: 100%;
     height: auto;
+  }
+}
+
+#sku {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, .7);
+  display: flex;
+  flex-direction: column;
+  .sku-mask {
+      width: 100%;
+      height: 45%;
+  }
+  .sku-content-box {
+      width: 100%;
+      height: 55%;
+      background: #FFF;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      overflow-y: auto;
+      .sku-goods-info {
+          display: flex;
+          padding: .533333rem /* 20/37.5 */;
+          img {
+              width: 2.4rem /* 90/37.5 */;
+              height: 2.4rem /* 90/37.5 */;
+              border-radius: 10px;
+          }
+          .sku-goods-info-box {
+              padding-left: 10px;
+              padding-top: 10px;
+              .sku-goods-info-box-price {
+                  color: red;
+                  font-size: .586667rem /* 22/37.5 */;
+                  font-weight: 600;
+                  span {
+                      font-size: .426667rem /* 16/37.5 */;
+                  }
+              }
+              .sku-goods-info-box-stocks {
+                  color: #ccc;
+                  font-size: .426667rem /* 16/37.5 */;
+                  margin-top: 10px;
+              }
+              .sku-goods-info-box-select {
+                  font-size: .426667rem /* 16/37.5 */;
+                  margin-top: 10px;
+              }  
+          }
+      }
+      .sku-list {
+          padding: 0 10px;
+          font-size: .426667rem /* 16/37.5 */;
+          .sku-list-item-box {
+              margin-top: .266667rem /* 10/37.5 */;
+              h6 {
+                font-size: .48rem /* 18/37.5 */;
+              }
+              ul {
+                  display: flex;
+                  margin-top: 20px;
+                  border-bottom: 1px solid #EEE;
+                  margin-bottom: 20px;
+                  padding-bottom: 20px;
+                  li {
+                      padding: .133333rem /* 5/37.5 */ .266667rem /* 10/37.5 */;
+                      background: #eee;
+                      border-radius: 5px;
+                      margin-right: 10px;
+                      border: 1px solid transparent;
+                  }
+                  .active {
+                      border: 1px solid red;
+                  }
+                  .dashed {
+                      border: 1px dashed red;
+                  }
+              }
+          }
+      }
+      .sku-count {
+        font-size: .48rem /* 18/37.5 */;
+        padding: 0 10px;
+        height: 60px;
+        line-height: 60px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .sku-count-op {
+          height: 40px;
+          line-height: 40px;
+          display: flex;
+          border: 1px solid #eee;
+        }
+        .sku-count-op-minus,
+        .sku-count-op-plus {
+          width: 40px;
+          height: 40px;
+          text-align: center;
+          font-size: .533333rem /* 20/37.5 */;
+        }
+        .sku-count-op-count {
+          width: 1.6rem /* 60/37.5 */;
+          text-align: center;
+          border-left: 1px solid #eee;
+          border-right: 1px solid #eee;
+        }
+      }
+
+      .sku-footer-buttonGroup,
+      .sku-footer-buttonGroup-disabled {
+        width: 100%;
+        height: 40px;
+        padding: 0 10px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        box-sizing: border-box;
+        button {
+          width: 100px;
+          height: 40px;
+          background: red;
+          line-height: 40px;
+          text-align: center;
+          color: white;
+          border-radius: 5px;
+          margin-right: 10px;
+        }
+      }
+      .sku-footer-buttonGroup-disabled {
+        button {
+          background: grey;
+        }
+      }
   }
 }
