@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 
 import Router from './routers';
+import Loading from './views/Loading'
 
 import * as serviceWorker from './serviceWorker';
 
@@ -12,7 +13,7 @@ import './assets/css/reset.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Suspense fallback={(<div>loading</div>)}>
+    <Suspense fallback={(<Loading/>)}>
       <Router />
     </Suspense>
   </React.StrictMode>,
