@@ -30,6 +30,14 @@ export const routerConfig = [
     component: React.lazy(() => import('../views/PersonalCenter/MyCourse/index.js'))
   },
   {
+    path: '/StarCertification',
+    component: React.lazy(() => import('../views/StarCertification'))
+  },
+  {
+    path: '/CourseList',
+    component: React.lazy(() => import('../views/CourseList'))
+  },
+  {
     path: '/myData',
     component: React.lazy(() => import('../views/PersonalCenter/MyData/index.js'))
   },
