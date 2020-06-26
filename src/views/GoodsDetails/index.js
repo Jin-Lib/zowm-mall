@@ -76,7 +76,7 @@ class GoodsDetails extends PureComponent {
 
         Toast.loading('正在努力加载中..', 0);
         const params = {
-            url: `/prod/prodInfo?prodId=${prodId}`,
+            url: `/prod/prodInfo`,
             method: "GET",
             data: {
                 prodId: prodId,
@@ -84,6 +84,7 @@ class GoodsDetails extends PureComponent {
         };
         request(params)
             .then(res => {
+                console.log('res', res)
                 Toast.hide();
                 const imgStrs = res.imgs;
                 const imgs = imgStrs.split(",");

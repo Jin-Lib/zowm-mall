@@ -59,7 +59,7 @@ const createRequestInstanceFactory = (instance) => {
             }
     
             instance(config)
-                .then(res => response(res))
+                .then(res => response(res.data))
                 .catch(err => reject(err))
         })
     }
