@@ -1,18 +1,20 @@
 import axios from 'axios';
 
+let instance = axios.create();
+
 // 环境的切换
 if (process.env.NODE_ENV == 'development') {    
-  axios.defaults.baseURL = '/api';
+  instance.defaults.baseURL = '/api';
 } else if (process.env.NODE_ENV == 'debug') {    
-  axios.defaults.baseURL = '';
+  instance.defaults.baseURL = '';
 } else if (process.env.NODE_ENV == 'production') {    
-  axios.defaults.baseURL = 'http://47.114.81.48:8086';
+  instance.defaults.baseURL = 'http://47.114.81.48:8086';
 }
 
-axios.defaults.headers.common['Authorization'] = "bearerey" + "JhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNjJkNjMyYy1kYmYyLTQyNWYtODVhNS05ZGQ1YmQzZWEwZWUiLCJ6b3dtMTIzIjoiRFlEUU9VIiwiZXhwIjoxNTk1NjQ5MzM0LCJpYXQiOjE1OTMwNTczMzR9.Mo9OqclnYRM2jCirrcpQdFWLghKxcWU1K4fpyuXFDRQk_p0IeJxgTXVl06XaMu09U01Agg5M1CAblUndtrxWLQ"
+instance.defaults.headers.common['Authorization'] = "bearerey" + "JhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjc1NjUyNTczNzQ0NzcxMDc0Iiwiem93bTEyMyI6IjFTV09QMiIsImV4cCI6MTU5NTc1MDgyOSwiaWF0IjoxNTkzMTU4ODI5fQ.oOMEGj9V4yKqxmbVWRubd5cr6d9AceJ3GU_N1ay4XoEqszWTXfvMXswsknQpdPzigvtk7NjUCJ7Lmu_q4PZ3_Q"
 
 // 请求拦截器
-axios.interceptors.request.use(    
+instance.interceptors.request.use(    
   config => {
     // 每次发送请求之前判断是否存在token，如果存在，则统一在http请求的header都加上token，不用每次请求都手动添加了
     // 即使本地存在token，也有可能token是过期的，所以在响应拦截器中要对返回状态进行判断
@@ -25,8 +27,9 @@ axios.interceptors.request.use(
   })
 
 // 响应拦截器
-axios.interceptors.response.use(    
-  response => {        
+instance.interceptors.response.use(    
+  response => { 
+    console.log(response, 'response')       
     if (response.status === 200) {            
       return Promise.resolve(response);        
     } else {            
@@ -98,7 +101,7 @@ export function request(params){
       header: {
         'ContentType': params.method == "GET" ? 'application/x-www-form-urlencoded' : 'application/json;charset=utf-8',
         // Authorization: params.login ? undefined : Taro.getStorageSync('token')
-        'Authorization': "bearer" + "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNjJkNjMyYy1kYmYyLTQyNWYtODVhNS05ZGQ1YmQzZWEwZWUiLCJ6b3dtMTIzIjoiSEZORElJIiwiZXhwIjoxNTkyODI4OTQyLCJpYXQiOjE1OTIyMjQxNDJ9.qL3PllQ-CZOnezPuYnNHBH26L_DGqxtW4Mt_N2ZtuL4rfbUR_MpRzmk5HksgJs_t9_zll0PLILCItsIJwZXUsA"
+        // 'Authorization': "bearer" + "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNjJkNjMyYy1kYmYyLTQyNWYtODVhNS05ZGQ1YmQzZWEwZWUiLCJ6b3dtMTIzIjoiSEZORElJIiwiZXhwIjoxNTkyODI4OTQyLCJpYXQiOjE1OTIyMjQxNDJ9.qL3PllQ-CZOnezPuYnNHBH26L_DGqxtW4Mt_N2ZtuL4rfbUR_MpRzmk5HksgJs_t9_zll0PLILCItsIJwZXUsA"
       },
       method: params.method == undefined ? 'POST' : params.method,
       dataType: 'json',
@@ -112,7 +115,7 @@ export function request(params){
       config.data = params.data || {};
     }
     
-    axios(config).then(res => {            
+    instance(config).then(res => {            
       resolve(res.data);
     })        
     .catch(err => {            

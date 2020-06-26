@@ -52,5 +52,9 @@ export const routerConfig = [
   {
     path: '/eventDivision',
     component: React.lazy(() => import('../views/Event/EventDivision/index.js'))
+  },
+  {
+    path: '/player',
+    component: React.lazy(() => import('../views/Player'))
   }
 ]
