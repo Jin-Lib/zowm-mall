@@ -6,3 +6,8 @@ export const formatHtml = content => {
     content = content.replace(/ \/\>/gi, ' style="max-width:100% !important;height:auto !important;margin:0;display:block;" \/\>');
     return content;
 }
+
+
+export { default as httpApp } from './http-app';
+
+export { default as http } from './http';

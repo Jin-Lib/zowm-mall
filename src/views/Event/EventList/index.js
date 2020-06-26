@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PageTitle } from '../../../components';
-import { Tabs } from 'antd-mobile';
+import { Tabs, Toast } from 'antd-mobile';
+import { httpApp as request } from '../../../utils'
 import './index.scss';
 
 const titleTabs = [
@@ -66,9 +67,36 @@ const eventList = [
     },
 ]
 
+// Toast.loading('请求中', 0);
+    
 function EventList() {
     // 当前 tab value
     const [ currentTabValue, setTabValue ] = useState('t1');
+
+    useEffect(() => {
+        async function getEventList() {
+            const params = {
+                url: '/app/event/getEvents',
+                method: "POST",
+                data: {
+                    "categoryUnionId": "",
+                    "code": 0
+                }
+            }
+            return new Promise(() => {
+                request(params)
+                    .then((res) => {
+                        Toast.hide();
+                    })
+                    .catch((error) => {
+                        const { data } = error;
+                        const { error: errMsg } = data || {};
+                        Toast.info(errMsg)
+                    })
+            })
+        }
+        getEventList()
+    }, [])
 
     /**
      * title tab chagne
