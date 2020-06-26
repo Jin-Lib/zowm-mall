@@ -1,0 +1,22 @@
+.content-title {
+    display: flex;
+    justify-content: space-between;
+    p {
+        font-family:PingFang SC;
+        font-weight:500;
+        color:rgba(33,33,33,1);
+        font-size: .453333rem /* 17/37.5 */;
+        position: relative;
+        padding-left: .36rem /* 13.5/37.5 */;
+        &::before {
+            content: ' ';
+            position: absolute;
+            top: 1px;
+            left: 0;
+            width: .106667rem /* 4/37.5 */;
+            height: .426667rem /* 16/37.5 */;
+            background:linear-gradient(0deg,rgba(255,153,97,1),rgba(253,0,43,1));
+            border-radius: .053333rem /* 2/37.5 */;
+        }
+    }
+}

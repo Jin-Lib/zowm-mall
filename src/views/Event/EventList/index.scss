@@ -1,0 +1,63 @@
+.event-event-list {
+    width: 100%;
+    height: 100%;
+    .event-event-list-content {
+        width: 100%;
+        height: 100%;
+        padding-top: 1.173333rem /* 44/37.5 */;
+        background: white;
+        .event-event-list-content-box {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            .event-event-list-content-left {
+                width: 3.333333rem /* 125/37.5 */;
+                overflow: hidden;
+                overflow-y: auto;
+                padding: .8rem /* 30/37.5 */ .4rem /* 15/37.5 */;
+                li {
+                    background:#F3F3F3;
+                    border-radius:37px;
+                    width: 2.533333rem /* 95/37.5 */;
+                    height: .986667rem /* 37/37.5 */;
+                    line-height: .986667rem /* 37/37.5 */;
+                    text-align: center;
+                    font-familyk:PingFang SC;
+                    font-weight:400;
+                    color:rgba(71,71,71,1);
+                    font-size: .346667rem /* 13/37.5 */;
+                    margin-bottom: .666667rem /* 25/37.5 */;
+                }
+            }
+            .event-event-list-content-right {
+                flex: 1;
+                overflow: hidden;
+                overflow-y: auto;
+                padding-bottom: .533333rem /* 20/37.5 */;
+                li {
+                    width: 6.266667rem /* 235/37.5 */;
+                    height: 3.2rem /* 120/37.5 */;
+                    border-radius: .266667rem /* 10/37.5 */;
+                    background: blue;
+                    margin-top: .533333rem /* 20/37.5 */;
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.am-tabs-default-bar-underline {
+    border: 1px solid transparent;
+    background: #FF3C61!important;
+    transform: translateX(1.066667rem /* 40/37.5 */);
+}
+
+.am-tabs-default-bar-tab {
+    height: 1.466667rem /* 55/37.5 */;
+    line-height: 1.466667rem /* 55/37.5 */;
+}

@@ -4,22 +4,27 @@
     min-height: 1.173333rem /* 44/37.5 */;
     background: #FFF;
     display: flex;
+    justify-content: space-between;
     align-items: center;
     padding-left: .693333rem /* 26/37.5 */;
+    padding-right: .493333rem /* 18.5/37.5 */;
     box-sizing: border-box;
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 300;
     .page-title-icon {
         width: .533333rem /* 20/37.5 */;
         height: .373333rem /* 14/37.5 */;
         margin-right: .693333rem /* 26/37.5 */;
+        display: inline-block;
     }
     .page-title-text {
         font-size: .48rem /* 18/37.5 */;
         font-family:PingFang SC;
         font-weight:500;
         color:rgba(34,34,34,1);
+        display: inline-block;
     }
 }
 .page-title-shadow {
