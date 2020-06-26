@@ -1,0 +1,47 @@
+.tabs-container {
+
+  .tabs-headers {
+    height: 1.466667rem /* 55/37.5 */;
+    line-height: 1.466667rem /* 55/37.5 */;
+    display: flex;
+    align-items: center;
+    box-shadow:0px 0px 5px 0px rgba(255,16,59,0.1);
+    background-color: #ffffff;
+
+    .tabs-headers-item {
+      text-align: center;
+      position: relative;
+      font-size:16px;
+      font-family:PingFang SC;
+      font-weight:500;
+      color: #222;
+
+      &.active {
+
+        &::after {
+          content: ' ';
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          margin-left: -.2rem /* 7.5/37.5 */;
+          width: .4rem /* 15/37.5 */;
+          height: .053333rem /* 2/37.5 */;
+          background:linear-gradient(-90deg,rgba(255,167,128,1) 0%,rgba(255,60,97,1) 100%);
+        }
+      }
+    }
+
+    .tabs-headers-line {
+      width: 1px;
+      height: .4rem /* 15/37.5 */;
+      background-color: #BEBEBE;
+    }
+  }
+
+  .tabs-content {
+
+    .tabs-content-item {
+
+    }
+  }
+}

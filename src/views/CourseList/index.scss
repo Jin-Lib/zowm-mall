@@ -1,0 +1,133 @@
+.course-list-container {
+
+  .course-list-header {
+    height: 3.6rem /* 135/37.5 */;
+    background:linear-gradient(135deg,rgba(255,167,128,1) 0%,rgba(255,60,97,1) 100%);
+    text-align: center;
+    position: relative;
+
+    div {
+      font-size: .72rem /* 27/37.5 */;
+      color: #fff;
+      padding-top: 1.066667rem /* 40/37.5 */;
+    }
+
+    .course-list-img1 {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 1.386667rem /* 52/37.5 */;
+      height: 1.653333rem /* 62/37.5 */;
+    }
+
+    .course-list-img2 {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 1.626667rem /* 61/37.5 */;
+      height: 2.64rem /* 99/37.5 */;
+    }
+  }
+
+  .course-list-content {
+    border-top-left-radius: .4rem /* 15/37.5 */;
+    border-top-right-radius: .4rem /* 15/37.5 */;
+    overflow: hidden;
+    margin-top: -.8rem /* 30/37.5 */;
+    position: relative;
+
+    .course-content-header {
+      display: flex;
+      background-color: #f7f7f7;
+
+      .course-content-header-item {
+        height: 1.173333rem /* 44/37.5 */;
+        line-height: 1.173333rem /* 44/37.5 */;
+        text-align: center;
+        border-left: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+
+        &.flex1 {
+          flex: 1;
+        }
+
+        &.flex1-5 {
+          flex: 1.5;
+        }
+
+        &.flex1-2 {
+          flex: 1.2;
+        }
+
+      }
+    }
+
+    .course-content-header-title {
+      height: .96rem /* 36/37.5 */;
+      line-height: .96rem /* 36/37.5 */;
+      text-align: center;
+      font-size: .346667rem /* 13/37.5 */;
+      color: #FF7B00;
+      background-color: #FFF2E5;
+    }
+
+    .course-content-body {
+      display: flex;
+
+      .course-content-body-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 2.4rem /* 90/37.5 */;
+        padding: 0 .266667rem /* 10/37.5 */;
+        border-left: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+
+        &.flex1 {
+          flex: 1;
+        }
+
+        &.flex1-5 {
+          flex: 1.5;
+        }
+
+        &.flex1-2 {
+          flex: 1.2;
+        }
+
+        img {
+          width: .746667rem /* 28/37.5 */;
+          height: .746667rem /* 28/37.5 */;
+          border-radius: .373333rem /* 14/37.5 */;
+          background-color: #eee;
+        }
+
+        span {
+          font-size: .32rem /* 12/37.5 */;
+          color: #222;
+          font-family: PingFangSC-Regular;
+          text-align: center;
+
+          &.fw-5 {
+            font-weight: 700;
+          }
+        }
+
+
+      }
+    }
+  }
+
+  .mt-10 {
+    margin-top: .266667rem /* 10/37.5 */;
+  }
+
+  .mt-18 {
+    margin-top: .48rem /* 18/37.5 */;
+  }
+
+  .bc-f5f9f8 {
+    background-color: #f5f9f8;
+  }
+}
