@@ -56,5 +56,9 @@ export const routerConfig = [
   {
     path: '/player',
     component: React.lazy(() => import('../views/Player'))
-  }
+  },
+  {
+    path: '/eventVoteZone',
+    component: React.lazy(() => import('../views/Event/EventVoteZone/index.js'))
+  },
 ]

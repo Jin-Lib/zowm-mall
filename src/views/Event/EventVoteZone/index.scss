@@ -1,0 +1,133 @@
+.event-vote-zone {
+    width: 100%;
+    height: 100%;
+    .event-vote-zone-content {
+        width: 100%;
+        height: 100%;
+        padding-top: 1.173333rem /* 44/37.5 */;
+        background: white;
+        .event-vote-zone-content-title {
+            width: 9.2rem /* 345/37.5 */;
+            height: 2.133333rem /* 80/37.5 */;
+            background: #F7F7F7;
+            border-radius: 1.066667rem /* 40/37.5 */;
+            margin: 0 auto;
+            margin-top: .533333rem /* 20/37.5 */;
+            margin-bottom: .8rem /* 30/37.5 */;
+            display: flex;
+            padding-top: .373333rem /* 14/37.5 */;
+            padding-bottom: .426667rem /* 16/37.5 */;
+            padding-left: .4rem /* 15/37.5 */;
+            img {
+                width: 1.333333rem /* 50/37.5 */;
+                height: 1.333333rem /* 50/37.5 */;
+                border-radius: 50%;
+                margin-right: .266667rem /* 10/37.5 */;
+            }
+            p {
+                margin-top: .16rem /* 6/37.5 */;
+                font-family:PingFang SC;
+                font-weight:500;
+                color:rgba(71,71,71,1);
+                font-size: .48rem /* 18/37.5 */;
+                margin-bottom: .266667rem /* 10/37.5 */;
+            }
+            span {
+                font-family:PingFang SC;
+                font-weight:400;
+                color:rgba(71,71,71,1);
+                font-size: .346667rem /* 13/37.5 */;
+            }
+        }
+        .event-vote-zone-content-info {
+            display: flex;
+            padding-left: .533333rem /* 20/37.5 */;
+            padding-right: .533333rem /* 20/37.5 */;
+            margin-bottom: .4rem /* 15/37.5 */;
+            position: relative;
+            img {
+                margin-right: .4rem /* 15/37.5 */;
+                width: 1.466667rem /* 55/37.5 */;
+                height: 1.466667rem /* 55/37.5 */;
+                border-radius: 50%;
+                background: red;
+            }
+            p {
+                margin-top: .186667rem /* 7/37.5 */;
+                margin-bottom: .266667rem /* 10/37.5 */;
+                font-family:PingFang SC;
+                font-weight:500;
+                color:rgba(33,33,33,1);
+                font-size: .48rem /* 18/37.5 */;
+            }
+            span {
+                font-family:PingFang SC;
+                font-weight:400;
+                color:rgba(255,123,0,1);
+                font-size: .373333rem /* 14/37.5 */;
+            }
+            button {
+                width: 1.866667rem /* 70/37.5 */;
+                height: .88rem /* 33/37.5 */;
+                background:linear-gradient(-90deg,rgba(255,167,127,1) 0%,rgba(255,59,97,1) 100%);
+                border-radius: .426667rem /* 16/37.5 */;
+                font-family:PingFang SC;
+                font-weight:400;
+                color:rgba(255,255,255,1);
+                font-size: .373333rem /* 14/37.5 */;
+                position: absolute;
+                right: .4rem /* 15/37.5 */;
+                bottom: .213333rem /* 8/37.5 */;
+            }
+        }
+        .event-vote-zone-content-video {
+            width: 9.2rem /* 345/37.5 */;
+            height: 4.8rem /* 180/37.5 */;
+            background: red;
+            border-radius: .133333rem /* 5/37.5 */;
+            margin: 0 auto;
+            margin-bottom: .786667rem /* 29.5/37.5 */;
+        }
+        .event-vote-zone-content-people {
+            padding: 0 .4rem /* 15/37.5 */;
+            width: 100%;
+            background: white;
+            ul {
+                width: 8.933333rem /* 335/37.5 */;
+                display: flex;
+                flex-wrap: wrap;
+                margin-top: .666667rem /* 25/37.5 */;
+                li {
+                    width: 1.6rem /* 60/37.5 */;
+                    text-align: center;
+                    margin-right: .8rem /* 30/37.5 */;
+                    margin-bottom: .533333rem /* 20/37.5 */;
+                    &:nth-child(4),
+                    &:nth-child(8) {
+                        margin-right: 0;
+                    }
+                    img {
+                        width: 1.466667rem /* 55/37.5 */;
+                        height: 1.466667rem /* 55/37.5 */;
+                        border-radius: 50%;
+                        background: red;
+                        margin-bottom: .4rem /* 15/37.5 */;
+                    }
+                    p {
+                        font-family:PingFang SC;
+                        font-weight:500;
+                        color:rgba(33,33,33,1);
+                        font-size: .4rem /* 15/37.5 */;
+                        margin-bottom: .213333rem /* 8/37.5 */;
+                    }
+                    span {
+                        font-family:PingFang SC;
+                        font-weight:400;
+                        font-size: .32rem /* 12/37.5 */;
+                        color: #A9A9A9;
+                    }
+                }
+            }
+        }
+    }
+}
