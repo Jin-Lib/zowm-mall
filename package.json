@@ -10,6 +10,7 @@
     "antd-mobile": "^2.3.3",
     "antd-mobile-demo-data": "^0.3.0",
     "axios": "^0.19.2",
+    "classnames": "^2.2.6",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

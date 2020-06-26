@@ -37,4 +37,20 @@ export const routerConfig = [
     path: '/CourseList',
     component: React.lazy(() => import('../views/CourseList'))
   },
+  {
+    path: '/myData',
+    component: React.lazy(() => import('../views/PersonalCenter/MyData/index.js'))
+  },
+  {
+    path: '/mySign',
+    component: React.lazy(() => import('../views/PersonalCenter/MySign/index.js'))
+  },
+  {
+    path: '/eventList',
+    component: React.lazy(() => import('../views/Event/EventList/index.js'))
+  },
+  {
+    path: '/eventDivision',
+    component: React.lazy(() => import('../views/Event/EventDivision/index.js'))
+  }
 ]

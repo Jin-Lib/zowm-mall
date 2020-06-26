@@ -1,0 +1,161 @@
+.event-division {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+    .event-division-title-right {
+        font-family:PingFang SC;
+        font-weight:400;
+        color:rgba(255,123,0,1);
+        font-size: .4rem /* 15/37.5 */;
+    }
+    .event-division-content {
+        width: 100%;
+        height: 100%;
+        padding-top: 1.173333rem /* 44/37.5 */;
+        background: #f7f7f7;
+        .event-division-content-details {
+            width: 100%;
+            padding-top: .333333rem /* 12.5/37.5 */;
+            background: white;
+            padding-left: .426667rem /* 16/37.5 */;
+            padding-right: .426667rem /* 16/37.5 */;
+            padding-bottom: .533333rem /* 20/37.5 */;
+            margin-bottom: .266667rem /* 10/37.5 */;
+        }
+        .event-division-content-vote {
+            padding-left: .4rem /* 15/37.5 */;
+            padding-right: .4rem /* 15/37.5 */;
+            background: white;
+            padding-bottom: .533333rem /* 20/37.5 */;
+            padding-top: .533333rem /* 20/37.5 */;
+            margin-bottom: .266667rem /* 10/37.5 */;
+            ul {
+                margin-top: .533333rem /* 20/37.5 */;
+                li {
+                    display: flex;
+                    position: relative;
+                    height: 2.133333rem /* 80/37.5 */;
+                    width: 100%;
+                    margin-bottom: .533333rem /* 20/37.5 */;
+                    &:nth-last-child(1) {
+                        margin-bottom: 0;
+                    }
+                    img {
+                        width: 2.133333rem /* 80/37.5 */;
+                        height: 2.133333rem /* 80/37.5 */;
+                        border-radius: .133333rem /* 5/37.5 */;
+                        background: red;
+                        margin-right: .266667rem /* 10/37.5 */;
+                    }
+                    div {
+                        h6 {
+                            width: 6.666667rem /* 250/37.5 */;
+                            margin-top: .12rem /* 4.5/37.5 */;
+                            margin-bottom: .893333rem /* 33.5/37.5 */;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                        }
+                        span {
+                            font-family:PingFang SC;
+                            font-weight:400;
+                            color:rgba(255,123,0,1);
+                            font-size: .373333rem /* 14/37.5 */;
+                        }
+                    }
+                    button {
+                        width: 1.866667rem /* 70/37.5 */;
+                        height: .746667rem /* 28/37.5 */;
+                        background:linear-gradient(-90deg,rgba(255,167,127,1) 0%,rgba(255,59,97,1) 100%);
+                        border-radius: .373333rem /* 14/37.5 */;
+                        font-family:PingFang SC;
+                        font-weight:400;
+                        color:rgba(255,255,255,1);
+                        font-size: .32rem /* 12/37.5 */;
+                        position: absolute;
+                        right: 0;
+                        bottom: .133333rem /* 5/37.5 */;
+                    }
+                }
+            }
+        }
+        .event-division-content-video {
+            padding: .533333rem /* 20/37.5 */ .4rem /* 15/37.5 */;
+            background: white;
+            margin-bottom: .266667rem /* 10/37.5 */;
+            .event-division-content-video-title-right {
+                font-family:PingFang SC;
+                font-weight:400;
+                color:rgba(33,33,33,1);
+                font-size: .4rem /* 15/37.5 */;
+            }
+            .event-division-content-video-box {
+                margin-top: .533333rem /* 20/37.5 */;
+                height: 3.493333rem /* 131/37.5 */;
+                overflow: hidden;
+                overflow-x: auto;
+                ul {
+                    display: flex;
+                    flex-wrap: nowrap;
+                    li {
+                        display: inline-block;
+                        min-width: 3.733333rem /* 140/37.5 */;
+                        margin-right: .4rem /* 15/37.5 */;
+                        img {
+                            width: 3.733333rem /* 140/37.5 */;
+                            height: 2.4rem /* 90/37.5 */;
+                            display: inline-block;
+                            border-radius: .133333rem /* 5/37.5 */;
+                            background: blue;
+                        }
+                        p {
+                            width: 100%;
+                            text-overflow: -o-ellipsis-lastline;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            display: -webkit-box;
+                            -webkit-line-clamp: 2;
+                            -webkit-box-orient: vertical;
+                            margin-top: .266667rem /* 10/37.5 */;
+                            font-family:PingFang SC;
+                            font-weight:400;
+                            color:rgba(33,33,33,1);
+                            font-size: .373333rem /* 14/37.5 */;
+                            line-height: .426667rem /* 16/37.5 */;
+                        }
+                    }
+                }
+            }
+        }
+        .event-division-content-photo {
+            padding-top: .533333rem /* 20/37.5 */;
+            padding-left: .533333rem /* 20/37.5 */;
+            padding-right: .533333rem /* 20/37.5 */;
+            padding-bottom: .8rem /* 30/37.5 */;
+            background: white;
+            .event-division-content-photo-box {
+                ul {
+                    display: flex;
+                    flex-wrap: wrap;
+                    li {
+                        min-width: 4.2rem /* 157.5/37.5 */;
+                        height: 3.093333rem /* 116/37.5 */;
+                        margin-right: .533333rem /* 20/37.5 */;
+                        background: blue;
+                        margin-top: .533333rem /* 20/37.5 */;
+                        border-radius: .266667rem /* 10/37.5 */;
+                        &:nth-child(even) {
+                            margin-right: 0;
+                        }
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            display: inline-block;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
