@@ -30,11 +30,11 @@ export const routerConfig = [
     component: React.lazy(() => import('../views/PersonalCenter/MyCourse/index.js'))
   },
   {
-    path: '/StarCertification',
+    path: '/starCertification',
     component: React.lazy(() => import('../views/StarCertification'))
   },
   {
-    path: '/CourseList',
+    path: '/courseList',
     component: React.lazy(() => import('../views/CourseList'))
   },
   {
@@ -60,5 +60,9 @@ export const routerConfig = [
   {
     path: '/eventVoteZone',
     component: React.lazy(() => import('../views/Event/EventVoteZone/index.js'))
+  },
+  {
+    path: '/dances',
+    component: React.lazy(() => import('../views/Dances'))
   },
 ]

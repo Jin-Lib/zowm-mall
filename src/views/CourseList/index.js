@@ -10,7 +10,7 @@ class CourseList extends Component {
   }
 
   API = {
-    'getLiveRoomTimeList': '/liveRoom/getLiveRoomTimeList'
+    'getLiveRoomTimeList': '/app/liveRoom/getLiveRoomTimeList'
   };
 
   getLiveRoomTimeList = () => {
@@ -60,30 +60,36 @@ class CourseList extends Component {
               let item = liveList[key];
 
               return (
-                <Fragment>
+                <Fragment key={index}>
                   <div className="course-content-header-title">
                     { key }
                   </div>
-                  <div className="course-content-body bc-f5f9f8">
-                    <div className="course-content-body-item flex1">
-                      <img src={item.organTutorLogo} alt="" />
-                      <span className="fw-5 mt-10">{item.organTutorName}</span>
-                      {/* <span className="fw-5">孙伟凯老师</span> */}
-                    </div>
-                    <div className="course-content-body-item flex1-5">
-                      <span>文欢舞蹈孙伟凯老师</span>
-                    </div>
-                    <div className="course-content-body-item flex1-2">
-                      <span>{ item.liveRoomContent }</span>
-                      <span className="fw-5 mt-18">拉丁舞</span>
-                    </div>
-                    <div className="course-content-body-item flex1">
-                      <span>{ item.liveStartEndDate }</span>
-                      <span className="fw-5 mt-18">{ item.fee }</span>
-                    </div>
-                  </div>
+                  {
+                    (item || []).map((itemData, indexData) => {
+                      return (
+                        <div key={indexData} className="course-content-body bc-f5f9f8">
+                          <div className="course-content-body-item flex1">
+                            <img src={itemData.organTutorLogo} alt="" />
+                            <span className="fw-5 mt-10">{itemData.organTutorName}</span>
+                            {/* <span className="fw-5">孙伟凯老师</span> */}
+                          </div>
+                          <div className="course-content-body-item flex1-5">
+                            <span>{itemData.organTutorName}</span>
+                          </div>
+                          <div className="course-content-body-item flex1-2">
+                            <span>{ itemData.liveRoomContent }</span>
+                            <span className="fw-5 mt-18">{ itemData.liveRoomContent }</span>
+                          </div>
+                          <div className="course-content-body-item flex1">
+                            <span>{ itemData.liveStartEndDate }</span>
+                            <span className="fw-5 mt-18">{ itemData.fee }</span>
+                          </div>
+                        </div>
+                      )
+                    })
+                  }
                 </Fragment>
-              )
+              );
             })
           }
         </div>

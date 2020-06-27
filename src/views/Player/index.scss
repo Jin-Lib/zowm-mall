@@ -1,16 +1,32 @@
 .player-container {
   padding-top: .533333rem /* 20/37.5 */;
+  height: 100%;
+  box-sizing: border-box;
+  background-color: #fff;
 
   .player-box {
     width: 10rem /* 375/37.5 */;
     height: 10rem /* 375/37.5 */;
-    background-color: #eee;
+    background-color: #fafafa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    position: relative;
+
+    img {
+      position: absolute;
+      width: 5.6rem /* 210/37.5 */;
+      height: 5.6rem /* 210/37.5 */;
+      border-radius: 4.133333rem /* 155/37.5 */;
+      animation: turn 5s linear infinite;
+    }
   }
 
   .player-voice {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     padding: 0 1.333333rem /* 50/37.5 */;
     margin: .8rem /* 30/37.5 */ 0;
 
@@ -50,7 +66,6 @@
         position: absolute;
         top: 0;
         left: 0;
-        width: 10%;
         height: 100%;
         border-radius: .053333rem /* 2/37.5 */;
         background:linear-gradient(90deg,rgba(255,60,97,1) 0%, rgba(255,167,128,1) 100%);
@@ -70,4 +85,15 @@
       height: 1.466667rem /* 55/37.5 */;
     }
   }
+
+}
+
+
+//定义动画
+@keyframes turn{
+  0%{-webkit-transform:rotate(0deg);}
+  25%{-webkit-transform:rotate(90deg);}
+  50%{-webkit-transform:rotate(180deg);}
+  75%{-webkit-transform:rotate(270deg);}
+  100%{-webkit-transform:rotate(360deg);}
 }

@@ -1,0 +1,37 @@
+.dances-container {
+  height: 100%;
+  background-color: #fff;
+
+  .title-container {
+    font-family: PingFangSC-Medium;
+    font-size: .426667rem /* 16/37.5 */;
+    color: #222;
+    padding: 0 .426667rem /* 16/37.5 */;
+    padding-top: .8rem /* 30/37.5 */;
+    font-weight: bold;
+  }
+
+  .dances-content {
+    display: flex;
+  }
+
+  .tag-container {
+    width: 3.013333rem /* 113/37.5 */;
+    height: .986667rem /* 37/37.5 */;
+    line-height: .986667rem /* 37/37.5 */;
+    background: #f4f4f4;
+    border-radius: .506667rem /* 19/37.5 */;
+    font-size: .346667rem /* 13/37.5 */;
+    font-family: PingFangSC-Regular;
+    color: #474747;
+    margin-left: .426667rem /* 16/37.5 */;
+    margin-top: .533333rem /* 20/37.5 */;
+    text-align: center;
+
+    &.active {
+      background: linear-gradient(-90deg,rgba(255,167,128,1) 0%,rgba(255,60,97,1) 100%);
+      font-family: PingFangSC-Medium;
+      color: #fff;
+    }
+  }
+}
