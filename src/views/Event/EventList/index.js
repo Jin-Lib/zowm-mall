@@ -3,100 +3,126 @@ import { PageTitle } from '../../../components';
 import { Tabs, Toast } from 'antd-mobile';
 import { httpApp as request } from '../../../utils'
 import './index.scss';
-
-const titleTabs = [
-    { title: '全部', key: 't1' },
-    { title: '进行中', key: 't2' },
-    { title: '即将开始', key: 't3' },
-    { title: '已结束', key: 't4' },
-];
-
-const eventTypes = [
-    {
-        label: '国内赛事',
-        value: '1',
-    },
-    {
-        label: '国外赛事',
-        value: '1',
-    },
-    {
-        label: '训练营',
-        value: '1',
-    },
-    {
-        label: '舞蹈节',
-        value: '1',
-    },
-    {
-        label: '教师培训班',
-        value: '1',
-    },
-]
-
-const eventList = [
-    {
-        img: '',
-        linkTo: '',
-        id: '',
-    },
-    {
-        img: '',
-        linkTo: '',
-        id: '',
-    },
-    {
-        img: '',
-        linkTo: '',
-        id: '',
-    },
-    {
-        img: '',
-        linkTo: '',
-        id: '',
-    },
-    {
-        img: '',
-        linkTo: '',
-        id: '',
-    },
-    {
-        img: '',
-        linkTo: '',
-        id: '',
-    },
-]
-
-// Toast.loading('请求中', 0);
     
-function EventList() {
+function EventList(props) {
     // 当前 tab value
-    const [ currentTabValue, setTabValue ] = useState('t1');
+    const [ currentTabValue, setTabValue ] = useState('0');
 
+    // 赛事类别
+    const [ eventTypes, setEventTypes ] = useState([]);
+
+    // 赛事
+    const [ eventList, setEventList ] = useState([]);
+
+    // 赛事状态
+    const [ eventStatus, setEventStatus ] = useState([]);
+
+    // 当前选中的赛事类别
+    const [ unionId, setUnionId ] = useState(null);
+
+    /**
+     * 获取赛事状态
+     * @date 2020-06-27
+     * @param {any} (
+     * @returns {any}
+     */
     useEffect(() => {
-        async function getEventList() {
+        Toast.loading('请求中', 0);
+        async function getEventStatus() {
             const params = {
-                url: '/app/event/getEvents',
-                method: "POST",
-                data: {
-                    "categoryUnionId": "",
-                    "code": 0
-                }
+                url: '/app/event/getEventState',
+                method: "GET",
             }
             return new Promise(() => {
                 request(params)
                     .then((res) => {
+                        const result = res.map(item => {
+                            return {
+                                title: item.value,
+                                key: item.code,
+                            }
+                        })
+                        const initialTitle = [
+                            {
+                                title: '全部',
+                                key: 0,
+                            }
+                        ]
+                        setEventStatus(initialTitle.concat(result))
                         Toast.hide();
                     })
                     .catch((error) => {
                         const { data } = error;
                         const { error: errMsg } = data || {};
-                        Toast.info(errMsg)
+                        Toast.info(errMsg || "当前网络异常, 请稍后重试!")
                     })
             })
         }
-        getEventList()
+        getEventStatus()
     }, [])
+
+    /**
+     * 请求赛事类别
+     * @date 2020-06-26
+     * @param {any} (
+     * @returns {any}
+     */
+    useEffect(() => {
+        Toast.loading('请求中', 0);
+        async function getEventType() {
+            const params = {
+                url: '/app/event/getEventCategory',
+                method: "GET",
+            }
+            return new Promise(() => {
+                request(params)
+                    .then((res) => {
+                        setEventTypes(res)
+                        Toast.hide();
+                    })
+                    .catch((error) => {
+                        const { data } = error;
+                        const { error: errMsg } = data || {};
+                        Toast.info(errMsg || "当前网络异常, 请稍后重试!")
+                    })
+            })
+        }
+        getEventType()
+    }, [])
+
+    const getEventList = (data) => {
+        Toast.loading('请求中', 0);
+        const params = {
+            url: '/app/event/getEvents',
+            method: "GET",
+            data: data,
+        }
+        return new Promise(() => {
+            request(params)
+                .then((res) => {
+                    setEventList(res);
+                    Toast.hide();
+                })
+                .catch((error) => {
+                    const { data } = error;
+                    const { error: errMsg } = data || {};
+                    Toast.info(errMsg || "当前网络异常, 请稍后重试!")
+                })
+        })
+    }
+
+    /**
+     * 请求赛事列表
+     * @date 2020-06-26
+     * @param {any} (
+     * @returns {any}
+     */
+    useEffect(() => {
+        getEventList({
+            code: currentTabValue,
+            categoryUnionId: unionId,
+        })
+    }, [currentTabValue, unionId])
 
     /**
      * title tab chagne
@@ -104,14 +130,37 @@ function EventList() {
      * @returns {any}
      */
     const titleTabsChagne = (tab, index) => {
-        console.log('tab, index', tab, index)
+        setTabValue(tab.key)
+    }
+
+    /**
+     * 列表详情点击
+     * @date 2020-06-26
+     * @returns {any}
+     */
+    const eventListItemClick = (item) => {
+        return () => {
+            const { history } = props;
+            history.push('/eventDivision', { id: item.unionId })
+        }
+    } 
+
+    /**
+     * 赛事类别点击
+     * @date 2020-06-27
+     * @returns {any}
+     */
+    const eventTypeItemClick = (item) => {
+        return () => {
+            setUnionId(item.unionId)
+        }
     }
 
     return (<div className="event-event-list">
         <PageTitle title="赛事" />
         <div className="event-event-list-content">
             <Tabs
-                tabs={titleTabs}
+                tabs={eventStatus}
                 initialPage={currentTabValue}
                 tabBarUnderlineStyle={{ width: '15px', height: '2px', background: 'red!important' }}
                 tabBarActiveTextColor="#222222"
@@ -124,7 +173,11 @@ function EventList() {
                         <ul>
                             {
                                 eventTypes.map((item, key) => {
-                                    return <li key={key}>{item.label}</li>
+                                    return (
+                                        <li key={key} onClick={eventTypeItemClick(item)}>
+                                            {item.catagoryName}
+                                        </li>
+                                    )
                                 })
                             }
                         </ul>
@@ -133,8 +186,8 @@ function EventList() {
                         <ul>
                             {
                                 eventList.map((item, key) => {
-                                    return (<li key={key}>
-                                        <img src={item.img} alt=""/>
+                                    return (<li key={key} onClick={eventListItemClick(item)}>
+                                        <img src={item.eventPicUrl} alt=""/>
                                     </li>)
                                 }) 
                             }

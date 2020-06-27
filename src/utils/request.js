@@ -28,7 +28,7 @@ axios.interceptors.response.use(
 const httpAppInstance = axios.create({
     baseURL: isDevelopment ? '/h5Api' : 'http://app.zhongouwumeng.com',
     headers: {
-        'Authorization': "bearerey" + "JhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNjJkNjMyYy1kYmYyLTQyNWYtODVhNS05ZGQ1YmQzZWEwZWUiLCJ6b3dtMTIzIjoiRFlEUU9VIiwiZXhwIjoxNTk1NjQ5MzM0LCJpYXQiOjE1OTMwNTczMzR9.Mo9OqclnYRM2jCirrcpQdFWLghKxcWU1K4fpyuXFDRQk_p0IeJxgTXVl06XaMu09U01Agg5M1CAblUndtrxWLQ"
+        'Authorization': "bearerey" + "JhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNjJkNjMyYy1kYmYyLTQyNWYtODVhNS05ZGQ1YmQzZWEwZWUiLCJ6b3dtMTIzIjoiRFlEUU9VIiwiZXhwIjoxNTk1NjQ5MzM0LCJpYXQiOjE1OTMwNTczMzR9.Mo9OqclnYRM2jCirrcpQdFWLghKxcWU1K4fpyuXFDRQk_p0IeJxgTXVl06XaMu09U01Agg5M1CAblUndtrxWLQ",
     },
 });
 
@@ -42,11 +42,15 @@ const httpInstance = axios.create({
 const createRequestInstanceFactory = (instance) => {
     return (params) => {
         return new Promise((response, reject) => {
+            let headerConfig = {
+                'ContentType': params.method == "GET" ? 'application/x-www-form-urlencoded' : 'application/json;charset=utf-8',
+            };
+            if (params.header) {
+                headerConfig = Object.assign({}, headerConfig, params.header)
+            }
             const config = {
                 url: params.url, //接口请求地址
-                header: {
-                  'ContentType': params.method == "GET" ? 'application/x-www-form-urlencoded' : 'application/json;charset=utf-8',
-                },
+                header: headerConfig,
                 method: params.method == undefined ? 'POST' : params.method,
                 dataType: 'json',
                 responseType: params.responseType == undefined ? 'text' : params.responseType,

@@ -100,17 +100,18 @@
                     flex-wrap: nowrap;
                     li {
                         display: inline-block;
+                        width: 3.733333rem /* 140/37.5 */;
                         min-width: 3.733333rem /* 140/37.5 */;
                         margin-right: .4rem /* 15/37.5 */;
-                        img {
+                        overflow: hidden;
+                        img, video {
                             width: 3.733333rem /* 140/37.5 */;
                             height: 2.4rem /* 90/37.5 */;
                             display: inline-block;
                             border-radius: .133333rem /* 5/37.5 */;
-                            background: blue;
                         }
                         p {
-                            width: 100%;
+                            width: 3.733333rem /* 140/37.5 */;
                             text-overflow: -o-ellipsis-lastline;
                             overflow: hidden;
                             text-overflow: ellipsis;
@@ -139,12 +140,14 @@
                     display: flex;
                     flex-wrap: wrap;
                     li {
+                        width: 4.2rem /* 157.5/37.5 */;
                         min-width: 4.2rem /* 157.5/37.5 */;
                         height: 3.093333rem /* 116/37.5 */;
                         margin-right: .533333rem /* 20/37.5 */;
                         background: blue;
                         margin-top: .533333rem /* 20/37.5 */;
                         border-radius: .266667rem /* 10/37.5 */;
+                        overflow: hidden;
                         &:nth-child(even) {
                             margin-right: 0;
                         }
