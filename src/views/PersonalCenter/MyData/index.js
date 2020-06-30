@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, createRef } from 'react'
 
 import { PickerView, Modal, InputItem } from 'antd-mobile';
 
@@ -43,6 +43,16 @@ class MyData extends PureComponent {
             phone: null,
             danceTypes: ['维也纳华尔兹', '维也纳华尔兹', '维也纳华尔兹'],
         }
+
+        this.danceTypeWrapRef = createRef();
+        this.danceTypeBoxRef = createRef();
+    }
+
+    componentDidMount() {
+        const { current: danceTypeWrapRef } = this.danceTypeWrapRef;
+        const { current: danceTypeBoxRef } = this.danceTypeBoxRef;
+        const { width: danceTypeWrapWidth } = danceTypeWrapRef.getBoundingClientRect()
+        danceTypeBoxRef.scrollTo(danceTypeWrapWidth, 0)
     }
     
     /**
@@ -158,9 +168,13 @@ class MyData extends PureComponent {
                         onChange={this.setPhone}
                         placeholder="请填写您的联系方式～" />
                 </ItemDetail>
-                <ItemDetail title="擅长舞种">
-                    <div className="my-data-page-body-dance-box">
-                        <ul className="my-data-page-body-dance">
+                <ItemDetail title="感兴趣舞种">
+                    <div
+                        className="my-data-page-body-dance-box"
+                        ref={this.danceTypeBoxRef} >
+                        <ul
+                            className="my-data-page-body-dance"
+                            ref={this.danceTypeWrapRef} >
                             {
                                 danceTypes && Array.isArray(danceTypes) && danceTypes.length > 0
                                     ? danceTypes.map(danceItem => {

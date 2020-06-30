@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { PageTitle } from  '../../../components'
-import { Tabs } from 'antd-mobile';
+import React, { useState, useEffect } from 'react';
+import { PageTitle, ListView } from  '../../../components'
+import { Tabs, Toast } from 'antd-mobile';
 import { GoodsInfo } from './components'
+import { httpApp as request } from '../../../utils'
 
 import './index.scss';
 
@@ -56,7 +57,47 @@ export default function MyOrder() {
     // 当前 tab value
     const [ currentTabValue, setTabValue ] = useState('t1');
 
+    // 课程列表数据
     const [ currentData, setCurrentData ] = useState(payData);
+
+    // 课程 分页
+    const [ pageNum, setPageNum ] = useState(0);
+    const [ pageSize, setPageSize ] = useState(5);
+
+    /**
+     * 获取课程列表
+     * @date 2020-06-28
+     * @param {any} data
+     * @returns {any}
+     */
+    const getCourseOrderPage = (data) => {
+        Toast.loading('请求中', 0);
+        const params = {
+            url: '/app/course/getCourseOrderPage',
+            method: "GET",
+            data: data,
+        }
+        return new Promise(() => {
+            request(params)
+                .then((res) => {
+                    const { pageResult } = res;
+                    setCurrentData(pageResult)
+                    Toast.hide();
+                })
+                .catch((error) => {
+                    const { data } = error;
+                    const { error: errMsg } = data || {};
+                    Toast.info(errMsg || "当前网络异常, 请稍后重试!")
+                })
+        })
+    }
+
+    useEffect(() => {
+        getCourseOrderPage({
+            pageNum,
+            pageSize,
+        })
+    }, [pageNum, pageSize])
 
     /**
      * title tab chagne
@@ -67,6 +108,7 @@ export default function MyOrder() {
         console.log('tab, index', tab, index)
     }
 
+    const onEndReached = () => {}
 
     return (<div className="my-order">
         <PageTitle title="我的订单" />
@@ -81,17 +123,20 @@ export default function MyOrder() {
                 onChange={titleTabsChagne}
             >
                 <div className="my-order-tab-content-box">
-                    {
-                        currentData && Array.isArray(currentData) && currentData.length > 0
-                            ? (<>
-                                {
-                                    currentData.map((item, index) => {
-                                        return <GoodsInfo key={index} {...item} />
-                                    })
-                                }
-                            </>)
-                            : null
-                    }
+                    <ListView
+                        onEndReached={onEndReached}>
+                        {
+                            currentData && Array.isArray(currentData) && currentData.length > 0
+                                ? (<>
+                                    {
+                                        currentData.map((item, index) => {
+                                            return <GoodsInfo key={index} {...item} />
+                                        })
+                                    }
+                                </>)
+                                : null
+                        }
+                    </ListView>
                 </div>
             </Tabs>
             </div>

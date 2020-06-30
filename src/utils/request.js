@@ -35,7 +35,7 @@ const httpAppInstance = axios.create({
 const httpInstance = axios.create({
     baseURL: isDevelopment ? '/api' : 'http://47.114.81.48:8086',
     headers: {
-        'Authorization': "bearerey" + "JhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjc1NjUyNTczNzQ0NzcxMDc0Iiwiem93bTEyMyI6IjFTV09QMiIsImV4cCI6MTU5NTc1MDgyOSwiaWF0IjoxNTkzMTU4ODI5fQ.oOMEGj9V4yKqxmbVWRubd5cr6d9AceJ3GU_N1ay4XoEqszWTXfvMXswsknQpdPzigvtk7NjUCJ7Lmu_q4PZ3_Q"
+        'Authorization': "bearerey" + "JhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNjJkNjMyYy1kYmYyLTQyNWYtODVhNS05ZGQ1YmQzZWEwZWUiLCJ6b3dtMTIzIjoiRUVDRzdWIiwiZXhwIjoxNTk2MDk0MDk2LCJpYXQiOjE1OTM1MDIwOTZ9.RsGmZcy0K1JGFZn4n85J92CQ4wwc7U4twuBB0veg9bOOLFD6DJvfZjDp0Ro2UKImhtB8933K4Y3Yk32Yvkhw_Q"
     },
 });
 

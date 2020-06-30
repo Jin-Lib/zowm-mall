@@ -94,7 +94,7 @@ function EventList(props) {
         Toast.loading('请求中', 0);
         const params = {
             url: '/app/event/getEvents',
-            method: "GET",
+            method: "POST",
             data: data,
         }
         return new Promise(() => {

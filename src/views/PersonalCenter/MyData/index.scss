@@ -50,10 +50,10 @@
         .my-data-page-body-dance {
             height: 100%;
             display: flex;
-            flex-wrap: nowrap;
             align-items: center;
-            justify-content: flex-end;
             li {
+                display: inline-block;
+                width: 2.666667rem /* 100/37.5 */;
                 min-width: 2.666667rem /* 100/37.5 */;
                 height: .773333rem /* 29/37.5 */;
                 padding: 0 .266667rem /* 10/37.5 */;

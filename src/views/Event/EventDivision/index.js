@@ -5,31 +5,6 @@ import { Toast } from 'antd-mobile';
 import { httpApp as request } from '../../../utils'
 import './index.scss'
 
-const detailTitle = '赛事标题君，在这里显示2020届舞蹈赛事投票'
-const detailContent = '从4月到现在，整整半年时间，银川高级中学舞蹈队从第五届“荷花少年”全国舞蹈展演一路走来，终于登上了中国舞蹈届的最高舞台——“荷'
-const detailImgOrVideo = ''
-const detailType = 'img'
-
-const voteList = [
-    {
-        img: '',
-        title: '2020赛事“荷花奖”100进50',
-        state: '投票进行中',
-    },
-    {
-        img: '',
-        title: '2020赛事“荷花奖”100进50',
-        state: '投票进行中',
-    },
-    {
-        img: '',
-        title: '2020赛事“荷花奖”100进50',
-        state: '投票进行中',
-    },
-]
-
-const photoList = ['', '', '', '',]
-
 function EventDivision(props) {
 
     const { history } = props
@@ -40,6 +15,8 @@ function EventDivision(props) {
     const [ videoList, setVideoList ] = useState([])
     // 相册列表
     const [ photoList, setPhotoList ] = useState([])
+    // 投票专区
+    const [ voteList, setVoteList ] = useState([])
 
     /**
      * 请求赛事视频
@@ -59,7 +36,6 @@ function EventDivision(props) {
         return new Promise(() => {
             request(params)
                 .then((res) => {
-                    console.log('请求赛事视频', res)
                     setVideoList(res)
                     Toast.hide();
                 })
@@ -89,7 +65,6 @@ function EventDivision(props) {
         return new Promise(() => {
             request(params)
                 .then((res) => {
-                    console.log('请求赛事相册', res)
                     setPhotoList(res)
                     Toast.hide();
                 })
@@ -119,7 +94,8 @@ function EventDivision(props) {
         return new Promise(() => {
             request(params)
                 .then((res) => {
-                    console.log('请求赛事视频', res)
+                    console.log('请求投票专区', res)
+                    setVoteList(res)
                     Toast.hide();
                 })
                 .catch((error) => {
@@ -136,9 +112,30 @@ function EventDivision(props) {
         getEventAlbums(state.id)
     }, [])
 
+    /**
+     * 点击视频详情
+     * @date 2020-06-27
+     * @param {any} item
+     * @returns {any}
+     */
     const videoItemClick = (item) => {
         return () => {
             console.log(item)
+        }
+    }
+
+    /**
+     * 点击进入专区
+     * @date 2020-06-27
+     * @param {object} item
+     * @returns {any}
+     */
+    const voteItemClick = (item) => {
+        return () => {
+            history.push('/eventVoteZone', {
+                eventUnionId: state.id,
+                voteAreaUnionId: item.unionId
+            })
         }
     }
 
@@ -157,12 +154,13 @@ function EventDivision(props) {
                     {
                         voteList.map((item, index) => {
                             return <li key={index}>
-                                <img src={item.img} alt=""/>
+                                <img src={item.voteAreaPic} alt=""/>
                                 <div>
-                                    <h6>{item.title}</h6>
-                                    <span>{item.state}</span>
+                                    <h6>{item.voteAreaName}</h6>
+                                    {/* <span>{item.state}</span> */}
+                                    <span>投票进行中</span>
                                 </div>
-                                <button>进入专区</button>
+                                <button onClick={voteItemClick(item)}>进入专区</button>
                             </li>
                         })
                     }
@@ -177,8 +175,8 @@ function EventDivision(props) {
                         {
                             videoList.map((item, index) => {
                                 return <li key={index} onClick={videoItemClick(item)}>
-                                    {/* <img src={item.firstFrameUrl} alt=""/> */}
-                                    <video src={'https://www.w3school.com.cn/i/movie.ogg' || item.videoUrl}></video>
+                                    <img src={item.firstFrameUrl} alt=""/>
+                                    {/* <video src={'https://www.w3school.com.cn/i/movie.ogg' || item.videoUrl}></video> */}
                                     <p>{item.videoName}</p>
                                 </li>
                             })

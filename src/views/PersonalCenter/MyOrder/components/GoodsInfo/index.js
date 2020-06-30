@@ -9,12 +9,18 @@ import './index.scss';
 //         shopImg: '',
 //         status: 'done'
 
-export default function GoodsInfo({ title, price, shopName, shopImg, serises, count, status }) {
+export default function GoodsInfo(params) {
+    console.log('params', params)
+    const {
+        courseName, firstFrameUrl, organTutorName,
+        organTutorPic, 
+        price, shopName, shopImg, chapterName, count, status
+    } = params
     return (<div className="my-order-goods-info">
         <div className="my-order-goods-info-title">
             <div className="my-order-goods-info-title-info">
-                <img src={shopImg} alt=""/>
-                <h6>{shopName}</h6>
+                <img src={organTutorPic} alt=""/>
+                <h6>{organTutorName}</h6>
             </div>
             {
                 status === "done" ? <div className="my-order-goods-info-title-status my-order-goods-info-title-status-done">已完成</div> : null
@@ -29,15 +35,15 @@ export default function GoodsInfo({ title, price, shopName, shopImg, serises, co
         <div className="my-order-goods-info-content">
             <div className="my-order-goods-info-content-goods-info">
                 <div className="my-order-goods-info-content-goods-info-img">
-                    <img src="" alt=""/>
+                    <img src={firstFrameUrl} alt=""/>
                 </div>
                 <div className="my-order-goods-info-content-goods-info-info">
                     <div className="my-order-goods-info-content-goods-info-info-title">
-                        <p>{title}</p>
+                        <p>{courseName}</p>
                         <span>{price}</span>
                     </div>
                     <div className="my-order-goods-info-content-goods-info-info-series">
-                        <p>{serises}</p>
+                        <p>{chapterName}</p>
                         <span>× {count}</span>
                     </div>
                 </div>
