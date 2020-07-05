@@ -12,11 +12,9 @@ import 'amfe-flexible';
 import './assets/css/reset.css';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Suspense fallback={(<Loading/>)}>
-      <Router />
-    </Suspense>
-  </React.StrictMode>,
+  <Suspense fallback={(<Loading/>)}>
+    <Router />
+  </Suspense>,
   document.getElementById('root')
 );
 

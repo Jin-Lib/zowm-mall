@@ -1,10 +1,14 @@
 import React, { PureComponent, createRef } from 'react'
 
-import { PickerView, Modal, InputItem } from 'antd-mobile';
+import { findDOMNode } from 'react-dom'
+
+import { PickerView, Modal, InputItem, Toast, ImagePicker } from 'antd-mobile';
 
 import { PageTitle } from '../../../components'
 
 import { ItemDetail } from './components'
+
+import { httpApp as request } from '../../../utils'
 
 import './index.scss'
 
@@ -22,13 +26,15 @@ function closest(el, selector) {
 const season = [
     {
       label: '男',
-      value: '男',
+      value: '1',
     },
     {
       label: '女',
-      value: '女',
+      value: '2',
     },
 ];
+
+const alert = Modal.alert;
 
 class MyData extends PureComponent {
 
@@ -36,16 +42,18 @@ class MyData extends PureComponent {
         super(props)
 
         this.state = {
-            nick: '时间管理',
-            sex: '男',
+            nick: '',
+            userHeadPic: '',
+            sex: '',
             sexModelFlag: false,
-            sexSelectValue: ['男'],
+            sexSelectValue: [],
             phone: null,
-            danceTypes: ['维也纳华尔兹', '维也纳华尔兹', '维也纳华尔兹'],
+            danceTypes: [],
         }
 
         this.danceTypeWrapRef = createRef();
         this.danceTypeBoxRef = createRef();
+        this.imgUpload = createRef();
     }
 
     componentDidMount() {
@@ -53,6 +61,39 @@ class MyData extends PureComponent {
         const { current: danceTypeBoxRef } = this.danceTypeBoxRef;
         const { width: danceTypeWrapWidth } = danceTypeWrapRef.getBoundingClientRect()
         danceTypeBoxRef.scrollTo(danceTypeWrapWidth, 0)
+
+        this.getAppUserDto()
+    }
+
+    /**
+     * 获取用户信息
+     * @date 2020-07-04
+     * @returns {any}
+     */
+    getAppUserDto = () => {
+        Toast.loading('请求中', 0);
+        const params = {
+            url: '/app/userCenter/getAppUserDto',
+            method: "GET",
+        }
+        request(params)
+            .then(response => {
+                Toast.hide()
+                const { userNickName, userHeadPic, phone, categoryDtoList, gender } = response
+                this.setState({
+                    nick: userNickName,
+                    userHeadPic,
+                    phone,
+                    danceTypes: categoryDtoList,
+                    sexSelectValue: [gender],
+                    sex: [gender],
+                })
+            })
+            .catch(error => {
+                const { data } = error;
+                const { error: errMsg } = data || {};
+                Toast.info(errMsg || "当前网络异常, 请稍后重试!")
+            })
     }
     
     /**
@@ -132,18 +173,103 @@ class MyData extends PureComponent {
           e.preventDefault();
         }
     }
+
+    getSex = () => {
+        const { sex } = this.state;
+        let result = ''
+        if (season.filter(item => item.value == sex[0]).length > 0) {
+            result = season.filter(item => item.value == sex[0])[0].label
+        }
+        return result;
+    }
+
+    /**
+     * 返回按钮
+     * @date 2020-07-04
+     * @returns {any}
+     */
+    pageTitleBack = () => {
+        const { history } = this.props;
+        alert('确认当前修改', '', [
+            { text: '取消', onPress: () => {history.goBack()}, style: 'default' },
+            { text: '确认', onPress: () => this.updateAppUser() },
+        ]);
+    }
+
+    /**
+     * 修改个人信息
+     * @date 2020-07-04
+     * @returns {any}
+     */
+    updateAppUser = () => {
+        const { nick, phone, sex } = this.state;
+        console.log('nick, phone, sex', nick, phone, sex)
+        const requestParams = {
+            userNickName: nick,
+            phone,
+            gender: sex[0],
+            "userHeadPic": "",
+            "categoryDtoList": [
+                {
+                    "categoryName": "",
+                    "unionId": ""
+                }
+            ],
+        }
+        Toast.loading('请求中', 0);
+        const params = {
+            url: '/app/userCenter/updateAppUser',
+            method: "POST",
+            data: requestParams,
+        }
+        request(params)
+            .then(response => {
+                Toast.hide()
+            })
+            .catch(error => {
+                const { data } = error;
+                const { error: errMsg } = data || {};
+                Toast.info(errMsg || "当前网络异常, 请稍后重试!")
+            })
+    }
+
+    /**
+     * 点击上传图片
+     * @date 2020-07-04
+     * @returns {any}
+     */
+    onUploadImg = () => {
+        const { current } = this.imgUpload;
+        let target = findDOMNode(current).querySelector('input')
+        if(document.all) {
+            target.input();
+        } else {
+            let e = document.createEvent("MouseEvents");
+            e.initEvent("input", true, true);
+            target.dispatchEvent(e);
+        }
+    }
     
     render() {
         const {
             nick, sex, sexModelFlag, sexSelectValue,
-            phone, danceTypes
+            phone, danceTypes, userHeadPic
         } = this.state;
 
         return (<div className="my-data-page">
-            <PageTitle title="我的资料" shadow />
+            <PageTitle
+                title="我的资料" shadow
+                onBack={this.pageTitleBack} />
             <div className="my-data-page-body">
                 <ItemDetail title="头像">
-                    <img className="my-data-page-body-av" src="" alt=""/>
+                    <ImagePicker
+                        style={{ display: 'none' }}
+                        ref={this.imgUpload} />
+                    <img
+                        className="my-data-page-body-av"
+                        src={userHeadPic}
+                        alt=""
+                        onClick={this.onUploadImg}/>
                 </ItemDetail>
                 <ItemDetail title="昵称">
                     <InputItem
@@ -156,7 +282,7 @@ class MyData extends PureComponent {
                     <div
                         className="my-data-page-body-sex-box"
                         onClick={this.selectSex}>
-                        <span>{sex}</span>
+                        <span>{this.getSex()}</span>
                         <svg t="1593074083827" className="my-data-page-body-icon-right" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2111"><path d="M517.437 662.92l374.767-374.767c12.496-12.497 32.758-12.497 45.255 0 12.496 12.497 12.496 32.758 0 45.255l-403.051 403.05c-12.497 12.497-32.758 12.497-45.255 0L86.102 333.409c-12.497-12.497-12.497-32.758 0-45.255s32.758-12.497 45.255 0l374.766 374.766a8 8 0 0 0 11.314 0z" p-id="2112" fill="#515151"></path></svg>
                     </div>
                 </ItemDetail>
@@ -177,8 +303,8 @@ class MyData extends PureComponent {
                             ref={this.danceTypeWrapRef} >
                             {
                                 danceTypes && Array.isArray(danceTypes) && danceTypes.length > 0
-                                    ? danceTypes.map(danceItem => {
-                                        return <li>{danceItem}</li>
+                                    ? danceTypes.map((danceItem, danceKey) => {
+                                        return <li key={danceKey}>{danceItem.categoryName}</li>
                                     })
                                     : null
                             }

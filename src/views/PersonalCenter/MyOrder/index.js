@@ -7,62 +7,20 @@ import { httpApp as request } from '../../../utils'
 import './index.scss';
 
 const titleTabs = [
-    { title: '全部', key: 't1' },
-    { title: '待支付', key: 't2' },
-    { title: '待发货', key: 't3' },
-    { title: '待收货', key: 't4' },
-    { title: '退款售后', key: 't5' },
+    { title: '全部', key: 0 },
+    { title: '待支付', key: 1 },
+    { title: '待发货', key: 2 },
+    { title: '待收货', key: 3 },
+    { title: '退款售后', key: 5 },
 ];
 
-/**
- * status
- * 
- * pay 待支付
- * done 已完成
- * cacel 取消
- *  */
-
-const payData = [
-    {
-        title: "华尔兹系列课程",
-        price: '¥999.00',
-        serises: '华尔兹课程（01）',
-        count: '1',
-        shopName: '中欧舞盟官方',
-        shopImg: '',
-        status: 'done'
-    },
-    {
-        title: "华尔兹系列课程",
-        price: '¥999.00',
-        serises: '华尔兹课程（01）',
-        count: '1',
-        shopName: '中欧舞盟官方',
-        shopImg: '',
-        status: 'pay'
-    },
-    {
-        title: "华尔兹系列课程",
-        price: '¥999.00',
-        serises: '华尔兹课程（01）',
-        count: '1',
-        shopName: '中欧舞盟官方',
-        shopImg: '',
-        status: 'cancel'
-    }
-]
-
-export default function MyOrder() {
+export default function MyOrder({ history }) {
 
     // 当前 tab value
-    const [ currentTabValue, setTabValue ] = useState('t1');
+    const [ currentTabValue, setTabValue ] = useState('0');
 
     // 课程列表数据
-    const [ currentData, setCurrentData ] = useState(payData);
-
-    // 课程 分页
-    const [ pageNum, setPageNum ] = useState(0);
-    const [ pageSize, setPageSize ] = useState(5);
+    const [ orderList, setOrderList ] = useState([]);
 
     /**
      * 获取课程列表
@@ -73,39 +31,38 @@ export default function MyOrder() {
     const getCourseOrderPage = (data) => {
         Toast.loading('请求中', 0);
         const params = {
-            url: '/app/course/getCourseOrderPage',
+            url: '/app/order/getMyOrderList',
             method: "GET",
             data: data,
         }
         return new Promise(() => {
             request(params)
                 .then((res) => {
-                    const { pageResult } = res;
-                    setCurrentData(pageResult)
+                    setOrderList(res)
                     Toast.hide();
                 })
                 .catch((error) => {
                     const { data } = error;
                     const { error: errMsg } = data || {};
-                    Toast.info(errMsg || "当前网络异常, 请稍后重试!")
+                    Toast.info(errMsg || "未获取到订单")
                 })
         })
     }
 
     useEffect(() => {
-        getCourseOrderPage({
-            pageNum,
-            pageSize,
-        })
-    }, [pageNum, pageSize])
+        getCourseOrderPage(currentTabValue != 0 ? {
+            orderStatus: currentTabValue,
+        } : null)
+    }, [currentTabValue])
 
     /**
      * title tab chagne
      * @date 2020-06-17
      * @returns {any}
      */
-    const titleTabsChagne = (tab, index) => {
-        console.log('tab, index', tab, index)
+    const titleTabsChagne = (tab) => {
+        const { key } = tab;
+        setTabValue(key)
     }
 
     const onEndReached = () => {}
@@ -126,11 +83,11 @@ export default function MyOrder() {
                     <ListView
                         onEndReached={onEndReached}>
                         {
-                            currentData && Array.isArray(currentData) && currentData.length > 0
+                            orderList && Array.isArray(orderList) && orderList.length > 0
                                 ? (<>
                                     {
-                                        currentData.map((item, index) => {
-                                            return <GoodsInfo key={index} {...item} />
+                                        orderList.map((item, index) => {
+                                            return <GoodsInfo key={index} {...item} history={history} />
                                         })
                                     }
                                 </>)

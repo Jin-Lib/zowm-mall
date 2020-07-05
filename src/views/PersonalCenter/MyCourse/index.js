@@ -11,7 +11,7 @@ function MyCourse() {
     const [ coursetList, setCoursetList ] = useState();
 
     // 课程 分页
-    const [ pageNum, setPageNum ] = useState(0);
+    const [ pageNum, setPageNum ] = useState(1);
     const [ pageSize, setPageSize ] = useState(5);
 
     /**

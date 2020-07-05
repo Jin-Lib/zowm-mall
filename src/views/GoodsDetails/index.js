@@ -16,8 +16,12 @@ class GoodsDetails extends PureComponent {
 
         super(props);
 
+        const { location: { state: { prodId } } } = props;
+
+        console.log('props', prodId)
+
         this.state = {
-            prodId: 75, // 参数传入的商品信息
+            prodId: prodId, // 参数传入的商品信息
             shopId: 1,
             picDomain: config.picDomain,
             indicatorDots: true,

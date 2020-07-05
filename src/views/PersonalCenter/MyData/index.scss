@@ -8,7 +8,7 @@
             width: 1.173333rem /* 44/37.5 */;
             height: 1.173333rem /* 44/37.5 */;
             border-radius: 50%;
-            background: red;
+            background: #eee;
             margin-top: .32rem /* 12/37.5 */;
             display: inline-block;
         }
@@ -51,6 +51,7 @@
             height: 100%;
             display: flex;
             align-items: center;
+            flex-direction: row-reverse;
             li {
                 display: inline-block;
                 width: 2.666667rem /* 100/37.5 */;

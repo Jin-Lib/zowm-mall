@@ -28,14 +28,14 @@ axios.interceptors.response.use(
 const httpAppInstance = axios.create({
     baseURL: isDevelopment ? '/h5Api' : 'http://app.zhongouwumeng.com',
     headers: {
-        'Authorization': "bearerey" + "JhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNjJkNjMyYy1kYmYyLTQyNWYtODVhNS05ZGQ1YmQzZWEwZWUiLCJ6b3dtMTIzIjoiRFlEUU9VIiwiZXhwIjoxNTk1NjQ5MzM0LCJpYXQiOjE1OTMwNTczMzR9.Mo9OqclnYRM2jCirrcpQdFWLghKxcWU1K4fpyuXFDRQk_p0IeJxgTXVl06XaMu09U01Agg5M1CAblUndtrxWLQ",
+        'Authorization': "bearereyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjc4ODgzNjgxNzk4MTA3MTM3Iiwiem93bTEyMyI6IktXT1JaRSIsImV4cCI6MTU5NjUyOTM4NSwiaWF0IjoxNTkzOTM3Mzg1fQ.owmcnSWXqoxdaA1m8HftjnHvGv9b69ChVeFMOaA2qxanux4VCDKVCnzPcj1DrM0gMP6_gFge_pW8844lX_zuLg",
     },
 });
 
 const httpInstance = axios.create({
     baseURL: isDevelopment ? '/api' : 'http://47.114.81.48:8086',
     headers: {
-        'Authorization': "bearerey" + "JhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNjJkNjMyYy1kYmYyLTQyNWYtODVhNS05ZGQ1YmQzZWEwZWUiLCJ6b3dtMTIzIjoiRUVDRzdWIiwiZXhwIjoxNTk2MDk0MDk2LCJpYXQiOjE1OTM1MDIwOTZ9.RsGmZcy0K1JGFZn4n85J92CQ4wwc7U4twuBB0veg9bOOLFD6DJvfZjDp0Ro2UKImhtB8933K4Y3Yk32Yvkhw_Q"
+        'Authorization': "bearereyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjc4ODgzNjgxNzk4MTA3MTM3Iiwiem93bTEyMyI6IkFWNklWSiIsImV4cCI6MTU5NjMzNjYxMCwiaWF0IjoxNTkzNzQ0NjEwfQ.evwEuIh9Aley3Dk0xiJSLg1St3TMcb_5eEFkubV9ioDT3Ka4rzjr2QePaNOOV47Io0_BfvOsiKNYKBGuxYsYaQ",
     },
 });
 
