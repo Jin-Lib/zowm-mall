@@ -1,5 +1,7 @@
 .dances-container {
+  position: relative;
   height: 100%;
+  box-sizing: border-box;
   background-color: #fff;
 
   .title-container {
@@ -13,10 +15,11 @@
 
   .dances-content {
     display: flex;
+    flex-wrap: wrap;
   }
 
-  .tag-container {
-    width: 3.013333rem /* 113/37.5 */;
+  .tag-box-container {
+    width: 2.826667rem /* 106/37.5 */;
     height: .986667rem /* 37/37.5 */;
     line-height: .986667rem /* 37/37.5 */;
     background: #f4f4f4;
@@ -24,7 +27,7 @@
     font-size: .346667rem /* 13/37.5 */;
     font-family: PingFangSC-Regular;
     color: #474747;
-    margin-left: .426667rem /* 16/37.5 */;
+    margin-left: .373333rem /* 14/37.5 */;
     margin-top: .533333rem /* 20/37.5 */;
     text-align: center;
 
@@ -33,5 +36,46 @@
       font-family: PingFangSC-Medium;
       color: #fff;
     }
+  }
+
+  .dances-footer {
+    position: fixed;
+    bottom: .8rem /* 30/37.5 */;
+    left: 0;
+    width: 100%;
+    display: flex;
+    padding: 0 .4rem /* 15/37.5 */;
+  }
+
+  .s-button-container {
+    height: 1.173333rem /* 44/37.5 */;
+    line-height: 1.173333rem /* 44/37.5 */;
+    background:linear-gradient(-90deg,rgba(255,167,128,1) 0%,rgba(255,60,97,1) 100%);
+    border-radius: .586667rem /* 22/37.5 */;
+    text-align: center;
+    font-size: .426667rem /* 16/37.5 */;
+    font-family: PingFangSC-Medium;
+    color: #fff;
+    position: relative;
+    padding: 1px;
+
+    &.line {
+      color: #FF5E6B;
+    }
+
+    .s-button-box {
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+      border-radius: .586667rem /* 22/37.5 */;
+    }
+  }
+
+  .h-44 {
+    height: 1.173333rem /* 44/37.5 */;
+  }
+
+  .ml-15 {
+    margin-left: .4rem /* 15/37.5 */;
   }
 }

@@ -7,7 +7,7 @@ export default function PageTitle({ title, shadow, rightCon, onBack }) {
     let history = useHistory();
 
     const goBack = () => {
-        history.go(-1)
+      history.go(-1)
     }
 
     const classNames = classnames('page-title', {
