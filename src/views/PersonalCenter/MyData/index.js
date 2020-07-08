@@ -4,11 +4,13 @@ import { findDOMNode } from 'react-dom'
 
 import { PickerView, Modal, InputItem, Toast, ImagePicker } from 'antd-mobile';
 
-import { PageTitle } from '../../../components'
+import { PageTitle, CButton } from '../../../components'
 
 import { ItemDetail } from './components'
 
 import { httpApp as request } from '../../../utils'
+
+import Dances from '../../Dances';
 
 import './index.scss'
 
@@ -49,6 +51,8 @@ class MyData extends PureComponent {
             sexSelectValue: [],
             phone: null,
             danceTypes: [],
+            dancesDialogShow: false,
+            selectDances: [],
         }
 
         this.danceTypeWrapRef = createRef();
@@ -184,37 +188,19 @@ class MyData extends PureComponent {
     }
 
     /**
-     * 返回按钮
-     * @date 2020-07-04
-     * @returns {any}
-     */
-    pageTitleBack = () => {
-        const { history } = this.props;
-        alert('确认当前修改', '', [
-            { text: '取消', onPress: () => {history.goBack()}, style: 'default' },
-            { text: '确认', onPress: () => this.updateAppUser() },
-        ]);
-    }
-
-    /**
      * 修改个人信息
      * @date 2020-07-04
      * @returns {any}
      */
     updateAppUser = () => {
-        const { nick, phone, sex } = this.state;
-        console.log('nick, phone, sex', nick, phone, sex)
+        const { nick, phone, sex, selectDances } = this.state;
+        console.log('nick, phone, sex', nick, phone, sex, selectDances)
         const requestParams = {
             userNickName: nick,
             phone,
             gender: sex[0],
             "userHeadPic": "",
-            "categoryDtoList": [
-                {
-                    "categoryName": "",
-                    "unionId": ""
-                }
-            ],
+            "categoryDtoList": selectDances,
         }
         Toast.loading('请求中', 0);
         const params = {
@@ -249,17 +235,52 @@ class MyData extends PureComponent {
             target.dispatchEvent(e);
         }
     }
+
+    /**
+     * 添加舞种
+     * @date 2020-07-08
+     * @returns {any}
+     */
+    addDancesClick = () => {
+        this.setState({
+            dancesDialogShow: true
+        })
+    }
+
+    /**
+     * 关闭添加舞种model
+     * @date 2020-07-08
+     * @returns {any}
+     */
+    closeDancesSelect = () => {
+        this.setState({
+            dancesDialogShow: false
+        })
+    }
+
+    /**
+     * 选择舞种
+     * @date 2020-07-08
+     * @returns {any}
+     */
+    selectDancesValues = value => {
+        console.log('value', value)
+        this.setState({
+            selectDances: value,
+            danceTypes: value,
+        })
+    }
     
     render() {
         const {
             nick, sex, sexModelFlag, sexSelectValue,
-            phone, danceTypes, userHeadPic
+            phone, danceTypes, userHeadPic, dancesDialogShow,
+            selectDances,
         } = this.state;
 
         return (<div className="my-data-page">
             <PageTitle
-                title="我的资料" shadow
-                onBack={this.pageTitleBack} />
+                title="我的资料" shadow />
             <div className="my-data-page-body">
                 <ItemDetail title="头像">
                     <ImagePicker
@@ -308,10 +329,30 @@ class MyData extends PureComponent {
                                     })
                                     : null
                             }
-                            <li className="my-data-page-body-dance-add">添加舞种</li>
+                            <li
+                                className="my-data-page-body-dance-add"
+                                onClick={this.addDancesClick}>
+                                添加舞种
+                            </li>
                         </ul>
                     </div>
                 </ItemDetail>
+                <CButton
+                    className="my-data-page-confirm-button"
+                    onClick={this.updateAppUser}>
+                    确认
+                </CButton>
+                {
+                    dancesDialogShow
+                        ? (<div className="dances-dialog">
+                            <Dances 
+                                value={selectDances}
+                                onClose={this.closeDancesSelect}
+                                onChange={this.selectDancesValues}
+                            />
+                        </div>)
+                        : null
+                }
                 <Modal
                     visible={sexModelFlag}
                     transparent

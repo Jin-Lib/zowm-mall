@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
 import { PageTitle, ListView } from '../../../components'
 import { CourseItem } from './components'
 import { Toast } from 'antd-mobile';
@@ -6,7 +6,6 @@ import { httpApp as request } from '../../../utils'
 import './index.scss'
 
 function MyCourse() {
-
     // 课程列表
     const [ coursetList, setCoursetList ] = useState();
 
@@ -50,21 +49,38 @@ function MyCourse() {
         })
     }, [pageNum, pageSize])
 
+    useEffect(() => {
+        // 计算listView的高度
+        const listViewTarget = document.getElementsByClassName('my-course-page-content-list-view')[0];
+        const titleTarget = document.getElementsByClassName('page-title')[0];
+        const containerH = document.body.getBoundingClientRect().height;
+        const titleH = titleTarget.getBoundingClientRect().height;
+        listViewTarget.style.height = `${containerH-titleH}px`
+    }, [])
+
+    const onEndReached = () => {
+        setPageNum(state => state+=1)
+    }
+
     return (<div className="my-course-page">
         <PageTitle title="我的课程" />
-        <div className="my-course-content">
-            {
-                coursetList && Array.isArray(coursetList) && coursetList.length > 0
-                    ? (<React.Fragment>
-                        {
-                            coursetList.map((item, key) => {
-                                return <CourseItem key={key} {...item} />
-                            })
-                        }
-                    </React.Fragment>)
-                    : []
-            }
-        </div>
+        <ListView
+            className="my-course-page-content-list-view"
+            onEndReached={onEndReached}>
+            <div className="my-course-content">
+                {
+                    coursetList && Array.isArray(coursetList) && coursetList.length > 0
+                        ? (<React.Fragment>
+                            {
+                                coursetList.map((item, key) => {
+                                    return <CourseItem key={key} {...item} />
+                                })
+                            }
+                        </React.Fragment>)
+                        : []
+                }
+            </div>
+        </ListView>
     </div>)
 }
 

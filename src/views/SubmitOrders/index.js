@@ -46,7 +46,35 @@ export default class SubmitOrders extends Component{
     }
 
     submitPay = () => {
-        console.log(this.props.history)
+        let addrId = 0;
+        if (this.state.userAddr != null) {
+            addrId = this.state.userAddr.addrId;
+        }
+        const params = {
+            url: "/p/order/confirm",
+            method: "POST",
+            data: {
+                addrId: addrId,
+                orderItem: JSON.parse(localStorage.getItem("orderItem")),
+                basketIds: this.state.orderEntry === "0" ? JSON.parse(localStorage.getItem("basketIds")) : undefined,
+                couponIds: this.state.couponIds,
+                userChangeCoupon: 1
+            },
+        };
+        Toast.loading('正在加载中', 0);
+        request(params)
+            .then(res => {
+                Toast.hide();
+            })
+            .catch(error => {
+                const { data } = error;
+                if (typeof data === 'string') {
+                    Toast.hide();
+                    Toast.info(data);
+                } else {
+                    Toast.hide();
+                }
+            })
     }
 
     payChange = (value) => {
