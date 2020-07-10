@@ -26,7 +26,7 @@ axios.interceptors.response.use(
 );
 
 const httpAppInstance = axios.create({
-    baseURL: isDevelopment ? '/h5Api' : 'http://app.zhongouwumeng.com',
+    baseURL: isDevelopment ? '/h5Api' : 'http://testh5.zhongouwumeng.com/apis',
     headers: {
         'Authorization': "bearereyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjc4ODgzNjgxNzk4MTA3MTM3Iiwiem93bTEyMyI6IktXT1JaRSIsImV4cCI6MTU5NjUyOTM4NSwiaWF0IjoxNTkzOTM3Mzg1fQ.owmcnSWXqoxdaA1m8HftjnHvGv9b69ChVeFMOaA2qxanux4VCDKVCnzPcj1DrM0gMP6_gFge_pW8844lX_zuLg",
     },
