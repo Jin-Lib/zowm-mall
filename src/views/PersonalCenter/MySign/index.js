@@ -49,10 +49,12 @@ function MySign() {
         }
         request(params)
             .then(response => {
+                console.log('response', response)
                 Toast.info(response)
                 setIsSignButton(true)
             })
             .catch(error => {
+                // console.log('response', error)
                 Toast.info("签到失败!")
                 setIsSignButton(true)
             })

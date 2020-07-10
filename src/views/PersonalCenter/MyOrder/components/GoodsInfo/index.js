@@ -5,15 +5,14 @@ export default function GoodsInfo(params) {
     const {
         count, objectLogo, objectName,
         price, orderName, status, orderPic,
-        orderNo, history, isDetailPage
+        orderNo, history, isDetailPage,
+        sourceType, orderId,
     } = params;
 
     const showDetail = () => {
         if (!isDetailPage) {
             history.push('/myOrderDetail', {
-                count, objectLogo, objectName,
-                price, orderName, status, orderPic,
-                orderNo,
+                sourceType, orderId,
             })
         }
     }
@@ -25,19 +24,25 @@ export default function GoodsInfo(params) {
                 <h6>{objectName}</h6>
             </div>
             {
-                status == "5" ? <div className="my-order-goods-info-title-status my-order-goods-info-title-status-done">{params.statusName}</div> : null
+                status == "1" ? <div className="my-order-goods-info-title-status my-order-goods-info-title-status-pay">{params.statusName}</div> : null
             }
             {
                 status == "2" ? <div className="my-order-goods-info-title-status my-order-goods-info-title-status-cancel">{params.statusName}</div> : null
             }
             {
-                status == "1" ? <div className="my-order-goods-info-title-status my-order-goods-info-title-status-pay">{params.statusName}</div> : null
+                status == "3" ? <div className="my-order-goods-info-title-status my-order-goods-info-title-status-pay">{params.statusName}</div> : null
+            }
+            {
+                status == "4" ? <div className="my-order-goods-info-title-status my-order-goods-info-title-status-pay">{params.statusName}</div> : null
+            }
+            {
+                status == "5" ? <div className="my-order-goods-info-title-status my-order-goods-info-title-status-done">{params.statusName}</div> : null
             }
             {
                 status == "6" ? <div className="my-order-goods-info-title-status my-order-goods-info-title-status-pay">{params.statusName}</div> : null
             }
         </div>
-        <div className="my-order-goods-info-content">
+        <div className="my-order-goods-info-content" onClick={showDetail}>
             <div className="my-order-goods-info-content-goods-info">
                 <div className="my-order-goods-info-content-goods-info-img">
                     <img src={orderPic} alt=""/>

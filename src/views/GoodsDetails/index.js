@@ -62,6 +62,7 @@ class GoodsDetails extends PureComponent {
             littleCommPage: [],
             evaluate: -1,
             isCollection: false,
+            transName: '', // 是否包邮
         }
     }
 
@@ -102,7 +103,8 @@ class GoodsDetails extends PureComponent {
                     brief: res.brief,
                     // skuId: res.skuId,
                     skuList: res.skuList,
-                    pic: res.pic
+                    pic: res.pic,
+                    transName: (res.transport || {}).transName
                 });
                 // 获取优惠券
                 //this.getCouponList();
@@ -362,7 +364,8 @@ class GoodsDetails extends PureComponent {
         const {
             imgs, prodName, price, brief, selectedProp, prodNum,
             content, skuShow, defaultSku, pic, findSku, skuGroup,
-            allProperties, selectedPropObj, propKeys
+            allProperties, selectedPropObj, propKeys, transName,
+            prodId,
         } = this.state;
 
         const handleClassName = (listItem, item) => {
@@ -383,13 +386,13 @@ class GoodsDetails extends PureComponent {
                 className="goods-details-send goods-detail-item"
                 onClick={this.showSku}>
                 <span className="goods-details-send-label">已选</span>
-                <span className="goods-details-send-address">{selectedProp.length>0?selectedProp+'，':selectedProp}{prodNum}件</span>
+                <span className="goods-details-send-address">{selectedProp.length>0?selectedProp+'，':selectedProp}{prodNum}件  {transName}</span>
             </div>
             <div className="goods-details-goodsDetail-desc">
                 <p className="goods-details-goodsDetail-desc-title">宝贝详情</p>
                 <div className="goods-details-goodsDetail-desc-container" dangerouslySetInnerHTML={{ __html: content }}></div>
             </div>
-            <GoodsBottom buyNow={this.showSku}/>
+            <GoodsBottom buyNow={this.showSku} prodId={prodId} />
             {
                 skuShow ?
                     (<div id="sku">

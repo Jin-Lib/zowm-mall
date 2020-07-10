@@ -5,6 +5,14 @@ class ListView extends Component {
 		super(props);
 		this.listRef = React.createRef();
   }
+
+  componentDidMount() {
+    this.listRef.current.addEventListener('scroll', this._onScroll, true)
+  }
+
+  componentWillUnmount() {
+    this.listRef.current.removeEventListener('scroll', this._onScroll)
+  }
   
   _onScroll = () => {
     const { onEndReached } = this.props;
@@ -13,20 +21,18 @@ class ListView extends Component {
 				//未到底
 		} else {
       //已到底部
-      console.log('到底了')
       onEndReached && onEndReached();
 		}
 	};
 
   render() {
-    const { className, style, children } = this.props;
+    const { className, children } = this.props;
 
     return (
       <div
         className={className}
-        style={style}
+        style={{ overflow: 'auto' }}
         ref={this.listRef}
-        onScroll={() => this._onScroll()}
       >
         {
           children
