@@ -12,9 +12,9 @@ module.exports = function(app) {
     app.use(
         '/h5Api',
         createProxyMiddleware({
-            target: 'http://app.zhongouwumeng.com/apis',
+            target: 'http://testh5.zhongouwumeng.com/',
             changeOrigin: true,
-            pathRewrite: { "^/h5Api": "" },
+            pathRewrite: { "^/h5Api": "/apis" },
         })
     );
 };
