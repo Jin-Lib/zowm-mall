@@ -73,4 +73,8 @@ export const routerConfig = [
     path: '/eventDetail',
     component: React.lazy(() => import('../views/Event/EventDivision/components/EventDetails/index.js'))
   },
+  {
+    path: '/sharePage',
+    component: React.lazy(() => import('../views/SharePage'))
+  }
 ]
