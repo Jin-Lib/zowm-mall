@@ -5,3 +5,9 @@ export { default as CButton } from './CButton'
 export { default as ContentTitle } from './ContentTitle'
 
 export { default as ListView } from './ListView'
+
+export { default as Notification } from './Notification'
+
+export { default as UploadImg } from './UploadImg'
+
+export { default as Tabs } from './Tabs'

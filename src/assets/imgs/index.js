@@ -4,6 +4,7 @@ import course2 from './course2.png';
 import play from './player/play.png';
 import add from './player/add.png';
 import plus from './player/plus.png';
+import tip from './tip.png';
 
 export {
   upload1,
@@ -11,5 +12,6 @@ export {
   course2,
   play,
   add, 
-  plus
+  plus,
+  tip
 };

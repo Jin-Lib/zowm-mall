@@ -13,7 +13,7 @@ class Tabs extends Component {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, tip } = this.props;
     const { active } = this.state;
 
     return (
@@ -38,6 +38,7 @@ class Tabs extends Component {
             })
           }
         </div>
+        { tip }
         <div className="tabs-content">
           {
             (children || []).map((item, index) => {
