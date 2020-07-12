@@ -11,3 +11,4 @@ export { default as Notification } from './Notification'
 export { default as UploadImg } from './UploadImg'
 
 export { default as Tabs } from './Tabs'
+export { default as ShareTitle } from './ShareTitle'

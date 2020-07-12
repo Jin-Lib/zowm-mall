@@ -51,6 +51,7 @@ class StartCertification extends Component {
     Toast.loading('请求中', 0);
     request(params)
       .then((res) => {
+        const {} = res || {};
         this.setState({
           detail: res || {}
         });
