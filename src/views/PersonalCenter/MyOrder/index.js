@@ -80,20 +80,20 @@ export default function MyOrder({ history }) {
                 onChange={titleTabsChagne}
             >
                 <div className="my-order-tab-content-box">
-                    <ListView
-                        onEndReached={onEndReached}>
-                        {
-                            orderList && Array.isArray(orderList) && orderList.length > 0
-                                ? (<>
+                    {
+                        orderList && Array.isArray(orderList) && orderList.length > 0
+                            ? (<ListView
+                                onEndReached={onEndReached}>
+                                <>
                                     {
                                         orderList.map((item, index) => {
                                             return <GoodsInfo key={index} {...item} history={history} />
                                         })
                                     }
-                                </>)
-                                : null
-                        }
-                    </ListView>
+                                </>
+                            </ListView>)
+                            : <img className="no-order-bg" src={require('../../../assets/imgs/no-order.png')} alt=""/>
+                    }
                 </div>
             </Tabs>
             </div>
