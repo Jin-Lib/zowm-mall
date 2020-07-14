@@ -1,0 +1,27 @@
+.notification-container {
+  display: flex;
+  align-items: center;
+  height: 1.066667rem /* 40/37.5 */;
+  padding: 0 .4rem /* 15/37.5 */;
+  background-color: rgba(255, 242, 227,1);
+
+  img {
+    width: .506667rem /* 19/37.5 */;
+    height: .4rem /* 15/37.5 */;
+    margin-right: 10px;
+  }
+
+  span {
+    font-size: .4rem /* 15/37.5 */;
+    font-family: PingFang SC;
+    font-weight: 400;
+    color: #FF5E6B;
+  }
+
+  .notification-text {
+    flex: 1;
+    font-size: .346667rem /* 13/37.5 */;
+    color: #FF7B00;
+    font-family: PingFangSC-Regular;
+  }
+}
