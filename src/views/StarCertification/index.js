@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { UploadImg, Notification, Tabs } from '../../components';
-import { InputItem, Toast } from 'antd-mobile';
+import { InputItem, Toast, List, Radio, Modal } from 'antd-mobile';
 import './index.scss';
 import { upload1 } from '../../assets/imgs';
 import request from '../../utils/http-app'
 import Dances from '../Dances';
 import { generateUUID } from '../../utils/common';
+
+const RadioItem =  Radio.RadioItem;
 
 class StartCertification extends Component {
 
@@ -25,6 +27,9 @@ class StartCertification extends Component {
       "replayWechat": "",   // 申请人微信号
       "tutorOrganId": '',   // 所属机构
       "replayEMail": "",     // 申请人邮箱
+      "rganTutorList": [], // 申请机构列表
+      "selectRganTutorModalFlag": false, // 申请机构列表modal
+      "currentRganTutorName": '', // 当前申请机构的名称
     },
 
     // 资料1
@@ -41,6 +46,8 @@ class StartCertification extends Component {
     'applyOrganTutor': '/app/organTutor/applyOrganTutor',
     // 取消资质申请
     'cancelApplyOrganTutor': '/app/organTutor/cancelApplyOrganTutor',
+    // 获取所属机构
+    'getOrganTutorList': '/app/organTutor/getOrganTutorList',
   };
 
   getOrganTutorDetail = () => {
@@ -65,7 +72,7 @@ class StartCertification extends Component {
       .catch((error) => {
         const { data } = error;
         const { error: errMsg } = data || {};
-        Toast.info(errMsg)
+        Toast.info(errMsg || "获取失败")
       })
   }
 
@@ -114,7 +121,7 @@ class StartCertification extends Component {
       .catch((error) => {
         const { data } = error;
         const { error: errMsg } = data || {};
-        Toast.info(errMsg)
+        Toast.info(errMsg || '操作失败')
       })
   }
 
@@ -199,7 +206,8 @@ class StartCertification extends Component {
     Toast.loading('请求中', 0);
     request(params)
       .then((res) => {
-        Toast.hide();
+        Toast.info('取消成功');
+        this.getOrganTutorDetail();
       })
       .catch((error) => {
         const { data } = error;
@@ -208,15 +216,70 @@ class StartCertification extends Component {
       })
   }
 
-  render() {
-    const { institutions, qnUploadConfig, notifyText, detail } = this.state;
-    const { objectName, replayRealName, replayPhone, replayWechat, intro, address, categoryDtoList = [] } = institutions;
+  /**
+   * 获取所属机构
+   * @date 2020-07-15
+   * @returns {any}
+   */
+  getOrganization = () => {
+    let params = {
+      url: this.API.getOrganTutorList,
+      method: "GET",
+      data: {}
+    };
+    Toast.loading('请求中', 0);
+    request(params)
+      .then((res) => {
+        console.log('res', res)
+        this.setState({
+          rganTutorList: res,
+          selectRganTutorModalFlag: true,
+        })
+        Toast.hide();
+      })
+      .catch((error) => {
+        const { data } = error;
+        const { error: errMsg } = data || {};
+        Toast.info(errMsg || '获取失败')
+      })
+  }
 
-    const tabsTip = detail.status !== 0 ? (
-      detail.status === 1 ? <Notification text="审核中" />
-      : (detail.status === 2) ?  <Notification text="审核成功" />
-      : (detail.status === 3) ?  <Notification text="审核失败" /> : null
-    ) : null
+  /**
+   * 修改申请机构值
+   * @date 2020-07-15
+   * @returns {any}
+   */
+  rganTutorChange = value => {
+    this.setState({
+      currentRganTutor: value.unionId,
+      currentRganTutorName: value.objectName,
+      selectRganTutorModalFlag: false,
+      institutions: Object.assign(this.state.institutions, {
+        tutorOrganId: value.unionId,
+        tutorOrganName: value.objectName,
+      }),
+    })
+  }
+
+  /**
+   * 关闭选择申请机构 modal
+   * @date 2020-07-15
+   * @returns {any}
+   */
+  closeSelectRganTutorModal = () => {
+    this.setState({
+      selectRganTutorModalFlag: false
+    })
+  }
+
+  render() {
+    const {
+      institutions, qnUploadConfig, notifyText, detail, rganTutorList, currentRganTutor,
+      selectRganTutorModalFlag, currentRganTutorName
+    } = this.state;
+    const { objectName, replayRealName, replayPhone, replayWechat, intro, address, categoryDtoList = [], remark } = institutions;
+
+    const tabsTip = detail.status !== 0 ? (<Notification text={remark} />) : null
 
     return (
       <div className="start-certification-container">
@@ -243,9 +306,10 @@ class StartCertification extends Component {
             </CInputItem>
             {
               (detail.status === 1 || detail.status === 3)
-                ? <CButton onClick={this.cancelOrganTutor}>
-                  取消
-                </CButton>
+                ? (<div className="two-button-container">
+                  <button onClick={this.cancelOrganTutor}>取消</button>
+                  <button onClick={this.applyOrganTutor}>修改</button>
+                </div>)
                 : <SButton onClick={this.applyOrganTutor}>
                   保存
                 </SButton>
@@ -255,7 +319,30 @@ class StartCertification extends Component {
             <CInputItem label="姓名" value={objectName} onChange={(val) => { this.onChangeInput(val, 'objectName') }} required placeholder="请输入您的姓名～" />
             <CInputItem label="联系电话" value={replayPhone} onChange={(val) => { this.onChangeInput(val, 'replayPhone') }} required placeholder="请输入您的联系方式～" />
             <CInputItem label="微信号" value={replayWechat} onChange={(val) => { this.onChangeInput(val, 'replayWechat') }} required placeholder="请输入您的微信号～" />
-            <CInputItem label="所属机构" required placeholder="请选择所属机构～" />
+            <CSelectItem
+              label="所属机构"
+              required
+              placeholder="请选择所属机构～"
+              onClick={this.getOrganization}
+              value={currentRganTutorName} />
+              {
+                rganTutorList && rganTutorList.length > 0
+                  ? (
+                    <Modal
+                      transparent
+                      visible={selectRganTutorModalFlag}
+                      onClose={this.closeSelectRganTutorModal}>
+                      <List>
+                        {rganTutorList.map(i => (
+                          <RadioItem key={i.unionId} checked={currentRganTutor === i.unionId} onChange={() => this.rganTutorChange(i)}>
+                            {i.objectName}
+                          </RadioItem>
+                        ))}
+                      </List>
+                    </Modal>
+                  )
+                  : []
+              }
             <CInputItem label="擅长舞种" required>
               {
                 categoryDtoList && categoryDtoList.length > 0 && categoryDtoList.map(item => {
@@ -274,9 +361,10 @@ class StartCertification extends Component {
             </CInputItem>
             {
               (detail.status === 1 || detail.status === 3)
-                ? <CButton onClick={this.cancelOrganTutor}>
-                  取消
-                </CButton>
+                ? (<div className="two-button-container">
+                  <button onClick={this.cancelOrganTutor}>取消</button>
+                  <button onClick={this.applyOrganTutor}>修改</button>
+                </div>)
                 : <SButton>
                   保存
                 </SButton>
@@ -316,6 +404,24 @@ const CInputItem = (props) => {
       </label>
       {
         children ? children : <InputItem value={value} onChange={onChange} placeholder={placeholder} />
+      }
+    </div>
+  );
+}
+
+const CSelectItem = (props) => {
+  const { label, children, required, placeholder, value, onChange, onClick } = props;
+
+  return (
+    <div className="input-item-container">
+      <label>
+        { label }
+        {
+          required ? <span> *</span> : null
+        }
+      </label>
+      {
+        children ? children : <InputItem value={value} onClick={onClick} placeholder={placeholder} />
       }
     </div>
   );
