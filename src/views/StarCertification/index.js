@@ -125,6 +125,32 @@ class StartCertification extends Component {
       })
   }
 
+  // 提交导师信息
+  applyTutor = () => {
+    const { institutions } = this.state;
+    let params = {
+      url: this.API.applyOrganTutor,
+      method: "POST",
+      data: {
+        ...institutions,
+        identityType: 2,
+      }
+    };
+    console.log(institutions);
+
+    Toast.loading('请求中', 0);
+    request(params)
+      .then((res) => {
+        
+        Toast.hide();
+      })
+      .catch((error) => {
+        const { data } = error;
+        const { error: errMsg } = data || {};
+        Toast.info(errMsg || '操作失败')
+      })
+  }
+
   getQNSign = (suffix,width,height, extraParam) => {
     console.log(suffix, width, height, extraParam);
     let params = {
@@ -372,9 +398,9 @@ class StartCertification extends Component {
               (detail.status === 1 || detail.status === 3)
                 ? (<div className="two-button-container">
                   <button onClick={this.cancelOrganTutor}>取消</button>
-                  <button onClick={this.applyOrganTutor}>修改</button>
+                  <button onClick={this.applyTutor}>修改</button>
                 </div>)
-                : <SButton>
+                : <SButton onClick={this.applyTutor}>
                   保存
                 </SButton>
             }
