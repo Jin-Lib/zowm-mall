@@ -24,7 +24,7 @@ class StartCertification extends Component {
       "replayRealName": "", // 申请人真实名称
       "replayWechat": "",   // 申请人微信号
       "tutorOrganId": '',   // 所属机构
-      "replayEMail": ""     // 申请人邮箱
+      "replayEMail": "",     // 申请人邮箱
     },
 
     // 资料1
@@ -38,7 +38,9 @@ class StartCertification extends Component {
     // 获取七牛上传凭证
     'createQiNiuUploadToken': '/app/common/createQiNiuUploadToken',
     // 上传认证
-    'applyOrganTutor': '/app/organTutor/applyOrganTutor'
+    'applyOrganTutor': '/app/organTutor/applyOrganTutor',
+    // 取消资质申请
+    'cancelApplyOrganTutor': '/app/organTutor/cancelApplyOrganTutor',
   };
 
   getOrganTutorDetail = () => {
@@ -53,7 +55,10 @@ class StartCertification extends Component {
       .then((res) => {
         const {} = res || {};
         this.setState({
-          detail: res || {}
+          detail: res || {},
+          institutions: res,
+          photo1: res.objectLogo,
+          photo2: res.qualificationsUrl,
         });
         Toast.hide();
       })
@@ -177,13 +182,45 @@ class StartCertification extends Component {
     });
   }
 
+  /**
+   * 取消 学校机构 申请
+   * @date 2020-07-14
+   * @returns {any}
+   */
+  cancelOrganTutor = () => {
+    const { detail } = this.state;
+    let params = {
+      url: this.API.cancelApplyOrganTutor,
+      method: "POST",
+      data: {
+        unionId: detail.unionId
+      }
+    };
+    Toast.loading('请求中', 0);
+    request(params)
+      .then((res) => {
+        Toast.hide();
+      })
+      .catch((error) => {
+        const { data } = error;
+        const { error: errMsg } = data || {};
+        Toast.info(errMsg || '取消失败')
+      })
+  }
+
   render() {
-    const { institutions, qnUploadConfig } = this.state;
-    const { objectName, replayRealName, replayPhone, replayWechat, intro, address, categoryDtoList } = institutions;
+    const { institutions, qnUploadConfig, notifyText, detail } = this.state;
+    const { objectName, replayRealName, replayPhone, replayWechat, intro, address, categoryDtoList = [] } = institutions;
+
+    const tabsTip = detail.status !== 0 ? (
+      detail.status === 1 ? <Notification text="审核中" />
+      : (detail.status === 2) ?  <Notification text="审核成功" />
+      : (detail.status === 3) ?  <Notification text="审核失败" /> : null
+    ) : null
 
     return (
       <div className="start-certification-container">
-        <Tabs tip={<Notification text="test" />}>
+        <Tabs tip={tabsTip}>
           <Tabs.Item title="学校/机构">
             <CInputItem label="机构名称" value={objectName} onChange={(val) => { this.onChangeInput(val, 'objectName') }} required placeholder="请输入您的机构名称～" />
             <CInputItem label="姓名" value={replayRealName} onChange={(val) => { this.onChangeInput(val, 'replayRealName') }} required placeholder="请输入您的姓名～" />
@@ -201,12 +238,18 @@ class StartCertification extends Component {
                   <UploadBox className="m-10" src={this.state.photo1} />
                 </UploadImg>
                 
-                <UploadBox className="m-10 ml-10" />
+                <UploadBox className="m-10 ml-10" src={this.state.photo2}/>
               </div>
             </CInputItem>
-            <SButton onClick={this.applyOrganTutor}>
-              保存
-            </SButton>
+            {
+              (detail.status === 1 || detail.status === 3)
+                ? <CButton onClick={this.cancelOrganTutor}>
+                  取消
+                </CButton>
+                : <SButton onClick={this.applyOrganTutor}>
+                  保存
+                </SButton>
+            }
           </Tabs.Item>
           <Tabs.Item title="KOL/个人领袖">
             <CInputItem label="姓名" value={objectName} onChange={(val) => { this.onChangeInput(val, 'objectName') }} required placeholder="请输入您的姓名～" />
@@ -215,7 +258,7 @@ class StartCertification extends Component {
             <CInputItem label="所属机构" required placeholder="请选择所属机构～" />
             <CInputItem label="擅长舞种" required>
               {
-                categoryDtoList.map(item => {
+                categoryDtoList && categoryDtoList.length > 0 && categoryDtoList.map(item => {
                   return <Tag key={item.unionId} className="m-10 mr-10" text={item.categoryName} />
                 })
               }
@@ -229,9 +272,15 @@ class StartCertification extends Component {
                 <UploadBox className="m-10 ml-10" />
               </div>
             </CInputItem>
-            <SButton>
-              保存
-            </SButton>
+            {
+              (detail.status === 1 || detail.status === 3)
+                ? <CButton onClick={this.cancelOrganTutor}>
+                  取消
+                </CButton>
+                : <SButton>
+                  保存
+                </SButton>
+            }
           </Tabs.Item>
         </Tabs>
       
@@ -287,6 +336,13 @@ const UploadBox = (props) => {
     <div className={`upload-box-container ${className}`}>
       <img className="upload-box-img" src={src || upload1} />
     </div>
+  );
+}
+
+const CButton = (props) => {
+  const { children, onClick } = props;
+  return (
+    <div className="s-button-container" onClick={onClick}>{ children }</div>
   );
 }
 
