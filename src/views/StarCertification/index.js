@@ -278,8 +278,17 @@ class StartCertification extends Component {
       selectRganTutorModalFlag, currentRganTutorName
     } = this.state;
     const { objectName, replayRealName, replayPhone, replayWechat, intro, address, categoryDtoList = [], remark } = institutions;
+    console.log('detail.status', detail.status)
 
-    const tabsTip = detail.status !== 0 ? (<Notification text={remark} />) : null
+    let notifyTextTip = ''
+    if (detail.status === 1) {
+      notifyTextTip = '审核中'
+    } else if (detail.status === 2) {
+      notifyTextTip = '审核成功'
+    } else if (detail.status === 3) {
+      notifyTextTip = '审核失败'
+    }
+    const tabsTip = notifyTextTip ? (<Notification text={notifyTextTip} />) : null
 
     return (
       <div className="start-certification-container">
