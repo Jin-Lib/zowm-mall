@@ -5,6 +5,7 @@ import Router from './routers';
 import Loading from './views/Loading'
 
 import * as serviceWorker from './serviceWorker';
+import Layout from './components/Layout';
 
 import './index.scss';
 
@@ -13,7 +14,9 @@ import './assets/css/reset.css';
 
 ReactDOM.render(
   <Suspense fallback={(<Loading/>)}>
-    <Router />
+    <Layout>
+      <Router />
+    </Layout>
   </Suspense>,
   document.getElementById('root')
 );
