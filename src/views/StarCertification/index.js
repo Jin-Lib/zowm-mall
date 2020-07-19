@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { UploadImg, Notification, Tabs } from '../../components';
-import { InputItem, Toast } from 'antd-mobile';
+import { InputItem, Toast, List, Radio, Modal } from 'antd-mobile';
 import './index.scss';
 import { upload1 } from '../../assets/imgs';
 import request from '../../utils/http-app'
 import Dances from '../Dances';
 import { generateUUID } from '../../utils/common';
+
+const RadioItem =  Radio.RadioItem;
 
 class StartCertification extends Component {
 
@@ -24,7 +26,10 @@ class StartCertification extends Component {
       "replayRealName": "", // 申请人真实名称
       "replayWechat": "",   // 申请人微信号
       "tutorOrganId": '',   // 所属机构
-      "replayEMail": ""     // 申请人邮箱
+      "replayEMail": "",     // 申请人邮箱
+      "rganTutorList": [], // 申请机构列表
+      "selectRganTutorModalFlag": false, // 申请机构列表modal
+      "currentRganTutorName": '', // 当前申请机构的名称
     },
 
     // 资料1
@@ -38,7 +43,11 @@ class StartCertification extends Component {
     // 获取七牛上传凭证
     'createQiNiuUploadToken': '/app/common/createQiNiuUploadToken',
     // 上传认证
-    'applyOrganTutor': '/app/organTutor/applyOrganTutor'
+    'applyOrganTutor': '/app/organTutor/applyOrganTutor',
+    // 取消资质申请
+    'cancelApplyOrganTutor': '/app/organTutor/cancelApplyOrganTutor',
+    // 获取所属机构
+    'getOrganTutorList': '/app/organTutor/getOrganTutorList',
   };
 
   getOrganTutorDetail = () => {
@@ -53,14 +62,17 @@ class StartCertification extends Component {
       .then((res) => {
         const {} = res || {};
         this.setState({
-          detail: res || {}
+          detail: res || {},
+          institutions: res,
+          photo1: res.objectLogo,
+          photo2: res.qualificationsUrl,
         });
         Toast.hide();
       })
       .catch((error) => {
         const { data } = error;
         const { error: errMsg } = data || {};
-        Toast.info(errMsg)
+        Toast.info(errMsg || "获取失败")
       })
   }
 
@@ -109,7 +121,33 @@ class StartCertification extends Component {
       .catch((error) => {
         const { data } = error;
         const { error: errMsg } = data || {};
-        Toast.info(errMsg)
+        Toast.info(errMsg || '操作失败')
+      })
+  }
+
+  // 提交导师信息
+  applyTutor = () => {
+    const { institutions } = this.state;
+    let params = {
+      url: this.API.applyOrganTutor,
+      method: "POST",
+      data: {
+        ...institutions,
+        identityType: 2,
+      }
+    };
+    console.log(institutions);
+
+    Toast.loading('请求中', 0);
+    request(params)
+      .then((res) => {
+        
+        Toast.hide();
+      })
+      .catch((error) => {
+        const { data } = error;
+        const { error: errMsg } = data || {};
+        Toast.info(errMsg || '操作失败')
       })
   }
 
@@ -177,13 +215,110 @@ class StartCertification extends Component {
     });
   }
 
+  /**
+   * 取消 学校机构 申请
+   * @date 2020-07-14
+   * @returns {any}
+   */
+  cancelOrganTutor = () => {
+    const { detail } = this.state;
+    let params = {
+      url: this.API.cancelApplyOrganTutor,
+      method: "POST",
+      data: {
+        unionId: detail.unionId
+      }
+    };
+    Toast.loading('请求中', 0);
+    request(params)
+      .then((res) => {
+        Toast.info('取消成功');
+        this.getOrganTutorDetail();
+      })
+      .catch((error) => {
+        const { data } = error;
+        const { error: errMsg } = data || {};
+        Toast.info(errMsg || '取消失败')
+      })
+  }
+
+  /**
+   * 获取所属机构
+   * @date 2020-07-15
+   * @returns {any}
+   */
+  getOrganization = () => {
+    let params = {
+      url: this.API.getOrganTutorList,
+      method: "GET",
+      data: {}
+    };
+    Toast.loading('请求中', 0);
+    request(params)
+      .then((res) => {
+        console.log('res', res)
+        this.setState({
+          rganTutorList: res,
+          selectRganTutorModalFlag: true,
+        })
+        Toast.hide();
+      })
+      .catch((error) => {
+        const { data } = error;
+        const { error: errMsg } = data || {};
+        Toast.info(errMsg || '获取失败')
+      })
+  }
+
+  /**
+   * 修改申请机构值
+   * @date 2020-07-15
+   * @returns {any}
+   */
+  rganTutorChange = value => {
+    this.setState({
+      currentRganTutor: value.unionId,
+      currentRganTutorName: value.objectName,
+      selectRganTutorModalFlag: false,
+      institutions: Object.assign(this.state.institutions, {
+        tutorOrganId: value.unionId,
+        tutorOrganName: value.objectName,
+      }),
+    })
+  }
+
+  /**
+   * 关闭选择申请机构 modal
+   * @date 2020-07-15
+   * @returns {any}
+   */
+  closeSelectRganTutorModal = () => {
+    this.setState({
+      selectRganTutorModalFlag: false
+    })
+  }
+
   render() {
-    const { institutions, qnUploadConfig } = this.state;
-    const { objectName, replayRealName, replayPhone, replayWechat, intro, address, categoryDtoList } = institutions;
+    const {
+      institutions, qnUploadConfig, notifyText, detail, rganTutorList, currentRganTutor,
+      selectRganTutorModalFlag, currentRganTutorName
+    } = this.state;
+    const { objectName, replayRealName, replayPhone, replayWechat, intro, address, categoryDtoList = [], remark } = institutions;
+    console.log('detail.status', detail.status)
+
+    let notifyTextTip = ''
+    if (detail.status === 1) {
+      notifyTextTip = '审核中'
+    } else if (detail.status === 2) {
+      notifyTextTip = '审核成功'
+    } else if (detail.status === 3) {
+      notifyTextTip = '审核失败'
+    }
+    const tabsTip = notifyTextTip ? (<Notification text={notifyTextTip} />) : null
 
     return (
       <div className="start-certification-container">
-        <Tabs tip={<Notification text="test" />}>
+        <Tabs tip={tabsTip}>
           <Tabs.Item title="学校/机构">
             <CInputItem label="机构名称" value={objectName} onChange={(val) => { this.onChangeInput(val, 'objectName') }} required placeholder="请输入您的机构名称～" />
             <CInputItem label="姓名" value={replayRealName} onChange={(val) => { this.onChangeInput(val, 'replayRealName') }} required placeholder="请输入您的姓名～" />
@@ -201,21 +336,51 @@ class StartCertification extends Component {
                   <UploadBox className="m-10" src={this.state.photo1} />
                 </UploadImg>
                 
-                <UploadBox className="m-10 ml-10" />
+                <UploadBox className="m-10 ml-10" src={this.state.photo2}/>
               </div>
             </CInputItem>
-            <SButton onClick={this.applyOrganTutor}>
-              保存
-            </SButton>
+            {
+              (detail.status === 1 || detail.status === 3)
+                ? (<div className="two-button-container">
+                  <button onClick={this.cancelOrganTutor}>取消</button>
+                  <button onClick={this.applyOrganTutor}>修改</button>
+                </div>)
+                : <SButton onClick={this.applyOrganTutor}>
+                  保存
+                </SButton>
+            }
           </Tabs.Item>
           <Tabs.Item title="KOL/个人领袖">
             <CInputItem label="姓名" value={objectName} onChange={(val) => { this.onChangeInput(val, 'objectName') }} required placeholder="请输入您的姓名～" />
             <CInputItem label="联系电话" value={replayPhone} onChange={(val) => { this.onChangeInput(val, 'replayPhone') }} required placeholder="请输入您的联系方式～" />
             <CInputItem label="微信号" value={replayWechat} onChange={(val) => { this.onChangeInput(val, 'replayWechat') }} required placeholder="请输入您的微信号～" />
-            <CInputItem label="所属机构" required placeholder="请选择所属机构～" />
+            <CSelectItem
+              label="所属机构"
+              required
+              placeholder="请选择所属机构～"
+              onClick={this.getOrganization}
+              value={currentRganTutorName} />
+              {
+                rganTutorList && rganTutorList.length > 0
+                  ? (
+                    <Modal
+                      transparent
+                      visible={selectRganTutorModalFlag}
+                      onClose={this.closeSelectRganTutorModal}>
+                      <List>
+                        {rganTutorList.map(i => (
+                          <RadioItem key={i.unionId} checked={currentRganTutor === i.unionId} onChange={() => this.rganTutorChange(i)}>
+                            {i.objectName}
+                          </RadioItem>
+                        ))}
+                      </List>
+                    </Modal>
+                  )
+                  : []
+              }
             <CInputItem label="擅长舞种" required>
               {
-                categoryDtoList.map(item => {
+                categoryDtoList && categoryDtoList.length > 0 && categoryDtoList.map(item => {
                   return <Tag key={item.unionId} className="m-10 mr-10" text={item.categoryName} />
                 })
               }
@@ -229,9 +394,16 @@ class StartCertification extends Component {
                 <UploadBox className="m-10 ml-10" />
               </div>
             </CInputItem>
-            <SButton>
-              保存
-            </SButton>
+            {
+              (detail.status === 1 || detail.status === 3)
+                ? (<div className="two-button-container">
+                  <button onClick={this.cancelOrganTutor}>取消</button>
+                  <button onClick={this.applyTutor}>修改</button>
+                </div>)
+                : <SButton onClick={this.applyTutor}>
+                  保存
+                </SButton>
+            }
           </Tabs.Item>
         </Tabs>
       
@@ -272,6 +444,24 @@ const CInputItem = (props) => {
   );
 }
 
+const CSelectItem = (props) => {
+  const { label, children, required, placeholder, value, onChange, onClick } = props;
+
+  return (
+    <div className="input-item-container">
+      <label>
+        { label }
+        {
+          required ? <span> *</span> : null
+        }
+      </label>
+      {
+        children ? children : <InputItem value={value} onClick={onClick} placeholder={placeholder} />
+      }
+    </div>
+  );
+}
+
 const Tag = (props) => {
   const { text, className, onClick } = props;
 
@@ -287,6 +477,13 @@ const UploadBox = (props) => {
     <div className={`upload-box-container ${className}`}>
       <img className="upload-box-img" src={src || upload1} />
     </div>
+  );
+}
+
+const CButton = (props) => {
+  const { children, onClick } = props;
+  return (
+    <div className="s-button-container" onClick={onClick}>{ children }</div>
   );
 }
 

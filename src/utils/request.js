@@ -28,7 +28,7 @@ axios.interceptors.response.use(
 const httpAppInstance = axios.create({
     baseURL: isDevelopment ? '/h5Api' : 'http://testh5.zhongouwumeng.com/appapis',
     headers: {
-        'Authorization': "bearereyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjc4ODgzNjgxNzk4MTA3MTM3Iiwiem93bTEyMyI6IktXT1JaRSIsImV4cCI6MTU5NjUyOTM4NSwiaWF0IjoxNTkzOTM3Mzg1fQ.owmcnSWXqoxdaA1m8HftjnHvGv9b69ChVeFMOaA2qxanux4VCDKVCnzPcj1DrM0gMP6_gFge_pW8844lX_zuLg",
+        'Authorization': "bearereyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjgyMTI0NzY0NDU5OTg2OTQ2Iiwiem93bTEyMyI6IkFOOTc1QSIsImV4cCI6MTU5NzEwOTMzOSwiaWF0IjoxNTk0NTE3MzM5fQ.3V8S-66G29xIQEvpph0WuiJWSojm1vMkSQAX_ZQlI8fdKhshJHJC0Chb7r0o9Yq2CrabgttCO-HcQEm6tyXhCQ",
     },
 });
 
