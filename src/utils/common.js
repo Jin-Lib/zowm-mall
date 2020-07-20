@@ -1,3 +1,6 @@
+/**
+ * 获取文件名称
+ */
 export function generateUUID() {
   var d = new Date().getTime();
   if(window.performance && typeof window.performance.now === "function"){
@@ -10,3 +13,12 @@ export function generateUUID() {
   });
   return uuid;
 } 
+
+/**
+ * 获取链接参数
+ */
+export function getQueryString(name) {
+  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+  var r = window.location.search.substr(1).match(reg);
+  if (r != null) return unescape(r[2]); return null;
+}

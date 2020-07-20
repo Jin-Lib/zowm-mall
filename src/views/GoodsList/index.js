@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ConditionBar from '../../components/ConditionBar';
 import ListPageData from '../../components/ListPageData';
 import { Icon, InputItem } from 'antd-mobile'
+import { getQueryString } from '../../utils/common'
 import './index.scss';
 
 const conditios = {
@@ -15,11 +16,30 @@ class GoodsList extends Component {
     type: 'row',
     active: 'all',
     orderBy: 0,
-    keyword: ''
+    keyword: '',
+
+    tagId: '',  // 分类id
+    brandId: '',  // 品牌id
   }
 
   API = {
     'searchProdPage': '/search/searchProdPage'
+  }
+
+  componentDidMount() {
+    this.getUrlParams();
+  }
+
+  // 获取链接参数
+  getUrlParams = () => {
+    let tagId = getQueryString('tagId'),
+      brandId = getQueryString('brandId');
+    console.log(tagId, brandId);
+    
+    this.setState({
+      tagId,
+      brandId
+    });
   }
 
   onToggerType = (type) => {
