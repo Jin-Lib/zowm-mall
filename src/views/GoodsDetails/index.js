@@ -403,7 +403,7 @@ class GoodsDetails extends PureComponent {
                         <div className="sku-mask" onClick={this.showSku}/>
                         <div className="sku-content-box">
                             <div className="sku-goods-info">
-                                <img src={defaultSku.pic?defaultSku.pic:pic} alt=""/>
+                                <img src={(defaultSku && defaultSku.pic)?defaultSku.pic:pic} alt=""/>
                                 {
                                     findSku
                                         ?  (
