@@ -20,7 +20,7 @@ class GoodsDetails extends PureComponent {
 
         // const { location: { state: { prodId } } } = props;
 
-        let prodId = getQueryString('prodId') || ((props.location || {}).state || {}).prodId
+        let prodId = getQueryString('id') || ((props.location || {}).state || {}).prodId
 
         console.log('props', prodId)
 
