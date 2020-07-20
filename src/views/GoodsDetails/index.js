@@ -3,6 +3,8 @@ import { Toast } from 'antd-mobile';
 
 import request from '../../utils/http'
 
+import { getQueryString } from '../../utils/common'
+
 import { formatHtml } from '../../utils'
 import config from '../../utils/config'
 
@@ -16,7 +18,9 @@ class GoodsDetails extends PureComponent {
 
         super(props);
 
-        const { location: { state: { prodId } } } = props;
+        // const { location: { state: { prodId } } } = props;
+
+        let prodId = getQueryString('prodId') || ((props.location || {}).state || {}).prodId
 
         console.log('props', prodId)
 
@@ -399,7 +403,7 @@ class GoodsDetails extends PureComponent {
                         <div className="sku-mask" onClick={this.showSku}/>
                         <div className="sku-content-box">
                             <div className="sku-goods-info">
-                                <img src={defaultSku.pic?defaultSku.pic:pic} alt=""/>
+                                <img src={(defaultSku && defaultSku.pic)?defaultSku.pic:pic} alt=""/>
                                 {
                                     findSku
                                         ?  (
