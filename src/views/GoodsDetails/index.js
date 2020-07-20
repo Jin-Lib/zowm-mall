@@ -3,6 +3,8 @@ import { Toast } from 'antd-mobile';
 
 import request from '../../utils/http'
 
+import { getQueryString } from '../../utils/common'
+
 import { formatHtml } from '../../utils'
 import config from '../../utils/config'
 
@@ -16,7 +18,9 @@ class GoodsDetails extends PureComponent {
 
         super(props);
 
-        const { location: { state: { prodId } } } = props;
+        // const { location: { state: { prodId } } } = props;
+
+        let prodId = getQueryString('prodId')
 
         console.log('props', prodId)
 

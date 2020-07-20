@@ -68,7 +68,7 @@ class GoodsList extends Component {
   toDetail = (data) => {
     const { history } = this.props;
 
-    history && history.push(`/goodsDetails/${data.prodId}`, {
+    history && history.push(`/goodsDetails?prodId=${data.prodId}`, {
       prodId: data.prodId
     })
   }
