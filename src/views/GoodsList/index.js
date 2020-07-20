@@ -3,6 +3,7 @@ import ConditionBar from '../../components/ConditionBar';
 import ListPageData from '../../components/ListPageData';
 import { Icon, InputItem } from 'antd-mobile'
 import { getQueryString } from '../../utils/common'
+import classnames from 'classnames';
 import './index.scss';
 
 const conditios = {
@@ -12,34 +13,32 @@ const conditios = {
 };
 
 class GoodsList extends Component {
-  state = {
-    type: 'row',
-    active: 'all',
-    orderBy: 0,
-    keyword: '',
+  constructor(props) {
+    super(props);
 
-    tagId: '',  // 分类id
-    brandId: '',  // 品牌id
+    let tagId = ''
+    if(/tagId=([0-9]+)/.test(window.location.href)) {
+      tagId = RegExp.$1
+    }
+
+    this.state = {
+      type: 'row',
+      active: 'all',
+      orderBy: 0,
+      keyword: '',
+  
+      tagId,  // 分类id
+      brandId: getQueryString('brandId'),  // 品牌id
+    }
   }
+  
 
   API = {
-    'searchProdPage': '/search/searchProdPage'
-  }
-
-  componentDidMount() {
-    this.getUrlParams();
-  }
-
-  // 获取链接参数
-  getUrlParams = () => {
-    let tagId = getQueryString('tagId'),
-      brandId = getQueryString('brandId');
-    console.log(tagId, brandId);
-    
-    this.setState({
-      tagId,
-      brandId
-    });
+    'searchProdPage': '/search/searchProdPage',
+    // 品牌
+    'prodListByBrandId': '/prod/prodListByBrandId',
+    // 分类
+    'pageProd': '/prod/pageProd'
   }
 
   onToggerType = (type) => {
@@ -92,35 +91,77 @@ class GoodsList extends Component {
   }
 
   render() {
+    let classNames = classnames(
+      'good-list-box',
+      {
+        'mt-100': !this.state.brandId && !this.state.tagId
+      }
+    );
 
     return (
       <div className="goods-list-container">
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%' }}>
-          <SearchInput
-            value={this.state.keyword}
-            onChange={this.onKeywordChange}
-          />
-          <ConditionBar
-            toggerType={this.onToggerType}
-            onClick={this.onClickCondition}
-            type={this.state.type}
-            active={this.state.active}
-          />
-
-        </div>
+        {
+          !this.state.brandId && !this.state.tagId ? (
+            <div style={{ position: 'fixed', top: 0, left: 0, width: '100%' }}>
+              <SearchInput
+                value={this.state.keyword}
+                onChange={this.onKeywordChange}
+              />
+              <ConditionBar
+                toggerType={this.onToggerType}
+                onClick={this.onClickCondition}
+                type={this.state.type}
+                active={this.state.active}
+              />
+            </div>
+          ) : null
+        }
         
-        <div className="good-list-box">
-          <ListPageData
-            className={ this.state.type === 'row' ? 'good-list-row' : 'good-list-col'}
-            url={this.API.searchProdPage}
-            params={{
-              prodName: this.state.keyword,
-              sort: conditios[this.state.active],
-              orderBy: this.state.orderBy
-            }}
-            renderItem={this.renderGoodItem}
-            active={this.state.active}
-          />
+        <div className={classNames}>
+          {/* 品牌 */}
+          {
+            this.state.brandId ? (
+              <ListPageData
+                className='good-list-row'
+                url={this.API.prodListByBrandId}
+                params={{
+                  brandId: this.state.brandId
+                }}
+                renderItem={this.renderGoodItem}
+                active={this.state.active}
+              />
+            ) : null
+          }
+          {/* 分类 */}
+          {
+            this.state.tagId ? (
+              <ListPageData
+                className='good-list-row'
+                url={this.API.searchProdPage}
+                params={{
+                  tagId: this.state.tagId
+                }}
+                renderItem={this.renderGoodItem}
+                active={this.state.active}
+              />
+            ) : null
+          }
+          {/* 搜索 */}
+          {
+            (!this.state.tagId && !this.state.brandId) ? (
+              <ListPageData
+                className={ this.state.type === 'row' ? 'good-list-row' : 'good-list-col'}
+                url={this.API.searchProdPage}
+                params={{
+                  prodName: this.state.keyword,
+                  sort: conditios[this.state.active],
+                  orderBy: this.state.orderBy
+                }}
+                renderItem={this.renderGoodItem}
+                active={this.state.active}
+              />
+            ) : null
+          }
         </div>
       </div>
     );
