@@ -7,7 +7,13 @@ export default function PageTitle({ title, shadow, rightCon, onBack, leftIcon })
     let history = useHistory();
 
     const goBack = () => {
-      history.go(-1)
+      // history.go(-1)
+      alert(window.JsBridge);
+      window.JsBridge && window.JsBridge.call({
+        method: 'pop'
+      }, function() {
+        alert('test,回调')
+      })
     }
 
     const classNames = classnames('page-title', {

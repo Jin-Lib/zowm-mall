@@ -19,9 +19,9 @@ class StartCertification extends Component {
       "address": "",        // 地址
       "categoryDtoList": [],  // 擅长舞种
       "intro": "",          // 简介
-      "objectLogo": "http://static.zhongouwumeng.com/currency/pic/202007/c43680a2-0d24-457e-82a2-6c2b37387be7.png",     // 机构Logo或者导师头像
+      "objectLogo": "",     // 机构Logo或者导师头像
       "objectName": "",     // 机构名称或者导师名称
-      "qualificationsUrl": "http://static.zhongouwumeng.com/currency/pic/202007/c43680a2-0d24-457e-82a2-6c2b37387be7.png",
+      "qualificationsUrl": "",
       "replayPhone": "",    // 申请人电话号
       "replayRealName": "", // 申请人真实名称
       "replayWechat": "",   // 申请人微信号
@@ -105,7 +105,17 @@ class StartCertification extends Component {
       url: this.API.applyOrganTutor,
       method: "POST",
       data: {
-        ...institutions
+        // ...institutions,
+        identityType: 1,
+        intro: institutions.intro,
+        objectName: institutions.replayRealName,   //机构名称
+        replayPhone: institutions.replayPhone,  // 申请人号码
+        replayRealName: institutions.replayRealName, //申请人姓名
+        replayWechat: institutions.replayWechat,   // 机构微信号
+        address: institutions.address,    // 地址
+        objectLogo: this.state.photo1,
+        qualificationsUrl: this.state.photo2
+
       }
     };
     console.log(institutions);
@@ -130,8 +140,17 @@ class StartCertification extends Component {
       url: this.API.applyOrganTutor,
       method: "POST",
       data: {
-        ...institutions,
         identityType: 2,
+        intro: institutions.intro,
+        objectName: institutions.objectName,   //机构名称
+        replayPhone: institutions.replayPhone,  // 申请人号码
+        replayRealName: institutions.objectName, //申请人姓名
+        replayWechat: institutions.replayWechat,   // 机构微信号
+        address: institutions.address,    // 地址
+        tutorOrganId: institutions.tutorOrganId,  // 机构
+        categoryDtoList: institutions.categoryDtoList,
+        objectLogo: this.state.photo3,
+        qualificationsUrl: this.state.photo4
       }
     };
     console.log(institutions);
@@ -321,7 +340,7 @@ class StartCertification extends Component {
             <CInputItem label="机构名称" value={objectName} onChange={(val) => { this.onChangeInput(val, 'objectName') }} required placeholder="请输入您的机构名称～" />
             <CInputItem label="姓名" value={replayRealName} onChange={(val) => { this.onChangeInput(val, 'replayRealName') }} required placeholder="请输入您的姓名～" />
             <CInputItem label="联系电话" value={replayPhone} onChange={(val) => { this.onChangeInput(val, 'replayPhone') }} required placeholder="请输入您的联系方式～" />
-            <CInputItem label="微信号" value={replayWechat} onChange={(val) => { this.onChangeInput(val, 'replayWechat') }} required placeholder="请输入您的微信号～" />
+            <CInputItem label="机构微信号" value={replayWechat} onChange={(val) => { this.onChangeInput(val, 'replayWechat') }} required placeholder="请输入微信号～" />
             <CInputItem label="简介" value={intro} onChange={(val) => { this.onChangeInput(val, 'intro') }} required placeholder="请输入机构的简介～" />
             <CInputItem label="地址" value={address} onChange={(val) => { this.onChangeInput(val, 'address') }} required placeholder="请输入机构地址～" />
             <CInputItem label="上传资料" required>
@@ -346,7 +365,17 @@ class StartCertification extends Component {
                 </Upload>
 
                 
-                <UploadBox className="m-10 ml-10" src={this.state.photo2}/>
+                <Upload
+                  style={{ width: '4.4rem', height: '3.1rem' }}
+                  onChange={(data) => {
+                    this.setState({
+                      key2: data.key,
+                      photo2: data.url
+                    });
+                  }}
+                >
+                  <UploadBox className="m-10 ml-10" src={this.state.photo2}/>
+                </Upload>
               </div>
             </CInputItem>
             {
@@ -400,8 +429,28 @@ class StartCertification extends Component {
             <CInputItem label="地址" value={address} onChange={(val) => { this.onChangeInput(val, 'address') }} required placeholder="请输入您的地址～" />
             <CInputItem label="上传资料" required>
               <div className="upload-flex">
-                <UploadBox className="m-10" />
-                <UploadBox className="m-10 ml-10" />
+                <Upload
+                  style={{ width: '4.4rem', height: '3.1rem' }}
+                  onChange={(data) => {
+                    this.setState({
+                      key3: data.key,
+                      photo3: data.url
+                    });
+                  }}
+                >
+                  <UploadBox className="m-10" src={this.state.photo3} />
+                </Upload>
+                <Upload
+                  style={{ width: '4.4rem', height: '3.1rem' }}
+                  onChange={(data) => {
+                    this.setState({
+                      key4: data.key,
+                      photo4: data.url
+                    });
+                  }}
+                >
+                  <UploadBox className="m-10 ml-10" src={this.state.photo4} />
+                </Upload>
               </div>
             </CInputItem>
             {
