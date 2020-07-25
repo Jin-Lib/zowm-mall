@@ -40,7 +40,7 @@ class Upload extends Component {
             body: formData,
           }).then((response) => response.json())
               .then(() => {
-                this.props.onChange && this.props.onChange(res.domain + this.key);
+                this.props.onChange && this.props.onChange({url: res.domain + this.key, key: this.key});
                 console.log(res.domain + this.key)
           })
         }

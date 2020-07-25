@@ -335,9 +335,10 @@ class StartCertification extends Component {
                 </UploadImg> */}
                 <Upload
                   style={{ width: '4.4rem', height: '3.1rem' }}
-                  onChange={(url) => {
+                  onChange={(data) => {
                     this.setState({
-                      photo1: url
+                      key1: data.key,
+                      photo1: data.url
                     });
                   }}
                 >
