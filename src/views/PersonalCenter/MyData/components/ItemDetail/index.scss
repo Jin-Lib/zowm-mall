@@ -19,6 +19,9 @@
         margin-bottom: 0;
     }
     div {
-        height: 1.866667rem /* 70/37.5 */;
+        // height: 1.866667rem /* 70/37.5 */;
+    }
+    .am-list-item .am-input-control input {
+        font-size: .373333rem /* 14/37.5 */;
     }
 }

@@ -8,9 +8,7 @@
             width: 1.173333rem /* 44/37.5 */;
             height: 1.173333rem /* 44/37.5 */;
             border-radius: 50%;
-            background: #eee;
-            margin-top: .32rem /* 12/37.5 */;
-            display: inline-block;
+            border: 1px solid #EEE;
         }
         .my-data-page-body-name {
             width: 100%;
@@ -53,6 +51,7 @@
             height: 100%;
             display: flex;
             align-items: center;
+            margin-top: .4rem /* 15/37.5 */;
             // justify-content: flex-end;
             // flex-direction: row;
             li {
