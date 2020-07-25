@@ -3,13 +3,17 @@ import { PageTitle, ContentTitle } from '../../../components'
 import { EventDetails } from './components'
 import { Toast } from 'antd-mobile';
 import { httpApp as request } from '../../../utils'
+import { getQueryString } from '../../../utils/common'
 import './index.scss'
 
 function EventDivision(props) {
 
     const { history } = props
     const { location } = history
-    const { state } = location
+    let { state = {} } = location || {}
+    if(state && !state.id) {
+      state.id = getQueryString('id')
+    }
 
     // 视频列表
     const [ videoList, setVideoList ] = useState([])

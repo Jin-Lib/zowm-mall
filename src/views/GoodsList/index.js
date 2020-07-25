@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import ConditionBar from '../../components/ConditionBar';
 import ListPageData from '../../components/ListPageData';
-import { Icon, InputItem } from 'antd-mobile'
+import { Icon, InputItem, Toast } from 'antd-mobile'
 import { getQueryString } from '../../utils/common'
+import { PageTitle } from '../../components';
+import request from '../../utils/http'
 import classnames from 'classnames';
 import './index.scss';
 
@@ -29,16 +31,31 @@ class GoodsList extends Component {
   
       tagId,  // 分类id
       brandId: getQueryString('brandId'),  // 品牌id
+
+      brandDetail: '',
+      tagDetail: ''
     }
   }
   
-
   API = {
     'searchProdPage': '/search/searchProdPage',
     // 品牌
     'prodListByBrandId': '/prod/prodListByBrandId',
     // 分类
-    'pageProd': '/prod/pageProd'
+    'prodListByTagId': '/prod/prodListByTagId',
+    // 根据分类id获取分类
+    'getTagByTagId': '/prod/tag/getTagByTagId',
+    // 根据品牌获取品牌信息
+    'getBrandByBrandId': '/prod/getBrandByBrandId'
+  }
+
+  componentDidMount() {
+    if(this.state.brandId) {
+      this.getBrandByBrandId();
+    }
+    if(this.state.tagId) {
+      this.getTagByTagId();
+    }
   }
 
   onToggerType = (type) => {
@@ -90,16 +107,67 @@ class GoodsList extends Component {
     )
   }
 
+  // 获取分类信息
+  getTagByTagId = () => {
+    Toast.loading('请求中', 0);
+    const params = {
+      url: this.API.getTagByTagId,
+      method: "GET",
+      data: {
+        tagId: this.state.tagId
+      },
+    }
+    request(params)
+      .then((res) => {
+        this.setState({
+          tagDetail: res || {}
+        });
+        Toast.hide();
+      })
+      .catch((error) => {
+        const { data } = error;
+        // const { error } = data || {};
+        // Toast.info(error || "当前网络异常, 请稍后重试!")
+      })
+  }
+
+  // 获取品牌信息
+  getBrandByBrandId = () => {
+    Toast.loading('请求中', 0);
+    const params = {
+      url: this.API.getBrandByBrandId,
+      method: "GET",
+      data: {
+        brandId: this.state.brandId
+      },
+    }
+    request(params)
+      .then((res) => {
+        Toast.hide();
+        this.setState({
+          brandDetail: res || {}
+        });
+      })
+      .catch((error) => {
+        const { data } = error;
+        // const { error } = data || {};
+        // Toast.info(error || "当前网络异常, 请稍后重试!")
+      })
+  }
+
   render() {
+    const { brandDetail, tagDetail } = this.state;
     let classNames = classnames(
       'good-list-box',
       {
-        'mt-100': !this.state.brandId && !this.state.tagId
+        'mt-100': !this.state.brandId && !this.state.tagId,
+        // 'mt-44': this.state.brandId || this.state.tagId
       }
     );
 
     return (
       <div className="goods-list-container">
+        <PageTitle title="商品列表" />
         {
           !this.state.brandId && !this.state.tagId ? (
             <div style={{ position: 'fixed', top: 0, left: 0, width: '100%' }}>
@@ -115,6 +183,33 @@ class GoodsList extends Component {
               />
             </div>
           ) : null
+        }
+        {
+          this.state.brandId && (
+            <>
+              <div className="h-55"></div>
+              <div className="brand-box">
+                <img src={brandDetail && brandDetail.brandPic} alt="品牌" />
+                <div className="brand-name">
+                  <div className="brand-text">{brandDetail && brandDetail.brandName}</div>
+                  <div className="brand-num">{brandDetail && brandDetail.personLook}</div>
+                </div>
+              </div>
+            </>
+          )
+        }
+        {
+          this.state.tagId && (
+            <>
+              <div className="h-55"></div>
+              <div className="brand-box">
+                <img src={tagDetail && tagDetail.tagPic} alt="品牌" />
+                <div className="brand-name">
+                  <div className="brand-text">{tagDetail && tagDetail.title}</div>
+                </div>
+              </div>
+            </>
+          )
         }
         
         <div className={classNames}>
@@ -137,7 +232,7 @@ class GoodsList extends Component {
             this.state.tagId ? (
               <ListPageData
                 className='good-list-row'
-                url={this.API.searchProdPage}
+                url={this.API.prodListByTagId}
                 params={{
                   tagId: this.state.tagId
                 }}
