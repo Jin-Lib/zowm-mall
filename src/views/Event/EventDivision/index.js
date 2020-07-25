@@ -172,8 +172,7 @@ function EventDivision(props) {
             </div>
             <div className="event-division-content-video">
                 <ContentTitle
-                    title="赛事视频"
-                    rightCon={<span className="event-division-content-video-title-right">更多</span>}/>
+                    title="赛事视频" />
                 <div className="event-division-content-video-box">
                     <ul>
                         {
