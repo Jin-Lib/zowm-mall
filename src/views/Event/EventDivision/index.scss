@@ -76,6 +76,9 @@
                         position: absolute;
                         right: 0;
                         bottom: .133333rem /* 5/37.5 */;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
                     }
                 }
             }

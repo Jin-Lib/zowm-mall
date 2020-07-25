@@ -156,7 +156,7 @@ function EventDivision(props) {
                     title="投票专区"/>
                 <ul>
                     {
-                        voteList.map((item, index) => {
+                        voteList && Array.isArray(voteList) && voteList.length > 0 && voteList.map((item, index) => {
                             return <li key={index}>
                                 <img src={item.voteAreaPic} alt=""/>
                                 <div>
@@ -164,7 +164,7 @@ function EventDivision(props) {
                                     {/* <span>{item.state}</span> */}
                                     <span>投票进行中</span>
                                 </div>
-                                <button onClick={voteItemClick(item)}>进入专区</button>
+                                <button className="event-division-content-vote-into-button" onClick={voteItemClick(item)}>进入专区</button>
                             </li>
                         })
                     }
@@ -172,12 +172,11 @@ function EventDivision(props) {
             </div>
             <div className="event-division-content-video">
                 <ContentTitle
-                    title="赛事视频"
-                    rightCon={<span className="event-division-content-video-title-right">更多</span>}/>
+                    title="赛事视频" />
                 <div className="event-division-content-video-box">
                     <ul>
                         {
-                            videoList.map((item, index) => {
+                            videoList && Array.isArray(videoList) && videoList.length > 0 && videoList.map((item, index) => {
                                 return <li key={index} onClick={videoItemClick(item)}>
                                     <img src={item.firstFrameUrl} alt=""/>
                                     {/* <video src={'https://www.w3school.com.cn/i/movie.ogg' || item.videoUrl}></video> */}
@@ -195,7 +194,7 @@ function EventDivision(props) {
                 <div className="event-division-content-photo-box">
                     <ul>
                         {
-                            photoList.map((item, key) => {
+                            photoList && Array.isArray(photoList) && photoList.length > 0 && photoList.map((item, key) => {
                                 return <li key={key}>
                                     <img src={item.albumUrl} alt=""/>
                                 </li>
