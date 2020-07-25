@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { PageTitle } from '../../../components';
 import { Tabs, Toast } from 'antd-mobile';
 import { httpApp as request } from '../../../utils'
+import classnames from 'classnames'
 import './index.scss';
     
 function EventList(props) {
@@ -19,6 +20,9 @@ function EventList(props) {
 
     // 当前选中的赛事类别
     const [ unionId, setUnionId ] = useState(null);
+
+    // 当前选中的赛事类别的下标
+    const [ eventTypeSub, setEventTypeSub ] = useState(0);
 
     /**
      * 获取赛事状态
@@ -150,8 +154,9 @@ function EventList(props) {
      * @date 2020-06-27
      * @returns {any}
      */
-    const eventTypeItemClick = (item) => {
+    const eventTypeItemClick = (item, key) => {
         return () => {
+            setEventTypeSub(key)
             setUnionId(item.unionId)
         }
     }
@@ -167,14 +172,15 @@ function EventList(props) {
                 tabBarInactiveTextColor="#787878"
                 tabBarTextStyle={{ fontSize: '15px', }}
                 onChange={titleTabsChagne}
+                animated={false}
             >
                 <div className="event-event-list-content-box">
                     <div className="event-event-list-content-left">
                         <ul>
                             {
-                                eventTypes.map((item, key) => {
+                                eventTypes && eventTypes.length > 0 && eventTypes.map((item, key) => {
                                     return (
-                                        <li key={key} onClick={eventTypeItemClick(item)}>
+                                        <li className={eventTypeSub === key ? 'event-list-active': ''} key={key} onClick={eventTypeItemClick(item, key)}>
                                             {item.catagoryName}
                                         </li>
                                     )
@@ -185,11 +191,15 @@ function EventList(props) {
                     <div className="event-event-list-content-right">
                         <ul>
                             {
-                                eventList.map((item, key) => {
-                                    return (<li key={key} onClick={eventListItemClick(item)}>
-                                        <img src={item.eventPicUrl} alt=""/>
-                                    </li>)
-                                }) 
+                                eventList && eventList.length > 0
+                                    ? eventList.map((item, key) => {
+                                        return (<li key={key} onClick={eventListItemClick(item)}>
+                                            <img src={item.eventPicUrl} alt=""/>
+                                        </li>)
+                                    }) 
+                                    : <div className="no-class-page">
+
+                                    </div>
                             }
                         </ul>
                     </div>
