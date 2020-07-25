@@ -22,8 +22,6 @@ class GoodsDetails extends PureComponent {
 
         let prodId = getQueryString('id') || ((props.location || {}).state || {}).prodId
 
-        console.log('props', prodId)
-
         this.state = {
             prodId: prodId, // 参数传入的商品信息
             shopId: 1,
@@ -108,7 +106,8 @@ class GoodsDetails extends PureComponent {
                     // skuId: res.skuId,
                     skuList: res.skuList,
                     pic: res.pic,
-                    transName: (res.transport || {}).transName
+                    transName: (res.transport || {}).transName,
+                    payType: res.payType
                 });
                 // 获取优惠券
                 //this.getCouponList();
@@ -343,7 +342,8 @@ class GoodsDetails extends PureComponent {
     buyNow = () => {
         const { history } = this.props;
         const {
-            findSku, prodId, defaultSku, prodNum, shopId
+            findSku, prodId, defaultSku, prodNum, shopId,
+            payType,
         } = this.state;
         if (!findSku) {
             return;
@@ -355,7 +355,7 @@ class GoodsDetails extends PureComponent {
             shopId: shopId
         }));
 
-        history.push('/submitOrders')
+        history.push(`/submitOrders?payType=${payType}`)
 
         // browserHistory.push('')
         // 跳转至购物页面，

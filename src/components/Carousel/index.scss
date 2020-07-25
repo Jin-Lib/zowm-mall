@@ -5,10 +5,12 @@
 }
 
 .carousel-item-img {
-    width: auto;
-    height: 9.333333rem /* 350/37.5 */;
+    width: auto!important;
+    min-height: 8rem /* 300/37.5 */;
+    max-height: 8rem /* 300/37.5 */;
     vertical-align: top;
     max-width: 100%;
+    margin: 0 auto;
 }
 
 .carousel-dot {
