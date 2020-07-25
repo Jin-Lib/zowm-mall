@@ -188,7 +188,7 @@ class GoodsList extends Component {
           ) : null
         }
         {
-          this.state.brandId && (
+          this.state.brandId && this.state.brandDetail && (
             <>
               <div className="h-55"></div>
               <div className="brand-box">
@@ -202,7 +202,7 @@ class GoodsList extends Component {
           )
         }
         {
-          this.state.tagId && (
+          this.state.tagId && this.state.tagDetail && (
             <>
               <div className="h-55"></div>
               <div className="brand-box">

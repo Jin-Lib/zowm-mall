@@ -12,3 +12,4 @@ export { default as UploadImg } from './UploadImg'
 
 export { default as Tabs } from './Tabs'
 export { default as ShareTitle } from './ShareTitle'
+export { default as Upload } from './Upload'

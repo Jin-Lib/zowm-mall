@@ -51,7 +51,9 @@ function MySign() {
             .then(response => {
                 console.log('response', response)
                 Toast.info(response)
-                setIsSignButton(true)
+                setSignOrNot(state => {
+                  return !state
+                })
             })
             .catch(error => {
                 // console.log('response', error)
@@ -66,8 +68,9 @@ function MySign() {
             const result = await getSignInAccountDto()
             if (result) {
                 Toast.hide()
-                const { havaSignInDaySum, continuitySignInDaySum, signInDayDtoList } = result
+                const { havaSignInDaySum, continuitySignInDaySum, signInDayDtoList, signOrNot} = result
                 setSignInDayDtoList(signInDayDtoList)
+                setIsSignButton(!signOrNot)
                 let day = havaSignInDaySum.toString().split()
                 if (day.length < 3) {
                     day.length = 3
@@ -84,10 +87,6 @@ function MySign() {
 
     const signButton = () => {
         commitWuMengBiSignIn()
-        setSignOrNot(state => {
-            return !state
-        })
-        setIsSignButton(false)
     }
 
     const signButtonClassNames = classnames("my-sign-page-sign-button")

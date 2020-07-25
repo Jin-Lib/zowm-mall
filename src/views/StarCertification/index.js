@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { UploadImg, Notification, Tabs } from '../../components';
+import { UploadImg, Notification, Tabs, Upload } from '../../components';
 import { InputItem, Toast, List, Radio, Modal } from 'antd-mobile';
 import './index.scss';
 import { upload1 } from '../../assets/imgs';
@@ -40,8 +40,6 @@ class StartCertification extends Component {
 
   API = {
     'getOrganTutorDetail': '/app/organTutor/getApplyOrganTutor',
-    // 获取七牛上传凭证
-    'createQiNiuUploadToken': '/app/common/createQiNiuUploadToken',
     // 上传认证
     'applyOrganTutor': '/app/organTutor/applyOrganTutor',
     // 取消资质申请
@@ -328,13 +326,24 @@ class StartCertification extends Component {
             <CInputItem label="地址" value={address} onChange={(val) => { this.onChangeInput(val, 'address') }} required placeholder="请输入机构地址～" />
             <CInputItem label="上传资料" required>
               <div className="upload-flex">
-                <UploadImg style={{ backgroundColor: 'red' }} getSign={this.getQNSign} {...(qnUploadConfig || {})} onChange={(values) => {
+                {/* <UploadImg style={{ backgroundColor: 'red' }} getSign={this.getQNSign} {...(qnUploadConfig || {})} onChange={(values) => {
                   this.setState({
                     photo1: qnUploadConfig && this.key && (qnUploadConfig.imageShowServiceHost + this.key)
                   });
                 }}>
                   <UploadBox className="m-10" src={this.state.photo1} />
-                </UploadImg>
+                </UploadImg> */}
+                <Upload
+                  style={{ width: '4.4rem', height: '3.1rem' }}
+                  onChange={(url) => {
+                    this.setState({
+                      photo1: url
+                    });
+                  }}
+                >
+                  <UploadBox className="m-10" src={this.state.photo1} />
+                </Upload>
+
                 
                 <UploadBox className="m-10 ml-10" src={this.state.photo2}/>
               </div>
