@@ -4,7 +4,7 @@ import { findDOMNode } from 'react-dom'
 
 import { PickerView, Modal, InputItem, Toast, ImagePicker } from 'antd-mobile';
 
-import { PageTitle, CButton } from '../../../components'
+import { PageTitle, CButton, Upload } from '../../../components'
 
 import { ItemDetail } from './components'
 
@@ -91,6 +91,7 @@ class MyData extends PureComponent {
                     danceTypes: categoryDtoList,
                     sexSelectValue: [gender],
                     sex: [gender],
+                    selectDances: categoryDtoList,
                 })
             })
             .catch(error => {
@@ -193,13 +194,13 @@ class MyData extends PureComponent {
      * @returns {any}
      */
     updateAppUser = () => {
-        const { nick, phone, sex, selectDances } = this.state;
+        const { nick, phone, sex, selectDances, userHeadPic } = this.state;
         console.log('nick, phone, sex', nick, phone, sex, selectDances)
         const requestParams = {
             userNickName: nick,
             phone,
             gender: sex[0],
-            "userHeadPic": "",
+            "userHeadPic": userHeadPic,
             "categoryDtoList": selectDances,
         }
         Toast.loading('请求中', 0);
@@ -217,23 +218,6 @@ class MyData extends PureComponent {
                 const { error: errMsg } = data || {};
                 Toast.info(errMsg || "当前网络异常, 请稍后重试!")
             })
-    }
-
-    /**
-     * 点击上传图片
-     * @date 2020-07-04
-     * @returns {any}
-     */
-    onUploadImg = () => {
-        const { current } = this.imgUpload;
-        let target = findDOMNode(current).querySelector('input')
-        if(document.all) {
-            target.input();
-        } else {
-            let e = document.createEvent("MouseEvents");
-            e.initEvent("input", true, true);
-            target.dispatchEvent(e);
-        }
     }
 
     /**
@@ -286,11 +270,17 @@ class MyData extends PureComponent {
                     <ImagePicker
                         style={{ display: 'none' }}
                         ref={this.imgUpload} />
-                    <img
-                        className="my-data-page-body-av"
-                        src={userHeadPic}
-                        alt=""
-                        onClick={this.onUploadImg}/>
+                    <Upload
+                        style={{ width: '1.173333rem', height: '1.173333rem' }}
+                        onChange={(data) => {
+                            this.setState({
+                                userHeadPic: data.url
+                            })
+                        }}
+                    >
+                        <img className="my-data-page-body-av" src={userHeadPic} alt=""/>
+                    </Upload>
+                    
                 </ItemDetail>
                 <ItemDetail title="昵称">
                     <InputItem
@@ -310,7 +300,6 @@ class MyData extends PureComponent {
                 <ItemDetail title="联系方式">
                     <InputItem
                         className="my-data-page-body-phone"
-                        type="phone"
                         value={phone}
                         onChange={this.setPhone}
                         placeholder="请填写您的联系方式～" />
