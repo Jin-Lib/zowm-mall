@@ -42,7 +42,7 @@ function MySign() {
     // 获取账户详情
     const getAccountList = () => {
       let params = {
-        url: '/app/finance/getWmAccount',
+        url: '/app/finance/getUserWmAccountInfo',
         method: 'GET'
       };
       request(params)
@@ -194,17 +194,22 @@ function MySign() {
                     <button className="my-sign-page-invitation-right">立即邀请</button>
             </div>
 
-            <h6 className="my-sign-page-action-list-title">签到记录</h6>
-            <div className="my-sign-page-invitation">
-              <div className="my-sign-page-invitation-left">
-                  <img src={require('../../../assets/imgs/inver-icon.png')} alt=""/>
-                  <div>
-                      <h6>每邀请1位新成员</h6>
-                      <span>+1000盟友币</span>
+            <h6 className="my-sign-page-action-list-title">舞盟币明细列表</h6>
+            {
+              (signRecord || []).map((item, index) => (
+                <div className="my-sign-page-invitation" key={index}>
+                  <div className="my-sign-page-invitation-left">
+                      <img src={item.sourceUserHeadPic} alt=""/>
+                      <div>
+                          <h6>{item.sourceTypeName}</h6>
+                          <span style={{ color: '#999' }}>{item.inOutDate}</span>
+                      </div>
                   </div>
-              </div>
-              <button className="my-sign-page-invitation-right">立即邀请</button>
-            </div>
+                  <span style={{ color: 'red' }}>{item.inOutType == 2 ? '+' : '-'}{item.amount}</span>
+                </div>
+              ))
+            }
+            
         </div>
     </div>)
 }
