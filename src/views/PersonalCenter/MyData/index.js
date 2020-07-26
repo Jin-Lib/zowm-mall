@@ -327,6 +327,7 @@ class MyData extends PureComponent {
                     </div>
                 </ItemDetail>
                 <CButton
+                    type="primary"
                     className="my-data-page-confirm-button"
                     onClick={this.updateAppUser}>
                     确认

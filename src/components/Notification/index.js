@@ -7,7 +7,7 @@ const Notification = (props) => {
 
   return (
     <div className="notification-container">
-      <img src={tip} alt />
+      <img src={tip} alt="" />
       <div className="notification-text">
         {text}
       </div>

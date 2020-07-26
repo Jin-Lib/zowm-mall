@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { UploadImg, Notification, Tabs, Upload } from '../../components';
+import { UploadImg, Notification, Tabs, Upload, PageTitle } from '../../components';
 import { InputItem, Toast, List, Radio, Modal } from 'antd-mobile';
 import './index.scss';
 import { upload1 } from '../../assets/imgs';
@@ -29,7 +29,6 @@ class StartCertification extends Component {
       "replayEMail": "",     // 申请人邮箱
       "rganTutorList": [], // 申请机构列表
       "selectRganTutorModalFlag": false, // 申请机构列表modal
-      "currentRganTutorName": '', // 当前申请机构的名称
     },
 
     // 资料1
@@ -59,11 +58,25 @@ class StartCertification extends Component {
     request(params)
       .then((res) => {
         const {} = res || {};
-        this.setState({
+        let data = {
           detail: res || {},
           institutions: res,
-          photo1: res.objectLogo,
-          photo2: res.qualificationsUrl,
+        };
+        if(res && res.identityType == 1) {
+          data.photo1 = res.objectLogo;
+          data.photo2 = res.qualificationsUrl;
+        } else if(res && res.identityType == 2) {
+          data.photo3 = res.objectLogo;
+          data.photo4 = res.qualificationsUrl;
+        } else {
+          data.photo1 = '';
+          data.photo2 = '';
+          data.photo3 = '';
+          data.photo4 = '';
+        }
+        console.log(data);
+        this.setState({
+          ...data
         });
         Toast.hide();
       })
@@ -118,13 +131,13 @@ class StartCertification extends Component {
 
       }
     };
-    console.log(institutions);
 
     Toast.loading('请求中', 0);
     request(params)
       .then((res) => {
-        
+        this.getOrganTutorDetail();
         Toast.hide();
+        Toast.info(res || "申请成功")
       })
       .catch((error) => {
         const { data } = error;
@@ -153,15 +166,16 @@ class StartCertification extends Component {
         qualificationsUrl: this.state.photo4
       }
     };
-    console.log(institutions);
 
     Toast.loading('请求中', 0);
     request(params)
       .then((res) => {
-        
+        this.getOrganTutorDetail();
         Toast.hide();
+        Toast.info(res || "申请成功")
       })
       .catch((error) => {
+        console.log(error);
         const { data } = error;
         const { error: errMsg } = data || {};
         Toast.info(errMsg || '操作失败')
@@ -294,8 +308,8 @@ class StartCertification extends Component {
    */
   rganTutorChange = value => {
     this.setState({
-      currentRganTutor: value.unionId,
-      currentRganTutorName: value.objectName,
+      // currentRganTutor: value.unionId,
+      // currentRganTutorName: value.objectName,
       selectRganTutorModalFlag: false,
       institutions: Object.assign(this.state.institutions, {
         tutorOrganId: value.unionId,
@@ -317,26 +331,42 @@ class StartCertification extends Component {
 
   render() {
     const {
-      institutions, qnUploadConfig, notifyText, detail, rganTutorList, currentRganTutor,
-      selectRganTutorModalFlag, currentRganTutorName
+      institutions, qnUploadConfig, notifyText, detail, rganTutorList,
+      selectRganTutorModalFlag
     } = this.state;
-    const { objectName, replayRealName, replayPhone, replayWechat, intro, address, categoryDtoList = [], remark } = institutions;
-    console.log('detail.status', detail.status)
+    const { objectName, replayRealName, replayPhone, replayWechat, intro, address, categoryDtoList = [], remark, identityType, contactWechatUrl, tutorOrganId, tutorOrganName } = institutions;
 
-    let notifyTextTip = ''
-    if (detail.status === 1) {
-      notifyTextTip = '审核中'
-    } else if (detail.status === 2) {
-      notifyTextTip = '审核成功'
-    } else if (detail.status === 3) {
-      notifyTextTip = '审核失败'
-    }
-    const tabsTip = notifyTextTip ? (<Notification text={notifyTextTip} />) : null
+    // let notifyTextTip = ''
+    // if (detail.status === 1) {
+    //   notifyTextTip = '审核中'
+    // } else if (detail.status === 2) {
+    //   notifyTextTip = '审核成功'
+    // } else if (detail.status === 3) {
+    //   notifyTextTip = '审核失败'
+    // }
+    const tabsTip = remark ? (<Notification text={remark} onClick={() => {
+      this.setState({
+        showWechat: true
+      });
+    }} />) : null
 
     return (
       <div className="start-certification-container">
-        <Tabs tip={tabsTip}>
-          <Tabs.Item title="学校/机构">
+        <PageTitle title="申请认证" />
+        <Tabs 
+          active={identityType || 1} 
+          tip={tabsTip} 
+          className="mt-44"
+          onClick={(active) => {
+            this.setState({
+              institutions: {
+                ...institutions,
+                identityType: active
+              }
+            });
+          }}
+        >
+          <Tabs.Item title="学校/机构" key={1}>
             <CInputItem label="机构名称" value={objectName} onChange={(val) => { this.onChangeInput(val, 'objectName') }} required placeholder="请输入您的机构名称～" />
             <CInputItem label="姓名" value={replayRealName} onChange={(val) => { this.onChangeInput(val, 'replayRealName') }} required placeholder="请输入您的姓名～" />
             <CInputItem label="联系电话" value={replayPhone} onChange={(val) => { this.onChangeInput(val, 'replayPhone') }} required placeholder="请输入您的联系方式～" />
@@ -381,15 +411,15 @@ class StartCertification extends Component {
             {
               (detail.status === 1 || detail.status === 3)
                 ? (<div className="two-button-container">
-                  <button onClick={this.cancelOrganTutor}>取消</button>
-                  <button onClick={this.applyOrganTutor}>修改</button>
+                  { (detail.status === 1) && <button onClick={this.cancelOrganTutor}>取消</button> }
+                  { (detail.status === 3) && <button onClick={this.applyOrganTutor}>修改</button> }
                 </div>)
                 : <SButton onClick={this.applyOrganTutor}>
                   保存
                 </SButton>
             }
           </Tabs.Item>
-          <Tabs.Item title="KOL/个人领袖">
+          <Tabs.Item title="KOL/个人领袖" key={2}>
             <CInputItem label="姓名" value={objectName} onChange={(val) => { this.onChangeInput(val, 'objectName') }} required placeholder="请输入您的姓名～" />
             <CInputItem label="联系电话" value={replayPhone} onChange={(val) => { this.onChangeInput(val, 'replayPhone') }} required placeholder="请输入您的联系方式～" />
             <CInputItem label="微信号" value={replayWechat} onChange={(val) => { this.onChangeInput(val, 'replayWechat') }} required placeholder="请输入您的微信号～" />
@@ -398,17 +428,19 @@ class StartCertification extends Component {
               required
               placeholder="请选择所属机构～"
               onClick={this.getOrganization}
-              value={currentRganTutorName} />
+              value={tutorOrganName} />
               {
                 rganTutorList && rganTutorList.length > 0
                   ? (
                     <Modal
                       transparent
+                      closable
+                      title="请选择所属机构"
                       visible={selectRganTutorModalFlag}
                       onClose={this.closeSelectRganTutorModal}>
                       <List>
                         {rganTutorList.map(i => (
-                          <RadioItem key={i.unionId} checked={currentRganTutor === i.unionId} onChange={() => this.rganTutorChange(i)}>
+                          <RadioItem key={i.unionId} checked={tutorOrganId === i.unionId} onChange={() => this.rganTutorChange(i)}>
                             {i.objectName}
                           </RadioItem>
                         ))}
@@ -456,9 +488,9 @@ class StartCertification extends Component {
             {
               (detail.status === 1 || detail.status === 3)
                 ? (<div className="two-button-container">
-                  <button onClick={this.cancelOrganTutor}>取消</button>
-                  <button onClick={this.applyTutor}>修改</button>
-                </div>)
+                    { (detail.status === 1) && <button onClick={this.cancelOrganTutor}>取消</button> }
+                    { (detail.status === 3) && <button onClick={this.applyTutor}>修改</button> }
+                  </div>)
                 : <SButton onClick={this.applyTutor}>
                   保存
                 </SButton>
@@ -476,6 +508,20 @@ class StartCertification extends Component {
             </div>
           ) : null
         }
+
+        
+        <Modal
+          closable
+          transparent
+          animationType="slide"
+          onClose={() => {
+            this.setState({
+              showWechat: false
+            });
+          }}
+          visible={this.state.showWechat}>
+          <img className="wechatCode" src={contactWechatUrl} alt="" />
+        </Modal>
       </div>
     );
   }

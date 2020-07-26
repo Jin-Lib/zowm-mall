@@ -10,15 +10,16 @@ axios.interceptors.request.use(
   
 // 响应拦截器
 axios.interceptors.response.use(    
-    response => {        
+    response => {   
       if (response.status === 200) {            
         return Promise.resolve(response);        
       } else {            
         return Promise.reject(response);        
-      }    
+      }  
     },
     // 服务器状态码不是200的情况    
-    error => {        
+    error => {   
+
       if (error && error.response && error.response.status) {            
         return Promise.reject(error.response);        
       }       
@@ -71,7 +72,7 @@ const createRequestInstanceFactory = (instance) => {
     
             instance(config)
                 .then(res => response(res.data))
-                .catch(err => reject(err))
+                .catch(err => {reject(err); console.log(err)})
         })
     }
 }

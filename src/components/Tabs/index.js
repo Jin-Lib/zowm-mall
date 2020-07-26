@@ -7,26 +7,23 @@ class Tabs extends Component {
   }
 
   onClick = (active) => {
-    this.setState({
-      active
-    });
+    this.props.onClick && this.props.onClick(active);
   }
 
   render() {
-    const { children, tip } = this.props;
-    const { active } = this.state;
+    const { children, tip, className, active } = this.props;
 
     return (
-      <div className="tabs-container">
+      <div className={`tabs-container ${className ? className : ''}`}>
         <div className="tabs-headers">
           {
             (children || []).map((item, index) => {
               return (
-                <Fragment key={index}>
+                <Fragment key={item.key}>
                   <div 
-                    className={`tabs-headers-item ${active === index ? 'active' : ''}`} 
+                    className={`tabs-headers-item ${active == item.key ? 'active' : ''}`} 
                     style={{ width: `${children && (100 / (children.length))}%` }}
-                    onClick={() => { this.onClick(index) }}
+                    onClick={() => { this.onClick(item.key) }}
                   >
                     { item.props.title }
                   </div>
@@ -43,7 +40,7 @@ class Tabs extends Component {
           {
             (children || []).map((item, index) => {
               return (
-                <div key={index} className="tabs-content-item" style={{ display: `${ active === index ? 'block': 'none'  }` }}>
+                <div key={item.key} className="tabs-content-item" style={{ display: `${ active == item.key ? 'block': 'none'  }` }}>
                   { item }
                 </div>
               )
