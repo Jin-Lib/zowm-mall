@@ -14,9 +14,7 @@ import './assets/css/reset.css';
 
 ReactDOM.render(
   <Suspense fallback={(<Loading/>)}>
-    <Layout>
-      <Router />
-    </Layout>
+    <Router />
   </Suspense>,
   document.getElementById('root')
 );

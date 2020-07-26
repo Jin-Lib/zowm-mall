@@ -8,7 +8,7 @@ export default function PageTitle({ title, shadow, rightCon, onBack, leftIcon })
     let history = useHistory();
 
     const goBack = () => {
-      if(history.length > 1) {
+      if(window.location.href.indexOf('token') === -1) {
         history.go(-1)
       } else {
         back();
