@@ -55,9 +55,9 @@ class MyData extends PureComponent {
             selectDances: [],
         }
 
-        this.danceTypeWrapRef = createRef();
-        this.danceTypeBoxRef = createRef();
-        this.imgUpload = createRef();
+        // this.danceTypeWrapRef = createRef();
+        // this.danceTypeBoxRef = createRef();
+        // this.imgUpload = createRef();
     }
 
     componentDidMount() {
@@ -263,116 +263,115 @@ class MyData extends PureComponent {
             selectDances,
         } = this.state;
 
-        return (<div className="my-data-page">
-            <PageTitle
+        return (
+          <div className="my-data-page">
+            test
+            {/* <PageTitle
                 title="我的资料" shadow />
-            <div className="my-data-page-body">
-                <ItemDetail title="头像">
-                    {/* <ImagePicker
-                        style={{ display: 'none' }}
-                        ref={this.imgUpload} /> */}
-                    <Upload
-                        style={{ width: '1.173333rem', height: '1.173333rem', top: '.373333rem' }}
-                        onChange={(data) => {
-                            this.setState({
-                                userHeadPic: data.url
-                            })
-                        }}
-                    >
-                        <img className="my-data-page-body-av" src={userHeadPic} alt=""/>
-                    </Upload>
-                    
-                </ItemDetail>
-                <ItemDetail title="昵称">
-                    <InputItem
-                        className="my-data-page-body-name"
-                        type="text"
-                        value={nick}
-                        onChange={this.nickName} />
-                </ItemDetail>
-                <ItemDetail title="性别">
-                    <div
-                        className="my-data-page-body-sex-box"
-                        onClick={this.selectSex}>
-                        <span>{this.getSex()}</span>
-                        <svg t="1593074083827" className="my-data-page-body-icon-right" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2111"><path d="M517.437 662.92l374.767-374.767c12.496-12.497 32.758-12.497 45.255 0 12.496 12.497 12.496 32.758 0 45.255l-403.051 403.05c-12.497 12.497-32.758 12.497-45.255 0L86.102 333.409c-12.497-12.497-12.497-32.758 0-45.255s32.758-12.497 45.255 0l374.766 374.766a8 8 0 0 0 11.314 0z" p-id="2112" fill="#515151"></path></svg>
-                    </div>
-                </ItemDetail>
-                <ItemDetail title="联系方式">
-                    <InputItem
-                        className="my-data-page-body-phone"
-                        value={phone}
-                        onChange={this.setPhone}
-                        placeholder="请填写您的联系方式～" />
-                </ItemDetail>
-                <ItemDetail title="感兴趣舞种">
-                    <div
-                        className="my-data-page-body-dance-box"
-                        ref={this.danceTypeBoxRef} >
-                        <ul
-                            className="my-data-page-body-dance"
-                            ref={this.danceTypeWrapRef} >
-                            {
-                                danceTypes && Array.isArray(danceTypes) && danceTypes.length > 0
-                                    ? danceTypes.map((danceItem, danceKey) => {
-                                        return <li key={danceKey}>{danceItem.categoryName}</li>
-                                    })
-                                    : null
-                            }
-                            <li
-                                className="my-data-page-body-dance-add"
-                                onClick={this.addDancesClick}>
-                                添加舞种
-                            </li>
-                        </ul>
-                    </div>
-                </ItemDetail>
-                <CButton
-                    type="primary"
-                    className="my-data-page-confirm-button"
-                    onClick={this.updateAppUser}>
-                    确认
-                </CButton>
-                {
-                    dancesDialogShow
-                        ? (<div className="dances-dialog">
-                            <Dances 
-                                value={selectDances}
-                                onClose={this.closeDancesSelect}
-                                onChange={this.selectDancesValues}
-                            />
-                        </div>)
-                        : null
-                }
-                <Modal
-                    visible={sexModelFlag}
-                    transparent
-                    onClose={this.CloseSexModel}
-                    wrapProps={{ onTouchStart: this.onWrapTouchStart }}
-                    wrapClassName="sex-modal"
-                    >
-                    <div className="sex-modal-title">
-                        <h6>性别选择</h6>
-                        <img onClick={this.CloseSexModel} src={require('../../../assets/imgs/close.png')} alt=""/>
-                    </div>
-                    <PickerView
-                        cols="1"
-                        prefixCls="sex-piacker"
-                        pickerPrefixCls="sex-piacker-col"
-                        itemStyle={{ height: '1.333333rem', lineHeight: '1.333333rem', }}
-                        data={season}
-                        value={sexSelectValue}
-                        onChange={this.sexSelectPicker}
-                    />
-                    <div
-                        className="sex-modal-ok"
-                        onClick={this.sexSelectCheck}
-                    >
+                <div className="my-data-page-body">
+                    <ItemDetail title="头像">
+                        <Upload
+                            style={{ width: '1.173333rem', height: '1.173333rem', top: '.373333rem' }}
+                            onChange={(data) => {
+                                this.setState({
+                                    userHeadPic: data.url
+                                })
+                            }}
+                        >
+                            <img className="my-data-page-body-av" src={userHeadPic} alt=""/>
+                        </Upload>
+                        
+                    </ItemDetail>
+                    <ItemDetail title="昵称">
+                        <InputItem
+                            className="my-data-page-body-name"
+                            type="text"
+                            value={nick}
+                            onChange={this.nickName} />
+                    </ItemDetail>
+                    <ItemDetail title="性别">
+                        <div
+                            className="my-data-page-body-sex-box"
+                            onClick={this.selectSex}>
+                            <span>{this.getSex()}</span>
+                            <svg t="1593074083827" className="my-data-page-body-icon-right" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2111"><path d="M517.437 662.92l374.767-374.767c12.496-12.497 32.758-12.497 45.255 0 12.496 12.497 12.496 32.758 0 45.255l-403.051 403.05c-12.497 12.497-32.758 12.497-45.255 0L86.102 333.409c-12.497-12.497-12.497-32.758 0-45.255s32.758-12.497 45.255 0l374.766 374.766a8 8 0 0 0 11.314 0z" p-id="2112" fill="#515151"></path></svg>
+                        </div>
+                    </ItemDetail>
+                    <ItemDetail title="联系方式">
+                        <InputItem
+                            className="my-data-page-body-phone"
+                            value={phone}
+                            onChange={this.setPhone}
+                            placeholder="请填写您的联系方式～" />
+                    </ItemDetail>
+                    <ItemDetail title="感兴趣舞种">
+                        <div
+                            className="my-data-page-body-dance-box"
+                            ref={this.danceTypeBoxRef} >
+                            <ul
+                                className="my-data-page-body-dance"
+                                ref={this.danceTypeWrapRef} >
+                                {
+                                    danceTypes && Array.isArray(danceTypes) && danceTypes.length > 0
+                                        ? danceTypes.map((danceItem, danceKey) => {
+                                            return <li key={danceKey}>{danceItem.categoryName}</li>
+                                        })
+                                        : null
+                                }
+                                <li
+                                    className="my-data-page-body-dance-add"
+                                    onClick={this.addDancesClick}>
+                                    添加舞种
+                                </li>
+                            </ul>
+                        </div>
+                    </ItemDetail>
+                    <CButton
+                        type="primary"
+                        className="my-data-page-confirm-button"
+                        onClick={this.updateAppUser}>
                         确认
-                    </div>
-                </Modal>
-            </div>
-        </div>)
+                    </CButton>
+                    {
+                        dancesDialogShow
+                            ? (<div className="dances-dialog">
+                                <Dances 
+                                    value={selectDances}
+                                    onClose={this.closeDancesSelect}
+                                    onChange={this.selectDancesValues}
+                                />
+                            </div>)
+                            : null
+                    }
+                    <Modal
+                        visible={sexModelFlag}
+                        transparent
+                        onClose={this.CloseSexModel}
+                        wrapProps={{ onTouchStart: this.onWrapTouchStart }}
+                        wrapClassName="sex-modal"
+                        >
+                        <div className="sex-modal-title">
+                            <h6>性别选择</h6>
+                            <img onClick={this.CloseSexModel} src={require('../../../assets/imgs/close.png')} alt=""/>
+                        </div>
+                        <PickerView
+                            cols="1"
+                            prefixCls="sex-piacker"
+                            pickerPrefixCls="sex-piacker-col"
+                            itemStyle={{ height: '1.333333rem', lineHeight: '1.333333rem', }}
+                            data={season}
+                            value={sexSelectValue}
+                            onChange={this.sexSelectPicker}
+                        />
+                        <div
+                            className="sex-modal-ok"
+                            onClick={this.sexSelectCheck}
+                        >
+                            确认
+                        </div>
+                    </Modal>
+                </div> */}
+          </div>)
     }
 }
 
