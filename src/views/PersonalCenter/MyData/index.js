@@ -55,18 +55,18 @@ class MyData extends PureComponent {
             selectDances: [],
         }
 
-        // this.danceTypeWrapRef = createRef();
-        // this.danceTypeBoxRef = createRef();
-        // this.imgUpload = createRef();
+        this.danceTypeWrapRef = createRef();
+        this.danceTypeBoxRef = createRef();
+        this.imgUpload = createRef();
     }
 
     componentDidMount() {
-        // const { current: danceTypeWrapRef } = this.danceTypeWrapRef;
-        // const { current: danceTypeBoxRef } = this.danceTypeBoxRef;
-        // const { width: danceTypeWrapWidth } = danceTypeWrapRef.getBoundingClientRect()
-        // danceTypeBoxRef.scrollTo(danceTypeWrapWidth, 0)
+        const { current: danceTypeWrapRef } = this.danceTypeWrapRef;
+        const { current: danceTypeBoxRef } = this.danceTypeBoxRef;
+        const { width: danceTypeWrapWidth } = danceTypeWrapRef.getBoundingClientRect()
+        danceTypeBoxRef.scrollTo(danceTypeWrapWidth, 0)
 
-        // this.getAppUserDto()
+        this.getAppUserDto()
     }
 
     /**
@@ -265,8 +265,7 @@ class MyData extends PureComponent {
 
         return (
           <div className="my-data-page">
-            test
-            {/* <PageTitle
+            <PageTitle
                 title="我的资料" shadow />
                 <div className="my-data-page-body">
                     <ItemDetail title="头像">
@@ -370,8 +369,9 @@ class MyData extends PureComponent {
                             确认
                         </div>
                     </Modal>
-                </div> */}
-          </div>)
+                </div>
+          </div>
+        )
     }
 }
 
