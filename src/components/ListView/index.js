@@ -8,6 +8,7 @@ class ListView extends Component {
 
   componentDidMount() {
     this.listRef.current.addEventListener('scroll', this._onScroll, true)
+    // console.log(this.listRef.current.scrollHeight, this.listRef.current.clientHeight)
   }
 
   componentWillUnmount() {
@@ -15,6 +16,7 @@ class ListView extends Component {
   }
   
   _onScroll = () => {
+    console.log('test');
     const { onEndReached } = this.props;
 		// 未滚动到底部
 		if (( this.listRef.current.scrollHeight - this.listRef.current.clientHeight ) > this.listRef.current.scrollTop) {

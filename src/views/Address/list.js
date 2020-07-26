@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CButton from '../../components/CButton';
 import { Toast } from 'antd-mobile';
+import { PageTitle } from '../../components';
 import './index.scss';
 import request from '../../utils/http'
 
@@ -60,6 +61,8 @@ class AddressList extends Component {
 
     return (
       <div className="address-list-container">
+        <PageTitle title="地址列表" />
+        <div className="h-44"></div>
         {
           (addressList || []).map((item, index) => {
             return (

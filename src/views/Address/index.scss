@@ -8,6 +8,15 @@
     margin-bottom: .266667rem /* 10/37.5 */;
     border-radius: .266667rem /* 10/37.5 */;
     overflow: hidden;
+    margin-top: 1.173333rem /* 44/37.5 */;
+
+    .am-list-item .am-list-line .am-list-extra {
+      flex-basis: 60%;
+    }
+
+    input {
+      text-align: right;
+    }
   }
 
   .del-btn {
@@ -63,5 +72,9 @@
     padding: .266667rem /* 10/37.5 */ .266667rem /* 10/37.5 */;
     box-sizing: border-box;
     background-color: #fff;
+  }
+
+  .h-44 {
+    height: 1.173333rem /* 44/37.5 */;
   }
 }

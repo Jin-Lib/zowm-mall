@@ -4,20 +4,20 @@
     overflow-y: auto;
     background: #EEE;
     .submit-orders-page-select-address {
-        width: 90%;
-        height: 80px;
-        margin: 10px 5%;
-        border-radius: 10px;
+        height: 2.133333rem /* 80/37.5 */;
+        margin: .266667rem /* 10/37.5 */;
+        border-radius: .266667rem /* 10/37.5 */;
         background: #fff;
         display: flex;
         font-size: .373333rem /* 14/37.5 */;
         align-items: center;
-        padding: 0 20px;
+        padding: 0 .533333rem /* 20/37.5 */;
         box-sizing: border-box;
         position: relative;
+        margin-top: 1.466667rem /* 55/37.5 */;
         svg {
-            width: 20px;
-            height: 20px;
+            width: .533333rem /* 20/37.5 */;
+            height: .533333rem /* 20/37.5 */;
         }
         span {
             flex: 1;
@@ -40,49 +40,49 @@
         }
     }
     .submit-orders-page-goods-info {
-        width: 90%;
         height: auto;
-        margin: 10px 5%;
-        border-radius: 10px;
+        margin: .266667rem /* 10/37.5 */;
+        border-radius: .266667rem /* 10/37.5 */;
         background: #fff;
         display: flex;
         font-size: .373333rem /* 14/37.5 */;
-        padding: 0 20px;
+        padding: 0 .533333rem /* 20/37.5 */;
         box-sizing: border-box;
     }
     .submit-orders-page-pay-area {
-        width: 90%;
-        margin: 10px 5%;
-        border-radius: 10px;
+        margin: .266667rem /* 10/37.5 */;
+        border-radius: .266667rem /* 10/37.5 */;
         background: #fff;
         font-size: .373333rem /* 14/37.5 */;
-        padding: 0 20px;
+        // padding: 0 20px;
         box-sizing: border-box;
+        overflow: hidden;
         .submit-orders-page-pay-area-wxPay,
         .submit-orders-page-pay-area-aliPay {
             display: flex;
             svg {
-                width: 20px;
-                height: 20px;
-                margin-right: 10px;
+                width: .533333rem /* 20/37.5 */;
+                height: .533333rem /* 20/37.5 */;
+                margin-right: .266667rem /* 10/37.5 */;
             }
         }
     }
     .submit-orders-page-pay {
         width: 100%;
-        height: 60px;
+        height: 1.6rem /* 60/37.5 */;
         position: fixed;
         bottom: 0;
         left: 0;
         display: flex;
         align-items: center;
+        background-color: #fff;
         p {
             flex: 1;
             text-align: right;
-            margin-right: 20px;
+            margin-right: .533333rem /* 20/37.5 */;
             span {
-                margin-left: 5px;
-                font-size: 22px;
+                margin-left: .133333rem /* 5/37.5 */;
+                font-size: .586667rem /* 22/37.5 */;
                 font-weight: 600;
                 color: red;
             }
@@ -90,10 +90,10 @@
         button {
             width: 4rem /* 150/37.5 */;
             height: 1.066667rem /* 40/37.5 */;
-            border-radius: 20px;
+            border-radius: .533333rem /* 20/37.5 */;
             color: #FFF;
             background: red;
-            margin-right: 10px;
+            margin-right: .266667rem /* 10/37.5 */;
         }
     }
 }

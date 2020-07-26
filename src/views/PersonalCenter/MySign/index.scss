@@ -121,6 +121,11 @@
             font-size: .48rem /* 18/37.5 */;
             margin-top: .533333rem /* 20/37.5 */;
             margin-left: .4rem /* 15/37.5 */;
+
+            &.disabled {
+              background: #ddd;
+              box-shadow:-8px 7px 20px 0px rgba(0,0,0,0.2);
+            }
         }
         .my-sign-page-action-list-title {
             font-family:PingFang SC;

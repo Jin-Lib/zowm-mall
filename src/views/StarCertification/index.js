@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { UploadImg, Notification, Tabs, Upload, PageTitle } from '../../components';
 import { InputItem, Toast, List, Radio, Modal } from 'antd-mobile';
 import './index.scss';
-import { upload1 } from '../../assets/imgs';
+import { upload1, down } from '../../assets/imgs';
 import request from '../../utils/http-app'
 import Dances from '../Dances';
 import { generateUUID } from '../../utils/common';
@@ -393,7 +393,6 @@ class StartCertification extends Component {
                 >
                   <UploadBox className="m-10" src={this.state.photo1} />
                 </Upload>
-
                 
                 <Upload
                   style={{ width: '4.4rem', height: '3.1rem' }}
@@ -407,7 +406,12 @@ class StartCertification extends Component {
                   <UploadBox className="m-10 ml-10" src={this.state.photo2}/>
                 </Upload>
               </div>
+              <div className="strcture-box">
+                <div className="strcture-item">营业执照</div>
+                <div className="strcture-item">机构形象图</div>
+              </div>
             </CInputItem>
+            
             {
               (detail.status === 1 || detail.status === 3)
                 ? (<div className="two-button-container">
@@ -436,6 +440,7 @@ class StartCertification extends Component {
                       transparent
                       closable
                       title="请选择所属机构"
+                      wrapClassName="modal-my-wrap"
                       visible={selectRganTutorModalFlag}
                       onClose={this.closeSelectRganTutorModal}>
                       <List>
@@ -483,6 +488,10 @@ class StartCertification extends Component {
                 >
                   <UploadBox className="m-10 ml-10" src={this.state.photo4} />
                 </Upload>
+              </div>
+              <div className="strcture-box">
+                <div className="strcture-item">导师头像</div>
+                <div className="strcture-item">相关证书</div>
               </div>
             </CInputItem>
             {
@@ -561,7 +570,12 @@ const CSelectItem = (props) => {
         }
       </label>
       {
-        children ? children : <InputItem value={value} onClick={onClick} placeholder={placeholder} />
+        children ? children : (
+          <div className="c-select-container" onClick={onClick}>
+            <span className="c-select-text">{value ? value : placeholder}</span>
+            <img src={down} alt="down" />
+          </div>
+        )
       }
     </div>
   );

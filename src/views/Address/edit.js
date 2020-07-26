@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { InputItem, List, TextareaItem, Button, Picker, Toast } from 'antd-mobile';
+import { PageTitle } from '../../components';
 import './index.scss';
 import CButton from '../../components/CButton';
 import request from '../../utils/http';
@@ -151,6 +152,7 @@ class AddressEdit extends Component {
 
     return (
       <div className="address-edit-container">
+        <PageTitle title="编辑地址" />
         <List className="address-edit-box">
           <div className="address-item">
             <InputItem
@@ -194,7 +196,11 @@ class AddressEdit extends Component {
         </List>
 
         <CButton type="primary" className="address-btn" onClick={this.addAddress}>保存</CButton>
-        <CButton type="primary" className="del-btn" onClick={this.delAddress}>删除</CButton>
+        {
+          this.state.isEdit && (
+            <CButton type="primary" className="del-btn" onClick={this.delAddress}>删除</CButton>
+          )
+        }
       </div>
     );
   }

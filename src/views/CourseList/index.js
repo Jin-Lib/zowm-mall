@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { course1, course2 } from '../../assets/imgs';
 import { Toast } from 'antd-mobile';
 import request from '../../utils/http-app'
+import { PageTitle } from '../../components';
 import './index.scss';
 
 class CourseList extends Component {
@@ -42,6 +43,8 @@ class CourseList extends Component {
 
     return(
       <div className="course-list-container">
+        <PageTitle title="直播列表" shadow />
+
         {/* 标题用 直播内容 */}
         <div className="course-list-header">
           <img className="course-list-img1" src={course1} />
@@ -78,7 +81,7 @@ class CourseList extends Component {
                           </div>
                           <div className="course-content-body-item flex1-2">
                             <span>{ itemData.liveRoomContent }</span>
-                            <span className="fw-5 mt-18">{ itemData.liveRoomContent }</span>
+                            {/* <span className="fw-5 mt-18">{ itemData.liveRoomContent }</span> */}
                           </div>
                           <div className="course-content-body-item flex1">
                             <span>{ itemData.liveStartEndDate }</span>

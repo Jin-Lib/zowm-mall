@@ -23,6 +23,9 @@ function MySign() {
     // 是否可以点击签到
     const [isSignButton, setIsSignButton] = useState(true);
 
+    // 签到记录
+    const [signRecord, setSignRecord] = useState([]);
+
     /**
      * 获取用户签到详情DTO
      * @date 2020-06-30
@@ -34,6 +37,21 @@ function MySign() {
             method: "GET",
         }
         return request(params)
+    }
+
+    // 获取账户详情
+    const getAccountList = () => {
+      let params = {
+        url: '/app/finance/getWmAccount',
+        method: 'GET'
+      };
+      request(params)
+        .then(response => {
+          setSignRecord(response && response.accountInOutDtos || []);
+        })
+        .catch(error => {
+          setIsSignButton([])
+        })
     }
 
     /**
@@ -83,13 +101,19 @@ function MySign() {
             }
         }
         _getSignInAccountDto()
+        getAccountList()
     }, [signOrNot])
 
     const signButton = () => {
         commitWuMengBiSignIn()
     }
 
-    const signButtonClassNames = classnames("my-sign-page-sign-button")
+    const signButtonClassNames = classnames(
+      "my-sign-page-sign-button",
+      {
+        disabled: !isSignButton
+      }
+    )
 
     return (<div className="my-sign-page">
         <PageTitle title="每日签到" />
@@ -168,6 +192,18 @@ function MySign() {
                         </div>
                     </div>
                     <button className="my-sign-page-invitation-right">立即邀请</button>
+            </div>
+
+            <h6 className="my-sign-page-action-list-title">签到记录</h6>
+            <div className="my-sign-page-invitation">
+              <div className="my-sign-page-invitation-left">
+                  <img src={require('../../../assets/imgs/inver-icon.png')} alt=""/>
+                  <div>
+                      <h6>每邀请1位新成员</h6>
+                      <span>+1000盟友币</span>
+                  </div>
+              </div>
+              <button className="my-sign-page-invitation-right">立即邀请</button>
             </div>
         </div>
     </div>)

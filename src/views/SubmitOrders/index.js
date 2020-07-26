@@ -6,6 +6,8 @@ import { getQueryString } from '../../utils/common'
 
 import request from '../../utils/http'
 
+import { PageTitle } from '../../components';
+
 import './index.scss';
 
 const RadioItem = Radio.RadioItem;
@@ -252,6 +254,7 @@ export default class SubmitOrders extends Component{
         } = this.state;
 
         return (<div className="submit-orders-page">
+            <PageTitle title="确认订单" />
             <div className="submit-orders-page-select-address" onClick={this.toAddrListPage}>
                 {
                     !this.addressInfo

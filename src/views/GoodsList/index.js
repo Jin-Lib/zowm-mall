@@ -163,7 +163,7 @@ class GoodsList extends Component {
     let classNames = classnames(
       'good-list-box',
       {
-        'mt-100': !this.state.brandId && !this.state.tagId,
+        'mt-144': !this.state.brandId && !this.state.tagId,
         // 'mt-44': this.state.brandId || this.state.tagId
       }
     );
@@ -173,7 +173,7 @@ class GoodsList extends Component {
         <PageTitle title="商品列表" />
         {
           !this.state.brandId && !this.state.tagId ? (
-            <div style={{ position: 'fixed', top: 0, left: 0, width: '100%' }}>
+            <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', marginTop: '1.173333rem' }}>
               <SearchInput
                 value={this.state.keyword}
                 onChange={this.onKeywordChange}
