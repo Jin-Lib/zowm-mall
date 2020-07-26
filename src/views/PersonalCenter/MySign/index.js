@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { PageTitle } from '../../../components'
-import { Toast } from 'antd-mobile';
+import { Toast, Modal } from 'antd-mobile';
 import { httpApp as request } from '../../../utils'
 import classnames from 'classnames';
 import './index.scss';
@@ -25,6 +25,13 @@ function MySign() {
 
     // 签到记录
     const [signRecord, setSignRecord] = useState([]);
+
+    // 舞盟币数量
+    const [count, setCount] = useState(0);
+
+    // 获取二维码
+    const [qrCode, setQRCode] = useState('');
+    const [showQR ,setShowQR] = useState(false);
 
     /**
      * 获取用户签到详情DTO
@@ -51,6 +58,37 @@ function MySign() {
         })
         .catch(error => {
           setIsSignButton([])
+        })
+    }
+
+    // 获取邀请获取到的舞盟币个数
+    const getAccountNum = () => {
+      let params = {
+        url: '/app/common/getSysConfigParam',
+        method: 'GET',
+        data: {
+          key: 'ZOWM_INVITE_USER_WU_MENG_BI'
+        }
+      };
+      request(params)
+        .then(response => {
+          setCount(response || 0);
+        })
+        .catch(error => {
+        })
+    }
+
+    // 获取二维码信息
+    const getQRCode = () => {
+      let params = {
+        url: '/app/userCenter/getAppUserDto',
+        method: 'GET'
+      };
+      request(params)
+        .then(response => {
+          setQRCode(response && response.userErCodeUrl || '')
+        })
+        .catch(error => {
         })
     }
 
@@ -102,6 +140,8 @@ function MySign() {
         }
         _getSignInAccountDto()
         getAccountList()
+        getAccountNum();
+        getQRCode()
     }, [signOrNot])
 
     const signButton = () => {
@@ -188,10 +228,12 @@ function MySign() {
                         <img src={require('../../../assets/imgs/inver-icon.png')} alt=""/>
                         <div>
                             <h6>每邀请1位新成员</h6>
-                            <span>+1000盟友币</span>
+                            <span>+{count}盟友币</span>
                         </div>
                     </div>
-                    <button className="my-sign-page-invitation-right">立即邀请</button>
+                    <button className="my-sign-page-invitation-right" onClick={() => {
+                      setShowQR(true)
+                    }}>立即邀请</button>
             </div>
 
             <h6 className="my-sign-page-action-list-title">舞盟币明细列表</h6>
@@ -209,6 +251,17 @@ function MySign() {
                 </div>
               ))
             }
+
+            <Modal
+              closable
+              transparent
+              animationType="slide"
+              onClose={() => {
+                setShowQR(false)
+              }}
+              visible={showQR}>
+              <img className="wechatCode" src={qrCode} alt="" />
+            </Modal>
             
         </div>
     </div>)
