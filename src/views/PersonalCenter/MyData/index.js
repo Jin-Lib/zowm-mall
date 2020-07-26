@@ -61,12 +61,12 @@ class MyData extends PureComponent {
     }
 
     componentDidMount() {
-        const { current: danceTypeWrapRef } = this.danceTypeWrapRef;
-        const { current: danceTypeBoxRef } = this.danceTypeBoxRef;
-        const { width: danceTypeWrapWidth } = danceTypeWrapRef.getBoundingClientRect()
-        danceTypeBoxRef.scrollTo(danceTypeWrapWidth, 0)
+        // const { current: danceTypeWrapRef } = this.danceTypeWrapRef;
+        // const { current: danceTypeBoxRef } = this.danceTypeBoxRef;
+        // const { width: danceTypeWrapWidth } = danceTypeWrapRef.getBoundingClientRect()
+        // danceTypeBoxRef.scrollTo(danceTypeWrapWidth, 0)
 
-        this.getAppUserDto()
+        // this.getAppUserDto()
     }
 
     /**
@@ -212,6 +212,7 @@ class MyData extends PureComponent {
         request(params)
             .then(response => {
                 Toast.hide()
+                Toast.info(response || "修改信息成功")
             })
             .catch(error => {
                 const { data } = error;
@@ -267,11 +268,11 @@ class MyData extends PureComponent {
                 title="我的资料" shadow />
             <div className="my-data-page-body">
                 <ItemDetail title="头像">
-                    <ImagePicker
+                    {/* <ImagePicker
                         style={{ display: 'none' }}
-                        ref={this.imgUpload} />
+                        ref={this.imgUpload} /> */}
                     <Upload
-                        style={{ width: '1.173333rem', height: '1.173333rem' }}
+                        style={{ width: '1.173333rem', height: '1.173333rem', top: '.373333rem' }}
                         onChange={(data) => {
                             this.setState({
                                 userHeadPic: data.url
