@@ -4,9 +4,7 @@ import { findDOMNode } from 'react-dom'
 
 import { PickerView, Modal, InputItem, Toast, ImagePicker } from 'antd-mobile';
 
-import { PageTitle, CButton, Upload } from '../../../components'
-
-import { ItemDetail } from './components'
+import { PageTitle, CButton, Upload, ItemDetail } from '../../../components'
 
 import { httpApp as request } from '../../../utils'
 

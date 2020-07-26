@@ -11,5 +11,13 @@ export { default as Notification } from './Notification'
 export { default as UploadImg } from './UploadImg'
 
 export { default as Tabs } from './Tabs'
+
 export { default as ShareTitle } from './ShareTitle'
+
 export { default as Upload } from './Upload'
+
+export { default as CourseItem } from './CourseItem'
+
+export { default as GoodsInfo } from './GoodsInfo'
+
+export { default as ItemDetail } from './ItemDetail'

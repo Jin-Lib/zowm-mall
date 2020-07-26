@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { PageTitle, ListView } from  '../../../components'
+import { PageTitle, ListView, GoodsInfo} from  '../../../components'
 import { Tabs, Toast } from 'antd-mobile';
-import { GoodsInfo } from './components'
 import { httpApp as request } from '../../../utils'
 
 import './index.scss';

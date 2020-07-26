@@ -1,6 +1,5 @@
 import React, { useState, useEffect, createRef } from 'react';
-import { PageTitle, ListView } from '../../../components'
-import { CourseItem } from './components'
+import { PageTitle, ListView, CourseItem } from '../../../components'
 import { Toast } from 'antd-mobile';
 import { httpApp as request } from '../../../utils'
 import './index.scss'
