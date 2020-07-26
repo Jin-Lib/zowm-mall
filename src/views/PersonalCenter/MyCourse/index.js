@@ -76,7 +76,7 @@ function MyCourse() {
                                 })
                             }
                         </React.Fragment>)
-                        : []
+                        : <img className="no-order-bg" src={require('../../../assets/imgs/no-class.png')} alt=""/>
                 }
             </div>
         </ListView>
