@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Toast } from 'antd-mobile';
-import { PageTitle } from '../../../components'
+import { PageTitle, GoodsInfo } from '../../../components'
 import './index.scss'
-import GoodsInfo from '../MyOrder/components/GoodsInfo'
 import { httpApp as request } from '../../../utils'
 
 const MyOrderDetail = ({ history, location: { state } }) => {
