@@ -255,6 +255,7 @@ function MySign() {
                 onClick={signButton}>
                 {isSignButton ? "立即签到" : "已签到"}
             </button>
+            <input class="addPicInput" type="file" accept="image/*" multiple capture="camera" />
             <h6 className="my-sign-page-action-list-title">任务列表</h6>
             <div className="my-sign-page-invitation">
                     <div className="my-sign-page-invitation-left">
