@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { PageTitle } from '../../../components'
 import { Toast, Modal } from 'antd-mobile';
 import { httpApp as request } from '../../../utils'
+import QRCode from '../../../utils/qrcode'
 import classnames from 'classnames';
 import './index.scss';
 
@@ -86,7 +87,40 @@ function MySign() {
       };
       request(params)
         .then(response => {
-          setQRCode(response && response.userErCodeUrl || '')
+          var options = {
+            text: response && response.userErCodeUrl || '',
+            width: 200,
+            height: 200,
+            codeWidth: 200,
+            codeHeight: 200,
+            top: 0,
+            left: 0,
+            /**
+             * materials unit options
+             */
+            // materials: {
+            //     border: "./materials/electron/border.png",
+            //     eye: "./materials/electron/eye.png",
+            //     row4: "./materials/electron/row4.png",
+            //     col4: "./materials/electron/col3.png",
+            //     row2col3: "./materials/electron/row2col3.png",
+            //     row3col2: "./materials/electron/row3col2.png",
+            //     col3: ["./materials/electron/col3.png", "./materials/electron/col3_2.png"],
+            //     row2col2: "./materials/electron/row2col2.png",
+            //     corner: "./materials/electron/corner.png",
+            //     row2: ["./materials/electron/row2.png", "./materials/electron/row2_2.png"],
+            //     col2: "./materials/electron/col2.png",
+            //     single: ["./materials/electron/single.png", "./materials/electron/single_2.png"],
+            // }
+          }
+        /**
+          * when the artqrcode loaded, run this function
+          */
+          function callBack(status) {
+              console.log(status) // [loaded|success]
+          }
+          var code = new QRCode(document.getElementById("qrcode"), options, callBack);
+          // setQRCode(response && response.userErCodeUrl || '')
         })
         .catch(error => {
         })
@@ -140,8 +174,7 @@ function MySign() {
         }
         _getSignInAccountDto()
         getAccountList()
-        getAccountNum();
-        getQRCode()
+        getAccountNum()
     }, [signOrNot])
 
     const signButton = () => {
@@ -233,6 +266,7 @@ function MySign() {
                     </div>
                     <button className="my-sign-page-invitation-right" onClick={() => {
                       setShowQR(true)
+                      getQRCode()
                     }}>立即邀请</button>
             </div>
 
@@ -260,7 +294,8 @@ function MySign() {
                 setShowQR(false)
               }}
               visible={showQR}>
-              <img className="wechatCode" src={qrCode} alt="" />
+              <div id="qrcode"></div>
+              {/* <img className="wechatCode" src={qrCode} alt="" /> */}
             </Modal>
             
         </div>
