@@ -5,6 +5,7 @@ import { Radio, List, Toast } from 'antd-mobile';
 import { getQueryString } from '../../utils/common'
 
 import request from '../../utils/http'
+import requestApp from '../../utils/http-app'
 
 import { PageTitle } from '../../components';
 
@@ -41,6 +42,7 @@ export default class SubmitOrders extends Component{
             remark: "",
             couponIds: [],
             payList: [],
+            shopCartOrders: [], // 商铺结算信息
         }
 
         this.addressInfo = window.localStorage.getItem('addressInfo') || undefined
@@ -51,8 +53,7 @@ export default class SubmitOrders extends Component{
     }
 
     componentDidMount() {
-        this.loadOrderData();
-
+        this._loadOrderData()
         /**
          * payType
          * 
@@ -67,6 +68,11 @@ export default class SubmitOrders extends Component{
     }
 
     submitPay = () => {
+        // 判断是否选择地址 如未选择请先选择
+        if (!this.addressInfo) {
+            Toast.info('请先选择地址');
+            return;
+        }
         // 根据订单id获取
         if (this.isWX) {
             this.wxPay()
@@ -75,61 +81,41 @@ export default class SubmitOrders extends Component{
         }
     }
 
-    wxPay = () => {
-        let addrId = 0;
-        if (this.state.userAddr != null) {
-            addrId = this.state.userAddr.addrId;
-        }
-        const params = {
-            url: "/p/order/confirm",
-            method: "POST",
-            data: {
-                addrId: addrId,
-                orderItem: JSON.parse(localStorage.getItem("orderItem")),
-                basketIds: this.state.orderEntry === "0" ? JSON.parse(localStorage.getItem("basketIds")) : undefined,
-                couponIds: this.state.couponIds,
-                userChangeCoupon: 1
-            },
-        };
-        Toast.loading('支付中', 0);
-        request(params)
-            .then(res => {
-                Toast.hide();
-            })
-            .catch(error => {
-                const { data } = error;
-                if (typeof data === 'string') {
-                    Toast.hide();
-                    Toast.info(data);
-                } else {
-                    Toast.hide();
-                }
-            })
+    wxPay = async () => {
+        // 结算，生成订单信息
+        Toast.loading('生成订单中..', 0);
+        const { shopCartOrders } = await this.loadOrderData();
+        Toast.hide();
+        // 提交订单，返回支付流水号
+        const { orderNumbers } = await this.submitOrderReturnNumber(shopCartOrders)
+        // 根据订单号进行支付
+        Toast.loading('支付中..', 0);
+        const response = await this.pay(orderNumbers);
+        Toast.hide();
+
+        // 获取到的值
+        // appId: "wxd3c4504fd36f4c93"
+        // nonceStr: "1595688566141"
+        // packageValue: "Sign=WXPay"
+        // partnerId: "1594221891"
+        // prepayId: "wx25224926043124a0907a37301805892900"
+        // sign: "BFAC65A276CE5B41273EAB587694E89B"
+        // timeStamp: "1595688566"
+        console.log(response)
     }
 
-    ineroPay = () => {
-        const { prodId } = JSON.parse(localStorage.getItem("orderItem"));
-        const params = {
-            url: "/p/myOrder/ineroOrder",
-            method: "POST",
-            data: {
-                orderId: prodId,
-            },
-        };
-        Toast.loading('支付中', 0);
-        request(params)
-            .then(res => {
-                Toast.hide();
-            })
-            .catch(error => {
-                const { data } = error;
-                if (typeof data === 'string') {
-                    Toast.hide();
-                    Toast.info(data);
-                } else {
-                    Toast.hide();
-                }
-            })
+    ineroPay = async () => {
+        // 结算，生成订单信息
+        Toast.loading('生成订单中..', 0);
+        const { shopCartOrders } = await this.loadOrderData();
+        Toast.hide();
+        // 提交订单，返回支付流水号
+        const { orderNumbers } = await this.submitOrderReturnNumber(shopCartOrders)
+        // 根据订单号进行支付
+        Toast.loading('支付中..', 0);
+        const response = await this.ineroPayFn(orderNumbers);
+        Toast.hide();
+        console.log(response)
     }
 
     payChange = (value) => {
@@ -166,24 +152,10 @@ export default class SubmitOrders extends Component{
         history.push('/addressList')
     }
 
-    /**
-     * 提交订单
-    */
-    toPay = () => {
-        if (!this.state.userAddr) {
-            Toast.info('请选择地址', 2)
-            return;
-        }
-
-        this.submitOrder();
-    }
-
-    //加载订单数据
+    // 结算，生成订单信息
     loadOrderData = () => {
-        let addrId = 0;
-        if (this.state.userAddr != null) {
-            addrId = this.state.userAddr.addrId;
-        }
+        const addressInfo = localStorage.getItem('addressInfo')
+        const { addrId } = JSON.parse(addressInfo)
         const params = {
             url: "/p/order/confirm",
             method: "POST",
@@ -195,10 +167,26 @@ export default class SubmitOrders extends Component{
                 userChangeCoupon: 1
             },
         };
-        Toast.loading('正在加载中', 0);
+        return request(params)
+    }
+
+    // 加载订单数据
+    _loadOrderData = () => {
+        const addressInfo = localStorage.getItem('addressInfo')
+        const { addrId } = JSON.parse(addressInfo)
+        const params = {
+            url: "/p/order/confirm",
+            method: "POST",
+            data: {
+                addrId: addrId || 0,
+                orderItem: JSON.parse(localStorage.getItem("orderItem")),
+                basketIds: this.state.orderEntry === "0" ? JSON.parse(localStorage.getItem("basketIds")) : undefined,
+                couponIds: this.state.couponIds,
+                userChangeCoupon: 1
+            },
+        };
         request(params)
             .then(res => {
-                Toast.hide();
                 let orderItems = [];
                 res.shopCartOrders[0].shopCartItemDiscounts.forEach(itemDiscount => {
                     orderItems = orderItems.concat(itemDiscount.shopCartItems)
@@ -232,16 +220,55 @@ export default class SubmitOrders extends Component{
                     shopReduce: res.shopCartOrders[0].shopReduce,
                 });
             })
-            .catch(error => {
-                console.log('error', error)
-                const { data } = error;
-                if (typeof data === 'string') {
-                    Toast.hide();
-                    Toast.info(data);
-                } else {
-                    Toast.hide();
-                }
-            })
+    }
+
+    /**
+     * 提交订单，返回支付流水号
+     * @date 2020-07-25
+     * @returns {any}
+     */
+    submitOrderReturnNumber = (shopCartOrders) => {
+        const _shopCartOrders = shopCartOrders.map(item => ({
+            remarks: item.remarks || "",
+            shopId: Number(item.shopId),
+        }))
+        const params = {
+            url: "/p/order/submit",
+            method: "POST",
+            data: {
+                orderShopParam: _shopCartOrders
+            },
+        };
+        return request(params)
+    }
+
+    /**
+     * 根据订单号进行支付
+     * @date 2020-07-25
+     * @returns {any}
+     */
+    pay = (orderNumbers) => {
+        const params = {
+            url: "/p/order/pay",
+            method: "POST",
+            data: {
+                orderNumbers: orderNumbers,
+                payType: 1
+            },
+        };
+        return request(params)
+    }
+
+    ineroPayFn = (orderNumbers) => {
+        const params = {
+            url: "/app/order/payOrderMallByWuMengBi",
+            method: "POST",
+            data: {
+                orderId: orderNumbers,
+                payType: 0
+            },
+        };
+        return requestApp(params)
     }
 
     render() {
@@ -272,31 +299,36 @@ export default class SubmitOrders extends Component{
                 <svg className="submit-orders-page-select-address-right" t="1592120801594" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8271"><path d="M368.3 879.4c-5.1 0-10.2-2-14.1-5.9-7.8-7.8-7.8-20.5 0-28.3L599 600.4c23.6-23.6 36.6-55 36.6-88.4s-13-64.8-36.6-88.4L354.2 178.7c-7.8-7.8-7.8-20.5 0-28.3s20.5-7.8 28.3 0l244.8 244.8c31.2 31.2 48.4 72.6 48.4 116.7 0 44.1-17.2 85.6-48.4 116.7l-244.8 245c-3.9 3.9-9 5.8-14.2 5.8z" p-id="8272" fill="#2c2c2c"></path></svg>
             </div>
             <div className="submit-orders-page-goods-info">
-                <div className="prod-item">
-                    {
-                        orderItems && orderItems.map((item, key) => {
-                            return (
-                                <React.Fragment key={key}>
-                                    <div className="item-cont">
-                                        <div className="prod-pic">
-                                            <img src={item.pic} alt=""/>
-                                        </div>
-                                        <div className="prod-info">
-                                            <p className="prodname">{item.prodName}</p>
-                                            <div className="prod-info-cont">{item.skuName}</div>
-                                            <div className="price-nums">x {item.prodCount}</div>
-                                        </div>
-                                        
-                                    </div>
-                                    <div className="totalPrice">
-                                        <p className='symbol'>￥</p>
-                                        <p className='big-num'>{item.price}</p>
-                                    </div>
-                                </React.Fragment>
-                            )
-                        })
-                    }
-                </div>
+                {
+                    orderItems && Array.isArray(orderItems) && orderItems.length > 0
+                        ? (
+                            <div className="prod-item">
+                                {
+                                    orderItems.map((item, key) => {
+                                        return (
+                                            <React.Fragment key={key}>
+                                                <div className="item-cont">
+                                                    <div className="prod-pic">
+                                                        <img src={item.pic} alt=""/>
+                                                    </div>
+                                                    <div className="prod-info">
+                                                        <p className="prodname">{item.prodName}</p>
+                                                        <div className="prod-info-cont">{item.skuName}</div>
+                                                        <div className="price-nums">x {item.prodCount}</div>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div className="totalPrice">
+                                                    <p className='symbol'>￥</p>
+                                                    <p className='big-num'>{item.price}</p>
+                                                </div>
+                                            </React.Fragment>
+                                        )
+                                    })
+                                }
+                            </div>)
+                        : null
+                }
             </div>
             <div className="submit-orders-page-pay-area">
                 <List>
