@@ -1,0 +1,13 @@
+
+From: whistle@2.5.14
+Node: v12.9.1
+Date: 2020-8-1 20:33:53
+Error: listen EADDRINUSE: address already in use :::8899
+    at Server.setupListenHandle [as _listen2] (net.js:1228:14)
+    at listenInCluster (net.js:1276:12)
+    at Server.listen (net.js:1364:7)
+    at Server.<anonymous> (/Users/shaoyanjin/.npm-global/lib/node_modules/whistle/lib/index.js:85:14)
+    at Object.onceWrapper (events.js:297:20)
+    at Server.emit (events.js:209:13)
+    at emitCloseNT (net.js:1572:8)
+    at processTicksAndRejections (internal/process/task_queues.js:77:11)
