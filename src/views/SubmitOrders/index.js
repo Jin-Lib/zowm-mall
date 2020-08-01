@@ -164,7 +164,7 @@ export default class SubmitOrders extends Component{
     // 结算，生成订单信息
     loadOrderData = () => {
         const addressInfo = localStorage.getItem('addressInfo')
-        const { addrId } = JSON.parse(addressInfo)
+        const { addrId } = JSON.parse(addressInfo || '{}') || {}
         const params = {
             url: "/p/order/confirm",
             method: "POST",
@@ -182,7 +182,7 @@ export default class SubmitOrders extends Component{
     // 加载订单数据
     _loadOrderData = () => {
         const addressInfo = localStorage.getItem('addressInfo')
-        const { addrId } = JSON.parse(addressInfo)
+        const { addrId } = JSON.parse(addressInfo || '{}') || {}
         const params = {
             url: "/p/order/confirm",
             method: "POST",
