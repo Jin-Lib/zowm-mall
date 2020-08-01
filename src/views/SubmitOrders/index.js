@@ -110,7 +110,7 @@ export default class SubmitOrders extends Component{
         // prepayId: "wx25224926043124a0907a37301805892900"
         // sign: "BFAC65A276CE5B41273EAB587694E89B"
         // timeStamp: "1595688566"
-        console.log(response)
+        // console.log(response)
     }
 
     ineroPay = async () => {
