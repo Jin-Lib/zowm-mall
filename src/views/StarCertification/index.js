@@ -386,13 +386,18 @@ class StartCertification extends Component {
                   }}
                 > */}
                 <UploadBox className="m-10" src={this.state.photo1} onClick={() => {
-                  if(data && data.success == '1') {
-                    this.setState({
-                      photo1: data.data || ''
-                    });
-                  } else {
-                    Toast.info(data && data.message || '上传失败')
-                  }
+                  upload({
+                    uploadType: 17
+                  }, (data) => {
+                    if(data && data.success == '1') {
+                      this.setState({
+                        photo1: data.data || ''
+                      });
+                    } else {
+                      Toast.info(data && data.message || '上传失败')
+                    }
+                    
+                  })
                 }} />
                 {/* </Upload> */}
                 
