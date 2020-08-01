@@ -36,14 +36,14 @@ token = "bearereyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjg2NjY2MDAwNTkyMTcxMDEwIiwiem93
 
 
 const httpAppInstance = axios.create({
-    baseURL: isDevelopment ? '/h5Api' : 'http://testh5.zhongouwumeng.com/appapis',
+    baseURL: isDevelopment ? '/h5Api' : 'http://testh5.weui.com/appapis',
     headers: {
         'Authorization': token//"bearereyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjgyMTI0NzY0NDU5OTg2OTQ2Iiwiem93bTEyMyI6IkFOOTc1QSIsImV4cCI6MTU5NzEwOTMzOSwiaWF0IjoxNTk0NTE3MzM5fQ.3V8S-66G29xIQEvpph0WuiJWSojm1vMkSQAX_ZQlI8fdKhshJHJC0Chb7r0o9Yq2CrabgttCO-HcQEm6tyXhCQ",
     },
 });
 
 const httpInstance = axios.create({
-    baseURL: isDevelopment ? '/api' : 'http://testh5.zhongouwumeng.com/mallapis',
+    baseURL: isDevelopment ? '/api' : 'http://testh5.weui.com/mallapis',
     headers: {
         'Authorization': token//"bearereyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjc4ODgzNjgxNzk4MTA3MTM3Iiwiem93bTEyMyI6IkFWNklWSiIsImV4cCI6MTU5NjMzNjYxMCwiaWF0IjoxNTkzNzQ0NjEwfQ.evwEuIh9Aley3Dk0xiJSLg1St3TMcb_5eEFkubV9ioDT3Ka4rzjr2QePaNOOV47Io0_BfvOsiKNYKBGuxYsYaQ",
     },
