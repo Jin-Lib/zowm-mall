@@ -8,6 +8,7 @@ import request from '../../utils/http'
 import requestApp from '../../utils/http-app'
 
 import { PageTitle } from '../../components';
+import { wxPay } from '../../utils/bridge'
 
 import './index.scss';
 
@@ -90,8 +91,16 @@ export default class SubmitOrders extends Component{
         const { orderNumbers } = await this.submitOrderReturnNumber(shopCartOrders)
         // 根据订单号进行支付
         Toast.loading('支付中..', 0);
-        const response = await this.pay(orderNumbers);
-        Toast.hide();
+        // const response = await this.pay(orderNumbers);
+        wxPay({
+          orderSourceType: 1,
+          orderId: orderNumbers
+        }, function(data) {
+          this.setState({
+            data: JSON.stringify(data)
+          });
+          Toast.hide();
+        })
 
         // 获取到的值
         // appId: "wxd3c4504fd36f4c93"
@@ -282,6 +291,10 @@ export default class SubmitOrders extends Component{
 
         return (<div className="submit-orders-page">
             <PageTitle title="确认订单" />
+            支付之后返回的数据：
+            {
+              this.state.data
+            }
             <div className="submit-orders-page-select-address" onClick={this.toAddrListPage}>
                 {
                     !this.addressInfo
