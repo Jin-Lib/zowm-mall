@@ -54,7 +54,7 @@ export default class SubmitOrders extends Component{
     }
 
     componentDidMount() {
-        this._loadOrderData()
+        // this._loadOrderData()
         /**
          * payType
          * 
