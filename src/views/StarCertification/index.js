@@ -389,6 +389,7 @@ class StartCertification extends Component {
                   upload({
                     uploadType: 17
                   }, (data) => {
+                    console.log(data);
                     if(data && data.success == '1') {
                       this.setState({
                         photo1: data.data || ''
