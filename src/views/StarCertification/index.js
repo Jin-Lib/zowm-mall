@@ -387,7 +387,7 @@ class StartCertification extends Component {
                 > */}
                 <UploadBox className="m-10" src={this.state.photo1} onClick={() => {
                   upload({
-                    uploadFile: 17
+                    uploadType: 17
                   }, (data) => {
                     console.log(data);
                   })
