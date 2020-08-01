@@ -394,7 +394,7 @@ class StartCertification extends Component {
                 }} />
                 {/* </Upload> */}
                 
-                <Upload
+                {/* <Upload
                   style={{ width: '4.4rem', height: '3.1rem' }}
                   onChange={(data) => {
                     this.setState({
@@ -404,7 +404,14 @@ class StartCertification extends Component {
                   }}
                 >
                   <UploadBox className="m-10 ml-10" src={this.state.photo2}/>
-                </Upload>
+                </Upload> */}
+                <UploadBox className="m-10 ml-10" src={this.state.photo2} onClick={() => {
+                  upload({
+                    UploadType: 17
+                  }, (data) => {
+                    console.log(data);
+                  })
+                }} />
               </div>
               <div className="strcture-box">
                 <div className="strcture-item">营业执照</div>
