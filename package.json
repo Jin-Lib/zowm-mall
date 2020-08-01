@@ -46,6 +46,7 @@
     "customize-cra": "^1.0.0",
     "http-proxy-middleware": "^1.0.4",
     "prop-types": "^15.7.2",
-    "react-app-rewired": "^2.1.6"
+    "react-app-rewired": "^2.1.6",
+    "vconsole": "^3.3.4"
   }
 }

@@ -4,8 +4,8 @@ module.exports = function(app) {
     app.use(
         '/api',
         createProxyMiddleware({
-            // target: 'http://47.114.81.48:8086',
-            target: 'http://zowm.free.idcfengye.com',
+            target: 'http://47.114.81.48:8086',
+            // target: 'http://zowm.free.idcfengye.com',
             changeOrigin: true,
             pathRewrite: { "^/api": "" },
         })
@@ -13,8 +13,8 @@ module.exports = function(app) {
     app.use(
         '/h5Api',
         createProxyMiddleware({
-            // target: 'http://app.zhongouwumeng.com',
-            target: 'http://zowm.free.idcfengye.com',
+            target: 'http://app.zhongouwumeng.com',
+            // target: 'http://zowm.free.idcfengye.com',
             changeOrigin: true,
             pathRewrite: { "^/h5Api": "" },
         })
