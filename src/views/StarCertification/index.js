@@ -386,11 +386,13 @@ class StartCertification extends Component {
                   }}
                 > */}
                 <UploadBox className="m-10" src={this.state.photo1} onClick={() => {
-                  upload({
-                    uploadType: 17
-                  }, (data) => {
-                    console.log(data);
-                  })
+                  if(data && data.success == '1') {
+                    this.setState({
+                      photo1: data.data || ''
+                    });
+                  } else {
+                    Toast.info(data && data.message || '上传失败')
+                  }
                 }} />
                 {/* </Upload> */}
                 
@@ -407,9 +409,16 @@ class StartCertification extends Component {
                 </Upload> */}
                 <UploadBox className="m-10 ml-10" src={this.state.photo2} onClick={() => {
                   upload({
-                    UploadType: 17
+                    uploadType: 17
                   }, (data) => {
-                    console.log(data);
+                    if(data && data.success == '1') {
+                      this.setState({
+                        photo2: data.data || ''
+                      });
+                    } else {
+                      Toast.info(data && data.message || '上传失败')
+                    }
+                    
                   })
                 }} />
               </div>
@@ -473,7 +482,7 @@ class StartCertification extends Component {
             <CInputItem label="地址" value={address} onChange={(val) => { this.onChangeInput(val, 'address') }} required placeholder="请输入您的地址～" />
             <CInputItem label="上传资料" required>
               <div className="upload-flex">
-                <Upload
+                {/* <Upload
                   style={{ width: '4.4rem', height: '3.1rem' }}
                   onChange={(data) => {
                     this.setState({
@@ -483,8 +492,22 @@ class StartCertification extends Component {
                   }}
                 >
                   <UploadBox className="m-10" src={this.state.photo3} />
-                </Upload>
-                <Upload
+                </Upload> */}
+                <UploadBox className="m-10" src={this.state.photo3} onClick={() => {
+                  upload({
+                    uploadType: 17
+                  }, (data) => {
+                    if(data && data.success == '1') {
+                      this.setState({
+                        photo3: data.data || ''
+                      });
+                    } else {
+                      Toast.info(data && data.message || '上传失败')
+                    }
+                    
+                  })
+                }} />
+                {/* <Upload
                   style={{ width: '4.4rem', height: '3.1rem' }}
                   onChange={(data) => {
                     this.setState({
@@ -494,7 +517,21 @@ class StartCertification extends Component {
                   }}
                 >
                   <UploadBox className="m-10 ml-10" src={this.state.photo4} />
-                </Upload>
+                </Upload> */}
+                <UploadBox className="m-10 ml-10" src={this.state.photo4} onClick={() => {
+                  upload({
+                    uploadType: 17
+                  }, (data) => {
+                    if(data && data.success == '1') {
+                      this.setState({
+                        photo4: data.data || ''
+                      });
+                    } else {
+                      Toast.info(data && data.message || '上传失败')
+                    }
+                    
+                  })
+                }} />
               </div>
               <div className="strcture-box">
                 <div className="strcture-item">导师头像</div>
