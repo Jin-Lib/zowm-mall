@@ -32,7 +32,7 @@ if(/token=([0-9a-zA-Z._\-]+)/.test(window.location.href)) {
 }
 token = decodeURIComponent(token);
 
-token = "bearereyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjg2NjY2MDAwNTkyMTcxMDEwIiwiem93bTEyMyI6IlFPNkVMWSIsImV4cCI6MTU5ODE5MjA1NCwiaWF0IjoxNTk1NjAwMDU0fQ.egVUuKdG3Oo3hZ7dYTkGouwjDuj7M5c6PxUOQKQ0VpgBvfg7G8stiMf45u6q1IG72XeLVGdypT514-xPcHql1A"
+// token = "bearereyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjg2NjY2MDAwNTkyMTcxMDEwIiwiem93bTEyMyI6IlFPNkVMWSIsImV4cCI6MTU5ODE5MjA1NCwiaWF0IjoxNTk1NjAwMDU0fQ.egVUuKdG3Oo3hZ7dYTkGouwjDuj7M5c6PxUOQKQ0VpgBvfg7G8stiMf45u6q1IG72XeLVGdypT514-xPcHql1A"
 
 
 const httpAppInstance = axios.create({
