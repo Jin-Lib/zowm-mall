@@ -1,6 +1,6 @@
 let bridge = window._wmjs;
 
-const { pop, navigateTo, pay } = bridge || {};
+const { pop, navigateTo, pay, uploadFile } = bridge || {};
 
 export function back(params = {}, callback = () => {}) {
   pop && pop(params, callback);
@@ -17,4 +17,8 @@ export function navigate(params = {}, callback = () => {}) {
 
 export function wxPay(params, callback = () => {}) {
   pay && pay(params, callback)
+}
+
+export function upload(params, callback = () => {}) {
+  uploadFile && uploadFile(params, callback)
 }

@@ -6,6 +6,7 @@ import { upload1, down } from '../../assets/imgs';
 import request from '../../utils/http-app'
 import Dances from '../Dances';
 import { generateUUID } from '../../utils/common';
+import { upload } from '../../utils/bridge'
 
 const RadioItem =  Radio.RadioItem;
 
@@ -375,14 +376,7 @@ class StartCertification extends Component {
             <CInputItem label="地址" value={address} onChange={(val) => { this.onChangeInput(val, 'address') }} required placeholder="请输入机构地址～" />
             <CInputItem label="上传资料" required>
               <div className="upload-flex">
-                {/* <UploadImg style={{ backgroundColor: 'red' }} getSign={this.getQNSign} {...(qnUploadConfig || {})} onChange={(values) => {
-                  this.setState({
-                    photo1: qnUploadConfig && this.key && (qnUploadConfig.imageShowServiceHost + this.key)
-                  });
-                }}>
-                  <UploadBox className="m-10" src={this.state.photo1} />
-                </UploadImg> */}
-                <Upload
+                {/* <Upload
                   style={{ width: '4.4rem', height: '3.1rem' }}
                   onChange={(data) => {
                     this.setState({
@@ -390,9 +384,15 @@ class StartCertification extends Component {
                       photo1: data.url
                     });
                   }}
-                >
-                  <UploadBox className="m-10" src={this.state.photo1} />
-                </Upload>
+                > */}
+                <UploadBox className="m-10" src={this.state.photo1} onClick={() => {
+                  upload({
+                    uploadFile: 17
+                  }, (data) => {
+                    console.log(data);
+                  })
+                }} />
+                {/* </Upload> */}
                 
                 <Upload
                   style={{ width: '4.4rem', height: '3.1rem' }}
@@ -418,9 +418,9 @@ class StartCertification extends Component {
                   { (detail.status === 1) && <button onClick={this.cancelOrganTutor}>取消</button> }
                   { (detail.status === 3) && <button onClick={this.applyOrganTutor}>修改</button> }
                 </div>)
-                : <SButton onClick={this.applyOrganTutor}>
+                : ( detail.status !== 2 && <SButton onClick={this.applyOrganTutor}>
                   保存
-                </SButton>
+                </SButton>)
             }
           </Tabs.Item>
           <Tabs.Item title="KOL/个人领袖" key={2}>
@@ -500,9 +500,9 @@ class StartCertification extends Component {
                     { (detail.status === 1) && <button onClick={this.cancelOrganTutor}>取消</button> }
                     { (detail.status === 3) && <button onClick={this.applyTutor}>修改</button> }
                   </div>)
-                : <SButton onClick={this.applyTutor}>
+                : ( detail.status !== 2 && <SButton onClick={this.applyTutor}>
                   保存
-                </SButton>
+                </SButton>)
             }
           </Tabs.Item>
         </Tabs>

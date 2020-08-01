@@ -125,6 +125,7 @@ export default class SubmitOrders extends Component{
         const response = await this.ineroPayFn(orderNumbers);
         Toast.hide();
         console.log(response)
+        Toast.info('支付成功')
     }
 
     payChange = (value) => {
@@ -274,7 +275,7 @@ export default class SubmitOrders extends Component{
             method: "POST",
             data: {
                 orderId: orderNumbers,
-                payType: 0
+                payChanel: 0
             },
         };
         return requestApp(params)
