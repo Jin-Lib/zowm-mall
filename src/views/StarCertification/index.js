@@ -597,10 +597,10 @@ const Tag = (props) => {
 }
 
 const UploadBox = (props) => {
-  const { className, src } = props;
+  const { className, src, onClick } = props;
 
   return (
-    <div className={`upload-box-container ${className}`}>
+    <div className={`upload-box-container ${className}`} onClick={onClick}>
       <img className="upload-box-img" src={src || upload1} />
     </div>
   );
