@@ -233,19 +233,19 @@
 }
 
 .prod-item .total-num .prodcount {
-    margin-right: 20px;
+    margin-right: .533333rem /* 20/37.5 */;
 }
 .totalPrice {
-    height: 40px;
-    line-height: 40px;
+    height: 1.066667rem /* 40/37.5 */;
+    line-height: 1.066667rem /* 40/37.5 */;
     text-align: right;
-    border-top: 2px solid #f1f1f1;
+    border-top: 1px solid #f3f3f3;
     p {
         display: inline-block;
         color: red;
         font-weight: 600;
     }
     .big-num {
-        font-size: 22px;
+        font-size: .586667rem /* 22/37.5 */;
     }
 }

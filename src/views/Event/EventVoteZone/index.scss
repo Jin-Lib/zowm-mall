@@ -105,7 +105,7 @@
                 }
                 li.active {
                     img {
-                        border: 1px solid red;
+                        border: 1px solid #FF6262;
                     }
                 }
                 li {
@@ -121,7 +121,8 @@
                         width: 1.466667rem /* 55/37.5 */;
                         height: 1.466667rem /* 55/37.5 */;
                         border-radius: 50%;
-                        background: red;
+                        background: #FF6262;
+                        box-shadow:0px 0px 10px 0px rgba(255,16,59,0.2);
                         margin-bottom: .4rem /* 15/37.5 */;
                     }
                     p {

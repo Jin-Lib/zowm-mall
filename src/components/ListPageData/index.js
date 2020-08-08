@@ -57,6 +57,7 @@ class ListPageData extends Component {
 
   // 滚动到底部加载更多
   onEndReached = () => {
+    console.log('到底了')
     const { hasMore, isLoading, pagination } = this.state;
     if(!hasMore || isLoading) return;
     this.setState({

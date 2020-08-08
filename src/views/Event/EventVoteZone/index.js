@@ -3,6 +3,7 @@ import { Carousel, Toast } from 'antd-mobile'
 import { PageTitle, ContentTitle } from '../../../components'
 import { httpApp as request } from '../../../utils'
 import classnames from 'classnames'
+import { isEmpty } from 'loadsh'
 import './index.scss'
 
 function EventVoteZone(props) {
@@ -36,13 +37,8 @@ function EventVoteZone(props) {
                         result.push(temp);
                     }
                     setPeopleList(result)
-                    setPlayer(res[0])
+                    isEmpty(player) && setPlayer(res[0] || {})
                     Toast.hide();
-                })
-                .catch((error) => {
-                    const { data } = error;
-                    const { error: errMsg } = data || {};
-                    Toast.info(errMsg || "当前网络异常, 请稍后重试!")
                 })
         })
     }
@@ -62,11 +58,6 @@ function EventVoteZone(props) {
                 .then((res) => {
                     Toast.hide();
                     getVoteInfo(location.state)
-                })
-                .catch((error) => {
-                    const { data } = error;
-                    const { error: errMsg } = data || {};
-                    Toast.info(errMsg || "当前网络异常, 请稍后重试!")
                 })
         })
     }

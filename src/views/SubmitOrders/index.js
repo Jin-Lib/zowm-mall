@@ -54,7 +54,7 @@ export default class SubmitOrders extends Component{
     }
 
     componentDidMount() {
-        // this._loadOrderData()
+        this._loadOrderData()
         /**
          * payType
          * 
@@ -85,7 +85,8 @@ export default class SubmitOrders extends Component{
     wxPay = async () => {
         // 结算，生成订单信息
         Toast.loading('生成订单中..', 0);
-        const { shopCartOrders } = await this.loadOrderData();
+        // const { shopCartOrders } = await this.loadOrderData();
+        const { shopCartOrders } = this.state;
         Toast.hide();
         // 提交订单，返回支付流水号
         const { orderNumbers } = await this.submitOrderReturnNumber(shopCartOrders)
@@ -116,7 +117,8 @@ export default class SubmitOrders extends Component{
     ineroPay = async () => {
         // 结算，生成订单信息
         Toast.loading('生成订单中..', 0);
-        const { shopCartOrders } = await this.loadOrderData();
+        // const { shopCartOrders } = await this.loadOrderData();
+        const { shopCartOrders } = this.state;
         Toast.hide();
         // 提交订单，返回支付流水号
         const { orderNumbers } = await this.submitOrderReturnNumber(shopCartOrders)
@@ -184,6 +186,11 @@ export default class SubmitOrders extends Component{
     _loadOrderData = () => {
         const addressInfo = localStorage.getItem('addressInfo')
         const { addrId } = JSON.parse(addressInfo || '{}') || {}
+
+        if(!addrId) {
+          Toast.info('请选择收获地址');
+          return;
+        }
         const params = {
             url: "/p/order/confirm",
             method: "POST",
@@ -228,6 +235,7 @@ export default class SubmitOrders extends Component{
                     userAddr: res.userAddr,
                     transfee: res.shopCartOrders[0].transfee,
                     shopReduce: res.shopCartOrders[0].shopReduce,
+                    shopCartOrders: res.shopCartOrders
                 });
             })
     }
@@ -292,10 +300,6 @@ export default class SubmitOrders extends Component{
 
         return (<div className="submit-orders-page">
             <PageTitle title="确认订单" />
-            支付之后返回的数据：
-            {
-              this.state.data
-            }
             <div className="submit-orders-page-select-address" onClick={this.toAddrListPage}>
                 {
                     !this.addressInfo

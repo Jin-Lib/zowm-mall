@@ -1,5 +1,5 @@
 import React, { PureComponent, useState, useEffect } from 'react';
-import { Toast } from 'antd-mobile';
+import { Toast, Modal } from 'antd-mobile';
 
 import request from '../../utils/http'
 
@@ -10,6 +10,7 @@ import config from '../../utils/config'
 
 import Carousel from '../../components/Carousel'
 import GoodsBottom from '../../components/GoodsBottom'
+import { PageTitle } from '../../components'
 
 import './index.scss';
 
@@ -369,7 +370,7 @@ class GoodsDetails extends PureComponent {
             imgs, prodName, price, brief, selectedProp, prodNum,
             content, skuShow, defaultSku, pic, findSku, skuGroup,
             allProperties, selectedPropObj, propKeys, transName,
-            prodId,
+            prodId, payType
         } = this.state;
 
         const handleClassName = (listItem, item) => {
@@ -380,85 +381,109 @@ class GoodsDetails extends PureComponent {
         }
 
         return (<div className="goods-details">
+            <PageTitle title="商品详情" />
+            <div className="h-44"></div>
             <Carousel data={imgs}/>
             <div className="goods-details-info">
-                <h6 className="goods-details-info-price"><span>¥ </span>{price}</h6>
+                {
+                  payType === 1 ? (
+                    <h6 className="goods-details-info-price"><span>¥ </span>{price}</h6>
+                  ) : (
+                    <h6 className="goods-details-info-price"><span>舞盟币 </span>{price}</h6>
+                  )
+                }
+                
                 <p className="goods-details-info-name">{prodName}</p>
                 <p className="goods-details-info-desc">{brief}</p>
             </div>
+            <div style={{ height: '10px', backgroundColor: '#f3f3f3' }}></div>
             <div
                 className="goods-details-send goods-detail-item"
                 onClick={this.showSku}>
-                <span className="goods-details-send-label">已选</span>
+                <span className="goods-details-send-label">选择</span>
                 <span className="goods-details-send-address">{selectedProp.length>0?selectedProp+'，':selectedProp}{prodNum}件  {transName}</span>
             </div>
+            <div style={{ height: '10px', backgroundColor: '#f3f3f3' }}></div>
             <div className="goods-details-goodsDetail-desc">
                 <p className="goods-details-goodsDetail-desc-title">宝贝详情</p>
                 <div className="goods-details-goodsDetail-desc-container" dangerouslySetInnerHTML={{ __html: content }}></div>
             </div>
             <GoodsBottom buyNow={this.showSku} prodId={prodId} />
-            {
-                skuShow ?
-                    (<div id="sku">
-                        <div className="sku-mask" onClick={this.showSku}/>
-                        <div className="sku-content-box">
-                            <div className="sku-goods-info">
-                                <img src={(defaultSku && defaultSku.pic)?defaultSku.pic:pic} alt=""/>
-                                {
-                                    findSku
-                                        ?  (
-                                            <div className="sku-goods-info-box">
-                                                <div className="sku-goods-info-box-price"><span>¥</span> {defaultSku.price}</div>
-                                                <div className="sku-goods-info-box-stocks">{selectedProp.length>0?selectedProp+'，':selectedProp}{prodNum}件</div>
-                                                {/* {stocks !== 0 ? <div className="sku-goods-info-box-stocks">库存{}件</div> : null} */}
-                                                {/* {selectDefaultValue ? (<p className="sku-goods-info-box-select">请选择: {selectDefaultValue}</p>) : null} */}
-                                            </div>
-                                        )
-                                        : (<div className="sku-goods-info-box">
-                                            <div className="sku-goods-info-box-price">无货</div>
-                                        </div>)
-                                }
-                                
-                            </div>
-                            <div className="sku-list">
-                                {
-                                    Object.keys(skuGroup).map((listItem, listIndex) => {
-                                        return (<div className="sku-list-item-box" key={listIndex}>
-                                            <h6>{listItem}</h6>
-                                            <ul>
-                                                {
-                                                    skuGroup[listItem].map((item, index) => {
-                                                        return (
-                                                        <li
-                                                            className={handleClassName(listItem, item)}
-                                                            onClick={this.toChooseItem}
-                                                            data-key={listItem}
-                                                            data-val={item}
-                                                            key={index}>
-                                                            {item}
-                                                        </li>)
-                                                    })
-                                                }
-                                            </ul>
-                                        </div>)
-                                    })
-                                }
-                            </div>
-                            <div className="sku-count">
-                                <h6>数量</h6>
-                                <div className="sku-count-op">
-                                    <div className="sku-count-op-item sku-count-op-minus" onClick={this.onCountMinus}>-</div>
-                                    <div className="sku-count-op-item sku-count-op-count">{prodNum}</div>
-                                    <div className="sku-count-op-item sku-count-op-plus" onClick={this.onCountPlus}>+</div>
-                                </div>
-                            </div>
-                            <div className={findSku ? "sku-footer-buttonGroup" : "sku-footer-buttonGroup-disabled"}>
-                                {/* <button onClick={this.addToCart}>加入购物车</button> */}
-                                <button onClick={this.buyNow}>立即购买</button>
-                            </div>
+                
+            { skuShow && (
+              <Modal
+                popup
+                visible={skuShow}
+                closable
+                className="goods-modal-box"
+                onClose={() => {
+                  this.setState({
+                    skuShow: false
+                  });
+                }}
+                animationType="slide-up"
+              >
+                <div id="sku">
+                  {/* <div className="sku-mask" onClick={this.showSku}/> */}
+                  <div className="sku-content-box">
+                    <div className="sku-goods-info">
+                        <img src={(defaultSku && defaultSku.pic)?defaultSku.pic:pic} alt=""/>
+                        {
+                            findSku
+                                ?  (
+                                    <div className="sku-goods-info-box">
+                                        <div className="sku-goods-info-box-price"><span>¥</span> {defaultSku.price}</div>
+                                        <div className="sku-goods-info-box-stocks">{selectedProp.length>0?selectedProp+'，':selectedProp}{prodNum}件</div>
+                                        {/* {stocks !== 0 ? <div className="sku-goods-info-box-stocks">库存{}件</div> : null} */}
+                                        {/* {selectDefaultValue ? (<p className="sku-goods-info-box-select">请选择: {selectDefaultValue}</p>) : null} */}
+                                    </div>
+                                )
+                                : (<div className="sku-goods-info-box">
+                                    <div className="sku-goods-info-box-price">无货</div>
+                                </div>)
+                        }
+                        
+                    </div>
+                    <div className="sku-list">
+                        {
+                            Object.keys(skuGroup).map((listItem, listIndex) => {
+                                return (<div className="sku-list-item-box" key={listIndex}>
+                                    <h6>{listItem}</h6>
+                                    <ul>
+                                        {
+                                            skuGroup[listItem].map((item, index) => {
+                                                return (
+                                                <li
+                                                    className={handleClassName(listItem, item)}
+                                                    onClick={this.toChooseItem}
+                                                    data-key={listItem}
+                                                    data-val={item}
+                                                    key={index}>
+                                                    {item}
+                                                </li>)
+                                            })
+                                        }
+                                    </ul>
+                                </div>)
+                            })
+                        }
+                    </div>
+                    <div className="sku-count">
+                        <h6>数量</h6>
+                        <div className="sku-count-op">
+                            <div className="sku-count-op-item sku-count-op-minus" onClick={this.onCountMinus}>-</div>
+                            <div className="sku-count-op-item sku-count-op-count">{prodNum}</div>
+                            <div className="sku-count-op-item sku-count-op-plus" onClick={this.onCountPlus}>+</div>
                         </div>
-                    </div>)
-                    : null
+                    </div>
+                    <div className={findSku ? "sku-footer-buttonGroup" : "sku-footer-buttonGroup-disabled"}>
+                        {/* <button onClick={this.addToCart}>加入购物车</button> */}
+                        <button onClick={this.buyNow}>立即购买</button>
+                    </div>
+                  </div>
+                </div>
+              </Modal>
+            )
             }
         </div>)
     }

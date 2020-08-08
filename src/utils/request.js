@@ -1,36 +1,55 @@
 import axios from 'axios';
+import { Toast } from 'antd-mobile';
 
 const isDevelopment = process.env.NODE_ENV == 'development'
 
 // 请求拦截器
-axios.interceptors.request.use(    
-    config => config,    
-    error => Promise.error(error)
-)
+// axios.interceptors.request.use(    
+//     config => config,    
+//     error => Promise.error(error)
+// )
   
 // 响应拦截器
-axios.interceptors.response.use(    
-    response => {   
-      if (response.status === 200) {            
-        return Promise.resolve(response);        
-      } else {            
-        return Promise.reject(response);        
-      }  
-    },
-    // 服务器状态码不是200的情况    
-    error => {   
-
-      if (error && error.response && error.response.status) {            
-        return Promise.reject(error.response);        
-      }       
+const successFunc = (response) => {
+  const { code, message } = response && response.data || {};
+  if(code) {
+    if(code !== 200) {
+      setTimeout(() => {
+        Toast.info(message || '')
+      }, 500)
     }
-);
+  }
+
+  return response
+}
+
+const failFunc = (error) => {
+  //拦截响应，做统一处理 
+  let { code, message } = error && error.response && error.response.data || {};
+
+  if (code) {
+    switch (code) {
+      case 1000:
+        Toast.info(message || '请求错误');
+        break;
+      default:
+        Toast.info(message || '请求错误');
+    }
+  }
+  return Promise.reject(error.response) // 返回接口返回的错误信息
+}
 
 let token = ''
 if(/token=([0-9a-zA-Z._\-]+)/.test(window.location.href)) {
   token = RegExp.$1
 }
 token = decodeURIComponent(token);
+
+if(token) {
+  sessionStorage.setItem('token', token);
+} else {
+  token = sessionStorage.getItem('token');
+}
 
 // token = "bearereyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjg2NjY2MDAwNTkyMTcxMDEwIiwiem93bTEyMyI6IlFPNkVMWSIsImV4cCI6MTU5ODE5MjA1NCwiaWF0IjoxNTk1NjAwMDU0fQ.egVUuKdG3Oo3hZ7dYTkGouwjDuj7M5c6PxUOQKQ0VpgBvfg7G8stiMf45u6q1IG72XeLVGdypT514-xPcHql1A"
 
@@ -48,6 +67,10 @@ const httpInstance = axios.create({
         'Authorization': token//"bearereyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjc4ODgzNjgxNzk4MTA3MTM3Iiwiem93bTEyMyI6IkFWNklWSiIsImV4cCI6MTU5NjMzNjYxMCwiaWF0IjoxNTkzNzQ0NjEwfQ.evwEuIh9Aley3Dk0xiJSLg1St3TMcb_5eEFkubV9ioDT3Ka4rzjr2QePaNOOV47Io0_BfvOsiKNYKBGuxYsYaQ",
     },
 });
+
+// 拦截器
+httpAppInstance.interceptors.response.use(successFunc, failFunc);
+httpInstance.interceptors.response.use(successFunc, failFunc);
 
 const createRequestInstanceFactory = (instance) => {
     return (params) => {
@@ -74,7 +97,7 @@ const createRequestInstanceFactory = (instance) => {
     
             instance(config)
                 .then(res => response(res.data))
-                .catch(err => {reject(err); console.log(err)})
+                .catch(err => {reject(err);})
         })
     }
 }

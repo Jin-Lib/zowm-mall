@@ -102,7 +102,13 @@ class GoodsList extends Component {
             { data.prodName || '-' }
           </div>
           <div className="good-item-info">
-            <span className="good-item-price">¥ { data.price }</span>
+            {
+              data.payType === 1 ? (
+                <span className="good-item-price">¥ { data.price }</span>
+              ) : (
+                <span className="good-item-price">舞盟币 { data.price }</span>
+              )
+            }
             {/* <span className="good-item-num">105人购买</span> */}
           </div>
         </div>

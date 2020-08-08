@@ -281,7 +281,7 @@ function MySign() {
                           <span style={{ color: '#999' }}>{item.inOutDate}</span>
                       </div>
                   </div>
-                  <span style={{ color: 'red' }}>{item.inOutType == 2 ? '+' : '-'}{item.amount}</span>
+                  <span style={{ color: 'red' }}>{item.inOutType == 1 ? '+' : '-'}{item.amount}</span>
                 </div>
               ))
             }

@@ -16,7 +16,6 @@ class ListView extends Component {
   }
   
   _onScroll = () => {
-    console.log('test');
     const { onEndReached } = this.props;
 		// 未滚动到底部
 		if (( this.listRef.current.scrollHeight - this.listRef.current.clientHeight ) > this.listRef.current.scrollTop) {

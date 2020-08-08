@@ -4,6 +4,7 @@ import { EventDetails } from './components'
 import { Toast } from 'antd-mobile';
 import { httpApp as request } from '../../../utils'
 import { getQueryString } from '../../../utils/common'
+import { navigate } from '../../../utils/bridge'
 import './index.scss'
 
 function EventDivision(props) {
@@ -123,9 +124,10 @@ function EventDivision(props) {
      * @returns {any}
      */
     const videoItemClick = (item) => {
-        return () => {
-            console.log(item)
-        }
+      navigate && navigate({
+        url: '',
+        id: ''
+      });
     }
 
     /**
@@ -178,7 +180,7 @@ function EventDivision(props) {
                         {
                             videoList && Array.isArray(videoList) && videoList.length > 0 && videoList.map((item, index) => {
                                 return <li key={index} onClick={videoItemClick(item)}>
-                                    <img src={item.firstFrameUrl} alt=""/>
+                                    <div className="edcvb"><img src={item.firstFrameUrl} alt=""/></div>
                                     {/* <video src={'https://www.w3school.com.cn/i/movie.ogg' || item.videoUrl}></video> */}
                                     <p>{item.videoName}</p>
                                 </li>
@@ -190,12 +192,22 @@ function EventDivision(props) {
             <div className="event-division-content-photo">
                 <ContentTitle
                     title="赛事相册"
-                    rightCon={<span className="event-division-content-video-title-right">更多</span>}/>
+                    rightCon={<span className="event-division-content-video-title-right" onClick={() => {
+                      navigate && navigate({
+                        url: '',
+                        id: ''
+                      });
+                    }}>更多</span>}/>
                 <div className="event-division-content-photo-box">
                     <ul>
                         {
                             photoList && Array.isArray(photoList) && photoList.length > 0 && photoList.map((item, key) => {
-                                return <li key={key}>
+                                return <li key={key} onClick={() => {
+                                  navigate && navigate({
+                                    url: '',
+                                    id: ''
+                                  });
+                                }}>
                                     <img src={item.albumUrl} alt=""/>
                                 </li>
                             })
