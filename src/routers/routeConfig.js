@@ -76,5 +76,9 @@ export const routerConfig = [
   {
     path: '/sharePage',
     component: React.lazy(() => import('../views/SharePage'))
+  },
+  {
+    path: '/success',
+    component: React.lazy(() => import('../views/Success'))
   }
 ]

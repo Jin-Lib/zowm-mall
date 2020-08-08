@@ -7,6 +7,7 @@ export function back(params = {}, callback = () => {}) {
 }
 
 export function navigate(params = {}, callback = () => {}) {
+  console.log('test')
   // window._wmjs && window._wmjs.navigateTo({
   //   url: 'upload-home-work',
   //   studentOrganTutorId: '1'

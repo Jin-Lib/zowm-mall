@@ -124,10 +124,10 @@ function EventDivision(props) {
      * @returns {any}
      */
     const videoItemClick = (item) => {
-      navigate && navigate({
-        url: '',
-        id: ''
-      });
+      // navigate && navigate({
+      //   url: '',
+      //   id: ''
+      // });
     }
 
     /**
@@ -193,20 +193,20 @@ function EventDivision(props) {
                 <ContentTitle
                     title="赛事相册"
                     rightCon={<span className="event-division-content-video-title-right" onClick={() => {
-                      navigate && navigate({
-                        url: '',
-                        id: ''
-                      });
+                      // navigate && navigate({
+                      //   url: '',
+                      //   id: ''
+                      // });
                     }}>更多</span>}/>
                 <div className="event-division-content-photo-box">
                     <ul>
                         {
                             photoList && Array.isArray(photoList) && photoList.length > 0 && photoList.map((item, key) => {
                                 return <li key={key} onClick={() => {
-                                  navigate && navigate({
-                                    url: '',
-                                    id: ''
-                                  });
+                                  // navigate && navigate({
+                                  //   url: '',
+                                  //   id: ''
+                                  // });
                                 }}>
                                     <img src={item.albumUrl} alt=""/>
                                 </li>

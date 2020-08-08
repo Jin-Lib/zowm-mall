@@ -126,8 +126,10 @@ export default class SubmitOrders extends Component{
         Toast.loading('支付中..', 0);
         const response = await this.ineroPayFn(orderNumbers);
         Toast.hide();
-        console.log(response)
         Toast.info('支付成功')
+
+        const { history } = this.props;
+        history.push('/success')
     }
 
     payChange = (value) => {
