@@ -7,18 +7,18 @@ function CourseItem (params) {
         organTutorName, organTutorPic, courseName, chapterName,
         firstFrameUrl, organTutorStudentUnionId, courseUnionId
     } = params;
-    console.log('params', params)
+
     return (<div className="course-item">
-        <div className="course-item-header" onClick={() => {
-          navigate && navigate({
-            url: `/lesson-detail?courseUnionId=${courseUnionId}`,
-          });
-        }}>
+        <div className="course-item-header">
             <img src={organTutorPic} alt=""/>
             <h6>{organTutorName}</h6>
         </div>
         <div className="course-item-body">
-            <div className="course-item-body-left">
+            <div className="course-item-body-left" onClick={() => {
+              navigate && navigate({
+                url: `/lesson-detail?courseUnionId=${courseUnionId}`,
+              });
+            }}>
                 <img className="course-item-body-left-img" src={firstFrameUrl} alt=""/>
                 <div className="course-item-body-left-desc">
                     <p>{courseName}</p>

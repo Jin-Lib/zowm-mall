@@ -339,7 +339,7 @@ export default class SubmitOrders extends Component{
                                                     
                                                 </div>
                                                 <div className="totalPrice">
-                                                    <p className='symbol'>￥</p>
+                                                    <p className='symbol'>{this.payType == 1 ? '￥' : '舞盟币'}</p>
                                                     <p className='big-num'>{item.price}</p>
                                                 </div>
                                             </React.Fragment>

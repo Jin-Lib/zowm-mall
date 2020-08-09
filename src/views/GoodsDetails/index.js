@@ -66,12 +66,14 @@ class GoodsDetails extends PureComponent {
             evaluate: -1,
             isCollection: false,
             transName: '', // 是否包邮
+
         }
     }
 
     componentDidMount() {
         // 请求商品信息
         this.getProdInfo();
+
     }
 
     /**
@@ -432,7 +434,14 @@ class GoodsDetails extends PureComponent {
                             findSku
                                 ?  (
                                     <div className="sku-goods-info-box">
-                                        <div className="sku-goods-info-box-price"><span>¥</span> {defaultSku.price}</div>
+                                        {
+                                          payType === 1 ? (
+                                            <div className="sku-goods-info-box-price"><span>¥</span> {defaultSku.price}</div>
+                                          ) : (
+                                            <div className="sku-goods-info-box-price"><span>舞盟币</span> {defaultSku.price}</div>
+                                          )
+                                        }
+                                        
                                         <div className="sku-goods-info-box-stocks">{selectedProp.length>0?selectedProp+'，':selectedProp}{prodNum}件</div>
                                         {/* {stocks !== 0 ? <div className="sku-goods-info-box-stocks">库存{}件</div> : null} */}
                                         {/* {selectDefaultValue ? (<p className="sku-goods-info-box-select">请选择: {selectDefaultValue}</p>) : null} */}

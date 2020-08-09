@@ -162,8 +162,11 @@ function EventDivision(props) {
                                 <img src={item.voteAreaPic} alt=""/>
                                 <div>
                                     <h6>{item.voteAreaName}</h6>
+                                    <div style={{ fontSize: '12px', color: '#999', marginBottom: '12px' }}>
+                                      { item.eventStartTime } - {item.eventEndTime}
+                                    </div>
                                     {/* <span>{item.state}</span> */}
-                                    <span>投票进行中</span>
+                                    <span>{item.state === 1 ? "投票已结束" : "投票进行中"}</span>
                                 </div>
                                 <button className="event-division-content-vote-into-button" onClick={voteItemClick(item)}>进入专区</button>
                             </li>
@@ -171,6 +174,7 @@ function EventDivision(props) {
                     }
                 </ul>
             </div>
+            <div style={{ height: '10px', backgroundColor: '#f3f3f3' }}></div>
             <div className="event-division-content-video">
                 <ContentTitle
                     title="赛事视频" />
@@ -188,6 +192,8 @@ function EventDivision(props) {
                     </ul>
                 </div>
             </div>
+            <div style={{ height: '10px', backgroundColor: '#f3f3f3' }}></div>
+
             <div className="event-division-content-photo">
                 <ContentTitle
                     title="赛事相册"

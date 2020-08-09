@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Toast, Modal } from 'antd-mobile';
+import React, { useState, useEffect } from 'react';
+import { Toast, Modal, Button } from 'antd-mobile';
 import { http, httpApp as request } from '../../utils';
 import QRCode from '../../utils/qrcode'
 
@@ -10,6 +10,37 @@ function GoodsBottom({ buyNow, prodId }) {
 
     const [isCollect, SetIsCollect] = useState(false)
     const [showQR ,setShowQR] = useState(false);
+
+    const [ wxName, setWXName ] = useState('');
+    const [ wxUrl, setWXUrl ] = useState('');
+
+    // 官方微信文字
+    const getWXInfo = (key, name) => {
+      let params = {
+        url: '/app/common/getSysConfigParam',
+        method: 'GET',
+        data: {
+          key
+        }
+      };
+      request(params)
+        .then(response => {
+          if(name === 'wxName') {
+            setWXName(response);
+          } else if(name === 'wxUrl') {
+            setWXUrl(response);
+          }
+        })
+        .catch(error => {
+        })
+    }
+
+    useEffect(() => {
+      // 获取微信信息
+      getWXInfo('ZOWM_GUAN_FANG_WECHAT', 'wxName');
+      getWXInfo('ZOWM_GUAN_FANG_ER_CODE', 'wxUrl');
+    }, [])
+
 
     const collectEvent = () => {
         Toast.loading('收藏中', 0);
@@ -65,7 +96,24 @@ function GoodsBottom({ buyNow, prodId }) {
                 <p>店铺</p>
             </li> */}
             <li onClick={() => {
-               getQRCode()
+              //  getQRCode()
+              setShowQR(true)
+              setTimeout(() => {
+                var options = {
+                  text: wxUrl || '',
+                  width: 200,
+                  height: 200,
+                  codeWidth: 200,
+                  codeHeight: 200,
+                  top: 0,
+                  left: 0
+                }
+                function callBack(status) {
+                  console.log(status) // [loaded|success]
+                }
+                var code = new QRCode(document.getElementById("qrcode"), options, callBack);
+              })
+              
             }}>
                 <svg t="1592032580977" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6320"><path d="M781.443 514.238c0-73.113-29.837-138.777-77.608-186.546-46.25-47.75-111.914-77.605-183.548-77.605-73.112 0-137.299 29.855-185.046 77.605-47.772 47.77-76.109 113.433-76.109 186.546 0 71.632 28.337 137.297 76.109 185.064 47.747 49.249 111.934 77.588 185.046 77.588 71.634 0 137.297-28.34 183.548-77.588 47.77-47.767 77.608-113.432 77.608-185.064M520.286 750.03c-64.166 0-123.878-26.864-165.657-70.14-41.777-41.777-68.658-101.468-68.658-165.653 0-65.665 26.88-125.356 68.658-167.135 41.779-43.275 101.492-70.135 165.657-70.135 64.164 0 122.378 26.86 164.157 70.135 41.778 41.779 68.66 101.47 68.66 167.135 0 64.185-26.882 123.876-68.66 165.653-41.779 43.277-99.992 70.14-164.157 70.14" p-id="6321" fill="#666666"></path><path d="M574.007 642.588c-17.892 7.47-38.784 10.443-58.195 10.443-19.41-1.497-38.803-5.972-56.716-14.918-44.753-22.385-77.584-68.66-77.584-135.821h-28.378c0 79.107 40.302 134.323 92.545 161.183 22.385 10.448 46.25 16.415 70.134 17.913 22.39 0 46.254-4.471 68.639-13.44 52.242-23.864 92.544-76.107 98.496-164.159l-28.34-1.497c-4.493 76.13-38.823 120.886-80.601 140.296" p-id="6322" fill="#666666"></path><path d="M876.657 430.921c-16.622-83.027-61.21-154.217-123.554-203.2-65.665-53.742-147.741-83.578-232.817-85.076-43.278 0-83.556 5.969-120.883 17.914-73.109 23.864-132.822 71.632-174.6 132.82-28.34 40.282-49.227 88.054-59.692 137.303-137.3 11.918-135.803 189.516 13.438 211.906l26.86-8.946c-14.935-41.8-20.887-85.076-20.887-126.854 1.497-73.134 23.882-141.772 62.666-196.992 38.804-56.715 94.02-99.99 161.183-122.378C442.68 175.476 480.007 171 520.287 171c79.103 1.498 155.21 29.837 214.923 77.605 58.174 46.254 99.972 111.918 114.89 189.523 0 0 64.51 276.212-220.066 387.886-6.074-7.226-14.857-11.801-24.672-11.801-19.415 0-34.331 14.918-34.331 34.307 0 17.914 14.916 32.833 34.33 32.833 16.252 0 29.897-12.328 32.325-27.995 132.762-51.554 196.18-136.102 224.883-216.076C988.47 605.97 990.696 455.72 876.657 430.921" p-id="6323" fill="#666666"></path></svg>
                 <p>联系客服</p>
@@ -85,12 +133,18 @@ function GoodsBottom({ buyNow, prodId }) {
         <Modal
           closable
           transparent
+          title="官方微信号"
           animationType="slide"
           onClose={() => {
             setShowQR(false)
           }}
           visible={showQR}>
-          <div id="qrcode"></div>
+            <div>
+              <div style={{ marginBottom: '10px', color: "#fd605b", fontSize: '16px' }}>{wxName} <a href="javascript:void(0);" style={{ fontSize: '14px', color: '#888' }} onClick={() => {
+
+              }}>点击复制</a></div>
+              <div id="qrcode" style={{ display: 'flex', justifyContent: 'center' }}></div>
+            </div>
         </Modal>
     </div>)
 }

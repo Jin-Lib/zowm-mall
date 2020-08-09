@@ -3,6 +3,7 @@ import { PageTitle, ListView, CourseItem } from '../../../components'
 import { Toast } from 'antd-mobile';
 import { httpApp as request } from '../../../utils'
 import './index.scss'
+import { navigate } from '../../../utils/bridge';
 
 function MyCourse() {
     // 课程列表
@@ -62,7 +63,16 @@ function MyCourse() {
     }
 
     return (<div className="my-course-page">
-        <PageTitle title="我的课程" />
+        <PageTitle
+          title="我的课程"
+          rightCon={
+            <div onClick={() => {
+              navigate && navigate({
+                url: ''
+              });
+            }}>我的作业</div>
+          }
+        />
         <ListView
             className="my-course-page-content-list-view"
             onEndReached={onEndReached}>
