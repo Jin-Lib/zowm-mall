@@ -103,12 +103,12 @@
                     p {
                         font-family:PingFang SC;
                         font-weight:400;
-                        color:rgba(170,170,170,1);
-                        font-size: .373333rem /* 14/37.5 */;
                         overflow: hidden;
                         text-overflow: ellipsis;
                         white-space: nowrap;
                         margin-right: .32rem /* 12/37.5 */;
+                        font-size: .4rem /* 15/37.5 */;
+                        color:rgba(255,94,107,1);
                     }
                     span {
                         flex: 1;

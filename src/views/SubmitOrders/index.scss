@@ -82,7 +82,7 @@
             margin-right: .533333rem /* 20/37.5 */;
             span {
                 margin-left: .133333rem /* 5/37.5 */;
-                font-size: .586667rem /* 22/37.5 */;
+                font-size: .48rem /* 18/37.5 */;
                 font-weight: 600;
                 color: #FF5E6B;
             }
@@ -236,11 +236,11 @@
     margin-right: .533333rem /* 20/37.5 */;
 }
 .totalPrice {
-    display: flex;
-    justify-content: space-between;
+    // display: flex;
+    // justify-content: space-between;
     // height: 1.066667rem /* 40/37.5 */;
     line-height: .533333rem /* 20/37.5 */;
-    // text-align: right;
+    text-align: right;
     border-top: 1px solid #f3f3f3;
     padding-top: .266667rem /* 10/37.5 */;
 

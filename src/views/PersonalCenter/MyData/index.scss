@@ -5,8 +5,8 @@
     background: white;
     .my-data-page-body {
         .my-data-page-body-av {
-            width: 1.173333rem /* 44/37.5 */;
-            height: 1.173333rem /* 44/37.5 */;
+            width: .8rem /* 30/37.5 */;
+            height: .8rem /* 30/37.5 */;
             border-radius: 50%;
             border: 1px solid #EEE;
         }
@@ -169,6 +169,15 @@
     color:rgba(255,255,255,1);
     font-size: .48rem /* 18/37.5 */;
     line-height: 1.333333rem /* 50/37.5 */;
+
+    &:active {
+      color: #fff !important;
+    }
+
+    &:link {
+      color: #fff !important;
+    }
+
 }
 
 .dances-dialog {

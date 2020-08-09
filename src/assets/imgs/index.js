@@ -6,6 +6,7 @@ import add from './player/add.png';
 import plus from './player/plus.png';
 import tip from './tip.png';
 import down from './down.png';
+import logo from './logo180.png';
 
 export {
   upload1,
@@ -15,5 +16,6 @@ export {
   add, 
   plus,
   tip,
-  down
+  down,
+  logo
 };

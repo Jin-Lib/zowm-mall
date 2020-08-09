@@ -41,9 +41,6 @@ export default function MyOrder({ history }) {
                     Toast.hide();
                 })
                 .catch((error) => {
-                    const { data } = error;
-                    const { error: errMsg } = data || {};
-                    Toast.info(errMsg || "未获取到订单")
                 })
         })
     }

@@ -35,6 +35,10 @@
         line-height: .64rem /* 24/37.5 */;
         word-break: break-all;
         height: 1.6rem /* 60/37.5 */;
+
+        img {
+          max-width: 100%;
+        }
     }
     .event-details-more-show {
         width: 100%;

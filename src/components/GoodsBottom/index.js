@@ -143,7 +143,7 @@ function GoodsBottom({ buyNow, prodId }) {
               <div style={{ marginBottom: '10px', color: "#fd605b", fontSize: '16px' }}>{wxName} <a href="javascript:void(0);" style={{ fontSize: '14px', color: '#888' }} onClick={() => {
 
               }}>点击复制</a></div>
-              <div id="qrcode" style={{ display: 'flex', justifyContent: 'center' }}></div>
+              <div id="qrcode" style={{ display: 'flex', justifyContent: 'center', width: '100%', height: '200px' }}></div>
             </div>
         </Modal>
     </div>)

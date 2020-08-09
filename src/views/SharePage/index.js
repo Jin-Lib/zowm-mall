@@ -52,7 +52,9 @@ class SharePage extends PureComponent {
       };
       request(params)
         .then(response => {
-          
+          this.setState({
+            downUrl: response
+          });
         })
         .catch(error => {
         })
@@ -63,7 +65,7 @@ class SharePage extends PureComponent {
         return (<div className="share-page">
             {/* <PageTitle title="下载分享" leftIcon="close"/> */}
             <div className="share-page-content">
-                <ShareTitle />
+                <ShareTitle url={this.state.downUrl} />
 
                 {
                   data && (
@@ -90,7 +92,7 @@ class SharePage extends PureComponent {
 
                 <h4>中欧舞盟</h4>
                 <img className="share-page-content-img" src={require('../../assets/imgs/app-share.png')} alt=""/>
-                <CButton className="share-page-button-share-button">下载APP</CButton>
+                <CButton className="share-page-button-share-button" href={this.state.downUrl}>下载APP</CButton>
             </div>
         </div>)
     }

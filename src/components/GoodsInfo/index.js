@@ -6,7 +6,7 @@ export default function GoodsInfo(params) {
         count, objectLogo, objectName,
         price, orderName, status, orderPic,
         orderNo, history, isDetailPage,
-        sourceType, orderId,
+        sourceType, orderId, sourceTypeName, productPrice
     } = params;
 
     const showDetail = () => {
@@ -50,16 +50,15 @@ export default function GoodsInfo(params) {
                 <div className="my-order-goods-info-content-goods-info-info">
                     <div className="my-order-goods-info-content-goods-info-info-title">
                         <p>{orderName}</p>
-                        <span>{price}</span>
                     </div>
                     <div className="my-order-goods-info-content-goods-info-info-series">
-                        <p>{}</p>
+                        <p>{productPrice}</p>
                         <span>× {count}</span>
                     </div>
                 </div>
             </div>
             <div className="my-order-goods-info-content-goods-price">
-                <p className="my-order-goods-info-content-goods-price-type">课程订单</p>
+                <p className="my-order-goods-info-content-goods-price-type">{sourceTypeName}</p>
                 <div>
                     <p className="my-order-goods-info-content-goods-price-count">共{count}件</p>
                     <p className="my-order-goods-info-content-goods-price-pay-count">
@@ -80,11 +79,15 @@ export default function GoodsInfo(params) {
                         查看详情
                     </button>) : null
                 } */}
-                <button
-                    className="my-order-goods-info-content-goods-op-button my-order-goods-info-content-goods-op-button-get-detail"
-                    onClick={showDetail}>
-                    查看详情
-                </button>
+                {
+                  !isDetailPage && (
+                    <button
+                      className="my-order-goods-info-content-goods-op-button my-order-goods-info-content-goods-op-button-get-detail"
+                      onClick={showDetail}>
+                      查看详情
+                    </button>
+                  )
+                }
                 {
                     status == '1' ? (<button className="my-order-goods-info-content-goods-op-button my-order-goods-info-content-goods-op-button-pay">去支付</button>) : null
                 }
