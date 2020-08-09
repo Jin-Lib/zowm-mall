@@ -124,8 +124,9 @@ function EventDivision(props) {
      * @returns {any}
      */
     const videoItemClick = (item) => {
+      console.log(item, `/short-video-single-swiper?shortVideo=${encodeURIComponent(JSON.stringify(item))}`);
       navigate && navigate({
-        url: `/short-video-single-swiper?shortVideo=${JSON.stringify(item)}`
+        url: `/short-video-single-swiper?shortVideo=${encodeURIComponent(JSON.stringify(item))}`
       });
     }
 
