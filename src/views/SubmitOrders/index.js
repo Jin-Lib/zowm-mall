@@ -124,16 +124,6 @@ export default class SubmitOrders extends Component{
           const { history } = this.props;
           history.push('/success')
         })
-
-        // 获取到的值
-        // appId: "wxd3c4504fd36f4c93"
-        // nonceStr: "1595688566141"
-        // packageValue: "Sign=WXPay"
-        // partnerId: "1594221891"
-        // prepayId: "wx25224926043124a0907a37301805892900"
-        // sign: "BFAC65A276CE5B41273EAB587694E89B"
-        // timeStamp: "1595688566"
-        // console.log(response)
     }
 
     ineroPay = async () => {
