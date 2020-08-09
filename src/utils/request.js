@@ -11,6 +11,7 @@ const isDevelopment = process.env.NODE_ENV == 'development'
   
 // 响应拦截器
 const successFunc = (response) => {
+  console.log(response, 'success')
   const { code, message } = response && response.data || {};
   if(code) {
     if(code !== 200) {
@@ -24,17 +25,24 @@ const successFunc = (response) => {
 }
 
 const failFunc = (error) => {
+  console.log(error, error.response, 'error')
+
   //拦截响应，做统一处理 
+  let { data, status } = error.response || {};
   let { code, message } = error && error.response && error.response.data || {};
 
   if (code) {
-    switch (code) {
-      case 1000:
-        Toast.info(message || '请求错误');
-        break;
-      default:
-        Toast.info(message || '请求错误');
-    }
+    Toast.info(message || '请求错误');
+
+    // switch (code) {
+    //   case 1000:
+    //     Toast.info(message || '请求错误');
+    //     break;
+    //   default:
+    //     Toast.info(message || '请求错误');
+    // }
+  } else {
+    Toast.info(error.response.data || '请求错误')
   }
   return Promise.reject(error.response) // 返回接口返回的错误信息
 }

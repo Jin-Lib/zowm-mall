@@ -44,6 +44,8 @@ export default class SubmitOrders extends Component{
             couponIds: [],
             payList: [],
             shopCartOrders: [], // 商铺结算信息
+            // 舞盟币数量
+            totalAmount: 0
         }
 
         this.addressInfo = window.localStorage.getItem('addressInfo') || undefined
@@ -55,6 +57,7 @@ export default class SubmitOrders extends Component{
 
     componentDidMount() {
         this._loadOrderData()
+        this.getAccountList();
         /**
          * payType
          * 
@@ -67,6 +70,24 @@ export default class SubmitOrders extends Component{
             payList: this.isWX ? [{ value: 'wxpay', label: '微信' }] : [{ value: 'integral', label: '积分' }]
         })
     }
+
+
+    // 获取账户详情
+    getAccountList = () => {
+      let params = {
+        url: '/app/finance/getUserWmAccountInfo',
+        method: 'GET'
+      };
+      requestApp(params)
+        .then(response => {
+          this.setState({
+            totalAmount: response && response.totalAmount || 0
+          });
+        })
+        .catch(error => {
+        })
+    }
+
 
     submitPay = () => {
         // 判断是否选择地址 如未选择请先选择
@@ -87,20 +108,21 @@ export default class SubmitOrders extends Component{
         Toast.loading('生成订单中..', 0);
         // const { shopCartOrders } = await this.loadOrderData();
         const { shopCartOrders } = this.state;
-        Toast.hide();
         // 提交订单，返回支付流水号
         const { orderNumbers } = await this.submitOrderReturnNumber(shopCartOrders)
+        Toast.hide();
         // 根据订单号进行支付
         Toast.loading('支付中..', 0);
-        // const response = await this.pay(orderNumbers);
+        const response = await this.pay(orderNumbers);
         wxPay({
-          orderSourceType: 1,
-          orderId: orderNumbers
+          ...response
         }, function(data) {
-          this.setState({
-            data: JSON.stringify(data)
-          });
+          console.log(data);
           Toast.hide();
+          Toast.info('支付成功')
+
+          const { history } = this.props;
+          history.push('/success')
         })
 
         // 获取到的值
@@ -119,9 +141,9 @@ export default class SubmitOrders extends Component{
         Toast.loading('生成订单中..', 0);
         // const { shopCartOrders } = await this.loadOrderData();
         const { shopCartOrders } = this.state;
-        Toast.hide();
         // 提交订单，返回支付流水号
         const { orderNumbers } = await this.submitOrderReturnNumber(shopCartOrders)
+        Toast.hide();
         // 根据订单号进行支付
         Toast.loading('支付中..', 0);
         const response = await this.ineroPayFn(orderNumbers);
@@ -339,8 +361,20 @@ export default class SubmitOrders extends Component{
                                                     
                                                 </div>
                                                 <div className="totalPrice">
-                                                    <p className='symbol'>{this.payType == 1 ? '￥' : '舞盟币'}</p>
-                                                    <p className='big-num'>{item.price}</p>
+                                                  <div>
+                                                    {
+                                                      this.payType != 1 && (
+                                                        <>
+                                                          <span>舞盟币余额: </span>
+                                                          <span style={{ color: '#FF5E6B' }}>{this.state.totalAmount}</span>
+                                                        </>
+                                                      )
+                                                    }
+                                                  </div>
+                                                  <div>
+                                                    <span className='symbol'>{this.payType == 1 ? '￥' : '舞盟币'}</span>
+                                                    <span className='big-num'>{item.price}</span>
+                                                  </div>
                                                 </div>
                                             </React.Fragment>
                                         )

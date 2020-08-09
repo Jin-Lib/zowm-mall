@@ -289,12 +289,13 @@ function MySign() {
             <Modal
               closable
               transparent
+              title="邀请好友"
               animationType="slide"
               onClose={() => {
                 setShowQR(false)
               }}
               visible={showQR}>
-              <div id="qrcode"></div>
+              <div id="qrcode" style={{ display: 'flex', justifyContent: 'center' }}></div>
               {/* <img className="wechatCode" src={qrCode} alt="" /> */}
             </Modal>
             

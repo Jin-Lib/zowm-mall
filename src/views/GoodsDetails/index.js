@@ -388,7 +388,7 @@ class GoodsDetails extends PureComponent {
             <Carousel data={imgs}/>
             <div className="goods-details-info">
                 {
-                  payType === 1 ? (
+                  payType == 1 ? (
                     <h6 className="goods-details-info-price"><span>¥ </span>{price}</h6>
                   ) : (
                     <h6 className="goods-details-info-price"><span>舞盟币 </span>{price}</h6>
@@ -435,7 +435,7 @@ class GoodsDetails extends PureComponent {
                                 ?  (
                                     <div className="sku-goods-info-box">
                                         {
-                                          payType === 1 ? (
+                                          payType == 1 ? (
                                             <div className="sku-goods-info-box-price"><span>¥</span> {defaultSku.price}</div>
                                           ) : (
                                             <div className="sku-goods-info-box-price"><span>舞盟币</span> {defaultSku.price}</div>

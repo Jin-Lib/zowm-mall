@@ -84,7 +84,7 @@
                 margin-left: .133333rem /* 5/37.5 */;
                 font-size: .586667rem /* 22/37.5 */;
                 font-weight: 600;
-                color: red;
+                color: #FF5E6B;
             }
         }
         button {
@@ -236,16 +236,21 @@
     margin-right: .533333rem /* 20/37.5 */;
 }
 .totalPrice {
-    height: 1.066667rem /* 40/37.5 */;
-    line-height: 1.066667rem /* 40/37.5 */;
-    text-align: right;
+    display: flex;
+    justify-content: space-between;
+    // height: 1.066667rem /* 40/37.5 */;
+    line-height: .533333rem /* 20/37.5 */;
+    // text-align: right;
     border-top: 1px solid #f3f3f3;
-    p {
-        display: inline-block;
-        color: red;
-        font-weight: 600;
+    padding-top: .266667rem /* 10/37.5 */;
+
+    .symbol {
+      color: #FF5E6B;
     }
+
     .big-num {
-        font-size: .586667rem /* 22/37.5 */;
+      font-size: .48rem /* 18/37.5 */;
+      color: #FF5E6B;
+      font-weight: bold;
     }
 }
