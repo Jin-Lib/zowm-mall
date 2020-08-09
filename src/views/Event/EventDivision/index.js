@@ -3,7 +3,7 @@ import { PageTitle, ContentTitle } from '../../../components'
 import { EventDetails } from './components'
 import { Toast } from 'antd-mobile';
 import { httpApp as request } from '../../../utils'
-import { getQueryString } from '../../../utils/common'
+import { getQueryString, serializeData } from '../../../utils/common'
 import { navigate } from '../../../utils/bridge'
 import './index.scss'
 
@@ -124,10 +124,9 @@ function EventDivision(props) {
      * @returns {any}
      */
     const videoItemClick = (item) => {
-      // navigate && navigate({
-      //   url: '',
-      //   id: ''
-      // });
+      navigate && navigate({
+        url: `/short-video-single-swiper?shortVideo=${JSON.stringify(item)}`
+      });
     }
 
     /**
@@ -179,7 +178,7 @@ function EventDivision(props) {
                     <ul>
                         {
                             videoList && Array.isArray(videoList) && videoList.length > 0 && videoList.map((item, index) => {
-                                return <li key={index} onClick={videoItemClick(item)}>
+                                return <li key={index} onClick={() => { videoItemClick(item)}}>
                                     <div className="edcvb"><img src={item.firstFrameUrl} alt=""/></div>
                                     {/* <video src={'https://www.w3school.com.cn/i/movie.ogg' || item.videoUrl}></video> */}
                                     <p>{item.videoName}</p>
@@ -193,20 +192,18 @@ function EventDivision(props) {
                 <ContentTitle
                     title="赛事相册"
                     rightCon={<span className="event-division-content-video-title-right" onClick={() => {
-                      // navigate && navigate({
-                      //   url: '',
-                      //   id: ''
-                      // });
+                      navigate && navigate({
+                        url: `/photo-dive-list?themeUnionId=${state.id}`,
+                      });
                     }}>更多</span>}/>
                 <div className="event-division-content-photo-box">
                     <ul>
                         {
                             photoList && Array.isArray(photoList) && photoList.length > 0 && photoList.map((item, key) => {
                                 return <li key={key} onClick={() => {
-                                  // navigate && navigate({
-                                  //   url: '',
-                                  //   id: ''
-                                  // });
+                                  navigate && navigate({
+                                    url: `/gallery?themeUnionId=${item.unionId}`,
+                                  });
                                 }}>
                                     <img src={item.albumUrl} alt=""/>
                                 </li>
