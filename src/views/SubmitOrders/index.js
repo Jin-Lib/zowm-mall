@@ -409,7 +409,7 @@ export default class SubmitOrders extends Component{
                 </List>
             </div>
             <div className="submit-orders-page-pay">
-                <p>合计<span>¥{total}</span></p>
+                <p>合计<span>{this.payType == 1 ? '¥' : '舞盟币'}{total}</span></p>
                 <button onClick={this.submitPay}>提交支付</button>
             </div>
         </div>)
