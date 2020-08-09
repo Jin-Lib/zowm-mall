@@ -175,7 +175,6 @@ function EventDivision(props) {
                     }
                 </ul>
             </div>
-            <div style={{ height: '10px', backgroundColor: '#f3f3f3' }}></div>
             <div className="event-division-content-video">
                 <ContentTitle
                     title="赛事视频" />

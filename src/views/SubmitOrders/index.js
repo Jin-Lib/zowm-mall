@@ -81,7 +81,7 @@ export default class SubmitOrders extends Component{
       requestApp(params)
         .then(response => {
           this.setState({
-            totalAmount: response && response.totalAmount || 0
+            totalAmount: response && response.amount || 0
           });
         })
         .catch(error => {
