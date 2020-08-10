@@ -28,7 +28,7 @@ function CourseItem (params) {
             <div className="course-item-body-right"
               onClick={() => {
                 navigate && navigate({
-                  url: `/upload-home-wor?studentOrganTutorId=${organTutorStudentUnionId}`,
+                  url: `/upload-home-work?studentOrganTutorId=${organTutorStudentUnionId}`,
                 });
               }}
             >

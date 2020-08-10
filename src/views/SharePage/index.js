@@ -23,7 +23,10 @@ class SharePage extends PureComponent {
           userNickName = getQueryString('userNickName'),
           inviteUserNickName = getQueryString('inviteUserNickName'),
           inviteUserHeadPic = getQueryString('inviteUserHeadPic'),
-          relationShip = getQueryString('relationShip');
+          relationShip = getQueryString('relationShip'),
+
+          action = getQueryString('action'),
+          appid = getQueryString('appid');
 
           if(userHeadPic) {
             this.setState({
@@ -35,6 +38,20 @@ class SharePage extends PureComponent {
                 relationShip: decodeURIComponent(relationShip)
               }
             });
+          } else if(action && action === 'invite_user') {
+            // 微信环境
+            if(this.wx()) {
+              // 跳转到指定地址
+              window.location.href = [
+                'https://open.weixin.qq.com/connect/oauth2/authorize',
+                `?appid=${appid}`,
+                '&redirect_uri=http%3A%2F%2Fzowm.free.idcfengye.com%2Fwx%2Foauth%2FcallbackToRegister',
+                '&response_type=code',
+                '&scope=snsapi_userinfo',
+                `&state=${encodeURIComponent(window.location.href)}`,
+                '#wechat_redirect'
+              ].join('');
+            }
           }
     }
 
