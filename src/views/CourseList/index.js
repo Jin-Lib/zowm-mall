@@ -101,6 +101,7 @@ class CourseList extends Component {
   }
 
   componentDidMount() {
+    //读取数据
     this.getLiveRoomTimeList();
   }
 }
