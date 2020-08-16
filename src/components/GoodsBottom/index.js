@@ -45,10 +45,9 @@ function GoodsBottom({ buyNow, prodId }) {
     const collectEvent = () => {
         Toast.loading('收藏中', 0);
         http({
-            url: '/p/user/collection/addOrCancel',
+            url: '/p/user/collection/addOrCancel?prodId=' + prodId,
             method: "POST",
             data: {
-                prodId: prodId,
             }
         })
             .then(response => {
