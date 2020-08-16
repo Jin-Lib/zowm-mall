@@ -93,6 +93,12 @@
                 position: absolute;
                 right: .4rem /* 15/37.5 */;
                 bottom: .213333rem /* 8/37.5 */;
+
+                &.super-btn {
+                  width: auto;
+                  padding: 0 .266667rem /* 10/37.5 */;
+                  right: 2.4rem /* 90/37.5 */;
+                }
             }
         }
         .event-vote-zone-content-video {

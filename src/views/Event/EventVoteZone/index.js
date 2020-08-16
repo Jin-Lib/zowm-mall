@@ -5,7 +5,7 @@ import { httpApp as request } from '../../../utils'
 import classnames from 'classnames'
 import { isEmpty } from 'loadsh'
 import { share } from '../../../assets/imgs'
-import { shareTo } from '../../../utils/bridge'
+import { shareTo, wxPay } from '../../../utils/bridge'
 import './index.scss'
 
 function EventVoteZone(props) {
@@ -91,6 +91,16 @@ function EventVoteZone(props) {
         })
     }
 
+    const sendUperVoteEvent = (objectId) => {
+      wxPay({
+        objectId,
+        orderSourceType: 8
+      }, (data) => {
+        console.log(data, 'pay');
+        Toast.info('投票成功');
+      })
+    }
+
     /**
      * 点击当前选手
      * @date 2020-06-28
@@ -139,6 +149,9 @@ function EventVoteZone(props) {
                     <p>{player.playerName}</p>
                     <span>票数：{player.ticketNum}</span>
                 </div>
+                {
+                  player && player.superVoteOrNot && <button className="super-btn" onClick={sendUperVoteEvent(player.unionId)}>超级投票</button>
+                }
                 <button onClick={sendVoteEvent(player.unionId)}>投票</button>
             </div>
             <div className="event-vote-zone-content-video">

@@ -75,7 +75,7 @@ function EventDetails(params) {
 
     return (<div className={wrapperClassNames}>
         {
-            showMore ? <PageTitle /> : null
+            showMore ? <PageTitle title={eventDetailInfo && eventDetailInfo.eventName} /> : null
         }
         {/* <h6 className="event-details-title">{eventDetailInfo.eventName}</h6> */}
         <div style={{}}>

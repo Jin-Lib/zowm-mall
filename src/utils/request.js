@@ -18,6 +18,8 @@ const successFunc = (response) => {
       setTimeout(() => {
         Toast.info(message || '')
       }, 500)
+
+      return Promise.reject(response)
     }
   }
 

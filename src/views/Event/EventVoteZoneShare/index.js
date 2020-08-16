@@ -104,7 +104,7 @@ function EventVoteZone(props) {
     }
     
     return <div className="event-vote-zone">
-        <PageTitle title="投票专区"/>
+        {/* <PageTitle title="投票专区"/> */}
         <div className="event-vote-zone-content">
             <div className="event-vote-zone-content-title">
                 <img src={require('../../../assets/imgs/vote-zone-title.png')} alt=""/>

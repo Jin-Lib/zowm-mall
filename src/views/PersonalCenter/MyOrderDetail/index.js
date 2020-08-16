@@ -49,8 +49,8 @@ const MyOrderDetail = ({ history, location: { state } }) => {
                 <div className="my-order-detail-order-info-content">
                     <p><span>订单编号</span>{orderDetail.orderNo}</p>
                     <p><span>下单时间</span>{orderDetail.orderDate}</p>
-                    <p><span>快递单号</span>{orderDetail.expressNo}</p>
                     <p><span>支付方式</span>{orderDetail.payWay}</p>
+                    <p><span>快递单号</span>{orderDetail.expressNo}</p>
                 </div>
             </div>
         </div>

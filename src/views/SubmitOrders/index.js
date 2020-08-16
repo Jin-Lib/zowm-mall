@@ -134,10 +134,16 @@ export default class SubmitOrders extends Component{
         // 提交订单，返回支付流水号
         const { orderNumbers } = await this.submitOrderReturnNumber(shopCartOrders)
         Toast.hide();
+
+        if(!orderNumbers) {
+          return;
+        }
+
         // 根据订单号进行支付
         Toast.loading('支付中..', 0);
         const response = await this.ineroPayFn(orderNumbers);
         Toast.hide();
+
         Toast.info('支付成功')
 
         const { history } = this.props;
