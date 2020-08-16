@@ -295,7 +295,7 @@ function MySign() {
                 setShowQR(false)
               }}
               visible={showQR}>
-              <div id="qrcode" style={{ display: 'flex', justifyContent: 'center' }}></div>
+              <div id="qrcode" style={{ display: 'flex', justifyContent: 'center', height: 200 }}></div>
               {/* <img className="wechatCode" src={qrCode} alt="" /> */}
             </Modal>
             

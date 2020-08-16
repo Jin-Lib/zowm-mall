@@ -340,7 +340,7 @@ class MyData extends PureComponent {
                             </div>)
                             : null
                     }
-                    <Modal
+                    {/* <Modal
                         visible={sexModelFlag}
                         transparent
                         onClose={this.CloseSexModel}
@@ -366,7 +366,7 @@ class MyData extends PureComponent {
                         >
                             确认
                         </div>
-                    </Modal>
+                    </Modal> */}
                 </div>
           </div>
         )
