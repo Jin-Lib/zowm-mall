@@ -167,6 +167,7 @@ function EventDivision(props) {
                     id={state.id}
                     history={history} />
             </div>
+            <div onClick={shareBtn}>分享</div>
             <div className="event-division-content-vote">
                 <ContentTitle
                     title="投票专区"/>
