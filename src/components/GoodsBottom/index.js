@@ -48,7 +48,7 @@ function GoodsBottom({ buyNow, prodId }) {
             url: '/p/user/collection/addOrCancel',
             method: "POST",
             data: {
-                prodId: prodId.toString(),
+                prodId: prodId,
             }
         })
             .then(response => {
