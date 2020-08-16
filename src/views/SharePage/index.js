@@ -45,7 +45,7 @@ class SharePage extends PureComponent {
               window.location.href = [
                 'https://open.weixin.qq.com/connect/oauth2/authorize',
                 `?appid=${appid}`,
-                '&redirect_uri=http%3A%2F%2Fzowm.free.idcfengye.com%2Fwx%2Foauth%2FcallbackToRegister',
+                '&redirect_uri=http%3A%2F%2Ftestapp.weui.com%2Fwx%2Foauth%2FcallbackToRegister',
                 '&response_type=code',
                 '&scope=snsapi_userinfo',
                 `&state=${encodeURIComponent(window.location.href)}`,

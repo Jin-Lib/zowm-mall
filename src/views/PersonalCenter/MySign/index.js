@@ -192,7 +192,7 @@ function MySign() {
         <PageTitle title="每日签到" />
         <div className="my-sign-page-content">
             <div className="my-sign-page-sign-bg">
-                <p className="my-sign-page-sign-title">已连续签到</p>
+                <p className="my-sign-page-sign-title">累计签到</p>
                 <div className="my-sign-page-sign-data-show">
                     {
                         day && Array.isArray(day) && day.map((d, i) => <span className="data-bg-item" key={i}>{d}</span>)
