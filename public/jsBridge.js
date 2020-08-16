@@ -67,4 +67,5 @@ var JsBridge = {
   _wmJsBridge.registerMethod('pay');
   _wmJsBridge.registerMethod('share');
   _wmJsBridge.registerMethod('uploadFile');
+  _wmJsBridge.registerMethod('showQr');
 }();

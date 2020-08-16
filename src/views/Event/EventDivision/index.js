@@ -4,7 +4,7 @@ import { EventDetails } from './components'
 import { Toast } from 'antd-mobile';
 import { httpApp as request } from '../../../utils'
 import { getQueryString, serializeData } from '../../../utils/common'
-import { navigate } from '../../../utils/bridge'
+import { navigate, shareTo } from '../../../utils/bridge'
 import './index.scss'
 
 function EventDivision(props) {
@@ -145,8 +145,22 @@ function EventDivision(props) {
         }
     }
 
+    // 分享
+    const shareBtn = () => {
+      shareTo({
+        webPage: 'http://www.baidu.com',
+        thumbnail: '我喜欢的歌曲分享给你',
+        description: '话说这是一个...',
+        messageExt: 'messageExt',
+        mediaTagName: 'mediaTagName',
+        thumbnail: 'http://teststatic.weui.com/event/pic/202007/04df1874-ca82-4c7a-ab3c-9e6aa0ca95b0.png'
+      }, () => {
+        console.log('分享成功')
+      });
+    }
+
     return (<div className="event-division">
-        <PageTitle />
+        <PageTitle rightCon={<span onClick={shareBtn}>分享</span>}/>
         <div className="event-division-content">
             <div className="event-division-content-details">
                 <EventDetails

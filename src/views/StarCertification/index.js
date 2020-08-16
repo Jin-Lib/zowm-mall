@@ -6,7 +6,7 @@ import { upload1, down } from '../../assets/imgs';
 import request from '../../utils/http-app'
 import Dances from '../Dances';
 import { generateUUID } from '../../utils/common';
-import { upload } from '../../utils/bridge'
+import { upload, showQrModal } from '../../utils/bridge'
 
 const RadioItem =  Radio.RadioItem;
 
@@ -346,9 +346,10 @@ class StartCertification extends Component {
     //   notifyTextTip = '审核失败'
     // }
     const tabsTip = remark ? (<Notification text={remark} onClick={() => {
-      this.setState({
-        showWechat: true
-      });
+      // this.setState({
+      //   showWechat: true
+      // });
+      showQrModal({});
     }} />) : null
 
     return (
