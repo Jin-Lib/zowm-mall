@@ -208,7 +208,7 @@ function EventList(props) {
                                         </li>)
                                     }) 
                                     : <div className="no-class-page">
-
+                                        <span className="no-class-page-text">暂无赛事</span>
                                     </div>
                             }
                         </ul>

@@ -6,6 +6,7 @@ import { back } from '../../utils/bridge';
 
 export default function PageTitle({ title, shadow, rightCon, onBack, leftIcon }) {
     let history = useHistory();
+    document.title = title || '中欧舞盟';
 
     const goBack = () => {
       if(window.location.href.indexOf('token') === -1) {
@@ -20,7 +21,6 @@ export default function PageTitle({ title, shadow, rightCon, onBack, leftIcon })
     const classNames = classnames('page-title', {
         'page-title-shadow': shadow
     })
-
     return (<div className={classNames}>
         <div className="page-title-left" onClick={onBack || goBack}>
             {

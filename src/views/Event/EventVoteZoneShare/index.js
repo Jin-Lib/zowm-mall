@@ -10,6 +10,7 @@ import './index.scss'
 function EventVoteZone(props) {
     // const { history } = props;
     // const { location } = history;
+    let payerRef = null;
 
     // 所有参赛选手
     const [peopleList, setPeopleList] = useState([[]]);
@@ -22,6 +23,8 @@ function EventVoteZone(props) {
       eventUnionId: getQueryString('eventUnionId'),
       voteAreaUnionId: getQueryString('voteAreaUnionId')
     };
+
+    document.title = '投票专区';
 
     /**
      *  eventUnionId: state.id,
@@ -93,6 +96,10 @@ function EventVoteZone(props) {
         return () => {
             setPlayerSub(index);
             setPlayer(item);
+            setTimeout(() => {
+              console.log(payerRef, 'payerRef')
+              payerRef && payerRef.play();
+            }, 1000)
         }
     }
     
@@ -116,9 +123,13 @@ function EventVoteZone(props) {
             </div>
             <div className="event-vote-zone-content-video">
                 <video
-                    muted
-                    autoPlay
+                    // muted
+                    // autoPlay
                     // controls
+                    ref={playerR => {
+                      console.log(playerR, 'playerR')
+                      playerR && (payerRef = playerR);
+                    }}
                     preload="auto"
                     playsInline
                     webkit-playsinline="true"
