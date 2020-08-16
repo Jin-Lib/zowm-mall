@@ -150,7 +150,7 @@ function EventVoteZone(props) {
                     <span>票数：{player.ticketNum}</span>
                 </div>
                 {
-                  player && player.superVoteOrNot && <button className="super-btn" onClick={sendUperVoteEvent(player.unionId)}>超级投票</button>
+                  player && player.superVoteOrNot && <button className="super-btn" onClick={() => {sendUperVoteEvent(player.unionId)}}>超级投票</button>
                 }
                 <button onClick={sendVoteEvent(player.unionId)}>投票</button>
             </div>
