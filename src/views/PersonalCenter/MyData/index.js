@@ -59,10 +59,10 @@ class MyData extends PureComponent {
     }
 
     componentDidMount() {
-        const { current: danceTypeWrapRef } = this.danceTypeWrapRef;
-        const { current: danceTypeBoxRef } = this.danceTypeBoxRef;
-        const { width: danceTypeWrapWidth } = danceTypeWrapRef && danceTypeWrapRef.getBoundingClientRect()
-        danceTypeBoxRef.scrollTo(danceTypeWrapWidth, 0)
+        // const { current: danceTypeWrapRef } = this.danceTypeWrapRef;
+        // const { current: danceTypeBoxRef } = this.danceTypeBoxRef;
+        // const { width: danceTypeWrapWidth } = danceTypeWrapRef && danceTypeWrapRef.getBoundingClientRect()
+        // danceTypeBoxRef.scrollTo(danceTypeWrapWidth, 0)
 
         this.getAppUserDto()
     }
