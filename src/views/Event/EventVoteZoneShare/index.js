@@ -5,10 +5,11 @@ import { httpApp as request } from '../../../utils'
 import classnames from 'classnames'
 import { isEmpty } from 'loadsh'
 import { getQueryString } from '../../../utils/common'
+import { play } from '../../../assets/imgs'
 import './index.scss'
 
 function EventVoteZone(props) {
-    // const { history } = props;
+    const { history } = props;
     // const { location } = history;
     let payerRef = null;
 
@@ -18,6 +19,8 @@ function EventVoteZone(props) {
     const [player, setPlayer] = useState({});
     // 当前被选中的选手下标
     const [playerSub, setPlayerSub] = useState('00');
+
+    const [started, setStarted] = useState(false);
 
     let dataParams = {
       eventUnionId: getQueryString('eventUnionId'),
@@ -70,7 +73,7 @@ function EventVoteZone(props) {
     }, [])
 
     const sendVoteTicket = (data) => {
-        
+      history && history.push('/sharePage');
     }
 
     /**
@@ -99,6 +102,7 @@ function EventVoteZone(props) {
             setTimeout(() => {
               console.log(payerRef, 'payerRef')
               payerRef && payerRef.play();
+              setStarted(true);
             }, 1000)
         }
     }
@@ -141,6 +145,10 @@ function EventVoteZone(props) {
                     src={player.playerMatchVideo}
                     style={{ backgroundColor: '#000' }}
                 />
+                { !started &&  <img src={play} alt="" onClick={() => {
+                  payerRef && payerRef.play();
+                  setStarted(true)
+                }} />}
             </div>
             <div className="event-vote-zone-content-people">
                 <ContentTitle title="参赛选手" />

@@ -4,7 +4,7 @@ import { PageTitle, ContentTitle } from '../../../components'
 import { httpApp as request } from '../../../utils'
 import classnames from 'classnames'
 import { isEmpty } from 'loadsh'
-import { share } from '../../../assets/imgs'
+import { share, play } from '../../../assets/imgs'
 import { shareTo, wxPay } from '../../../utils/bridge'
 import './index.scss'
 
@@ -19,6 +19,8 @@ function EventVoteZone(props) {
     const [player, setPlayer] = useState({});
     // 当前被选中的选手下标
     const [playerSub, setPlayerSub] = useState('00');
+
+    const [started, setStarted] = useState(false);
 
     const getVoteInfo = (data) => {
         // Toast.loading('请求中', 0);
@@ -113,6 +115,7 @@ function EventVoteZone(props) {
             setTimeout(() => {
               console.log(payerRef, 'payerRef')
               payerRef && payerRef.play();
+              setStarted(true);
             }, 1000)
         }
     }
@@ -166,6 +169,7 @@ function EventVoteZone(props) {
                       console.log(playerR, 'playerR')
                       playerR && (payerRef = playerR);
                     }}
+                    poster={player && player.eventPicUrl || ''}
                     // controls
                     preload="auto"
                     playsInline
@@ -174,6 +178,10 @@ function EventVoteZone(props) {
                     src={player.playerMatchVideo}
                     style={{ backgroundColor: '#000' }}
                 />
+                { !started &&  <img src={play} alt="" onClick={() => {
+                  payerRef && payerRef.play();
+                  setStarted(true)
+                }} />}
             </div>
             <div className="event-vote-zone-content-people">
                 <ContentTitle title="参赛选手" />
