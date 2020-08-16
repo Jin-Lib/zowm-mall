@@ -86,8 +86,18 @@ function EventDetails(params) {
             {
                 eventDetailInfo.eventPicUrl ? (<img src={eventDetailInfo.eventPicUrl} />) : null
             }
+            <div style={{height: 10}}></div>
             {
-                eventDetailInfo.eventVideocUrl ? <video controls="controls" src={eventDetailInfo.eventVideocUrl}></video> : null
+                eventDetailInfo.eventVideocUrl ? (
+                  <video
+                    controls="controls"
+                    preload="auto"
+                    playsInline
+                    webkit-playsinline="true"
+                    mtt-playsinline="true"
+                    style={{ backgroundColor: '#000', height: 180 }}
+                    src={eventDetailInfo.eventVideocUrl}></video>
+                ) : null
             }
         </div>
         {
