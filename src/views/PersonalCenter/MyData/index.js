@@ -180,9 +180,9 @@ class MyData extends PureComponent {
     getSex = () => {
         const { sex } = this.state;
         let result = ''
-        // if (season.filter(item => item.value == sex[0]).length > 0) {
-        //     result = season.filter(item => item.value == sex[0])[0].label
-        // }
+        if (season.filter(item => item.value == sex[0]).length > 0) {
+            result = season.filter(item => item.value == sex[0])[0].label
+        }
         return result;
     }
 
@@ -340,7 +340,7 @@ class MyData extends PureComponent {
                             </div>)
                             : null
                     }
-                    {/* <Modal
+                    <Modal
                         visible={sexModelFlag}
                         transparent
                         onClose={this.CloseSexModel}
@@ -366,7 +366,7 @@ class MyData extends PureComponent {
                         >
                             确认
                         </div>
-                    </Modal> */}
+                    </Modal>
                 </div>
           </div>
         )
