@@ -61,7 +61,7 @@ class MyData extends PureComponent {
     componentDidMount() {
         const { current: danceTypeWrapRef } = this.danceTypeWrapRef;
         const { current: danceTypeBoxRef } = this.danceTypeBoxRef;
-        const { width: danceTypeWrapWidth } = danceTypeWrapRef.getBoundingClientRect()
+        const { width: danceTypeWrapWidth } = danceTypeWrapRef && danceTypeWrapRef.getBoundingClientRect()
         danceTypeBoxRef.scrollTo(danceTypeWrapWidth, 0)
 
         this.getAppUserDto()
@@ -180,9 +180,9 @@ class MyData extends PureComponent {
     getSex = () => {
         const { sex } = this.state;
         let result = ''
-        if (season.filter(item => item.value == sex[0]).length > 0) {
-            result = season.filter(item => item.value == sex[0])[0].label
-        }
+        // if (season.filter(item => item.value == sex[0]).length > 0) {
+        //     result = season.filter(item => item.value == sex[0])[0].label
+        // }
         return result;
     }
 
