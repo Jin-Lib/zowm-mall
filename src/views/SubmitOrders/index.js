@@ -144,6 +144,10 @@ export default class SubmitOrders extends Component{
         const response = await this.ineroPayFn(orderNumbers);
         Toast.hide();
 
+        if(response && response.code) {
+          return;
+        }
+
         Toast.info('支付成功')
 
         const { history } = this.props;

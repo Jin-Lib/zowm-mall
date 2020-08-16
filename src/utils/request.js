@@ -19,7 +19,7 @@ const successFunc = (response) => {
         Toast.info(message || '')
       }, 500)
 
-      return Promise.reject(response)
+      // return Promise.reject(response)
     }
   }
 
