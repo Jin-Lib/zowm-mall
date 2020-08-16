@@ -6,7 +6,7 @@ import classnames from 'classnames';
 import './index.scss';
 
 function EventDetails(params) {
-    let { id, showMore, location } = params;
+    let { id, showMore, location, getDetail } = params;
 
     if (!id && location && location.state && location.state.showMore) {
         id = location.state.id;
@@ -42,6 +42,7 @@ function EventDetails(params) {
             request(params)
                 .then((res) => {
                     setEventDetailInfo(res)
+                    getDetail && getDetail(res);
                     Toast.hide();
                 })
                 .catch((error) => {
@@ -76,10 +77,10 @@ function EventDetails(params) {
         {
             showMore ? <PageTitle /> : null
         }
-        <h6 className="event-details-title">{eventDetailInfo.eventName}</h6>
+        {/* <h6 className="event-details-title">{eventDetailInfo.eventName}</h6> */}
         <div style={{}}>
-          <div style={{ fontFamily: 'PingFangSC-Regular', fontSize: '14px', color: "#aaa" }}>日期：<span style={{ color: '#222' }}>{eventDetailInfo.eventStartTime}</span></div>
-          <div style={{ fontFamily: 'PingFangSC-Regular', fontSize: '14px', color: "#aaa", marginTop: '8px' }}>地点：<span style={{ color: '#222' }}>{eventDetailInfo.eventEndTime}</span></div>
+          <div style={{ fontFamily: 'PingFangSC-Regular', fontSize: '14px', color: "#aaa" }}>日期：<span style={{ color: '#222' }}>{eventDetailInfo.eventStartTime} - {eventDetailInfo.eventEndTime}</span></div>
+          <div style={{ fontFamily: 'PingFangSC-Regular', fontSize: '14px', color: "#aaa", marginTop: '8px' }}>地点：<span style={{ color: '#222' }}>{eventDetailInfo.eventAddress}</span></div>
         </div>
         <div className="event-details-propaganda">
             {

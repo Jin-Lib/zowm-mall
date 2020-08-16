@@ -4,13 +4,12 @@ import { PageTitle, ContentTitle } from '../../../components'
 import { httpApp as request } from '../../../utils'
 import classnames from 'classnames'
 import { isEmpty } from 'loadsh'
-import { share } from '../../../assets/imgs'
-import { shareTo } from '../../../utils/bridge'
+import { getQueryString } from '../../../utils/common'
 import './index.scss'
 
 function EventVoteZone(props) {
-    const { history } = props;
-    const { location } = history;
+    // const { history } = props;
+    // const { location } = history;
 
     // 所有参赛选手
     const [peopleList, setPeopleList] = useState([[]]);
@@ -18,6 +17,16 @@ function EventVoteZone(props) {
     const [player, setPlayer] = useState({});
     // 当前被选中的选手下标
     const [playerSub, setPlayerSub] = useState('00');
+
+    let dataParams = {
+      eventUnionId: getQueryString('eventUnionId'),
+      voteAreaUnionId: getQueryString('voteAreaUnionId')
+    };
+
+    /**
+     *  eventUnionId: state.id,
+        voteAreaUnionId: item.unionId
+     */
 
     const getVoteInfo = (data) => {
         // Toast.loading('请求中', 0);
@@ -54,24 +63,11 @@ function EventVoteZone(props) {
     }
 
     useEffect(() => {
-        getVoteInfo(location.state)
+        getVoteInfo(dataParams)
     }, [])
 
     const sendVoteTicket = (data) => {
-        Toast.loading('投票中', 0);
-        const params = {
-            url: '/app/event/voteTicket',
-            method: "GET",
-            data: data,
-        }
-        return new Promise(() => {
-            request(params)
-                .then((res) => {
-                    Toast.hide();
-                    getVoteInfo(location.state)
-                    Toast.info('投票成功');
-                })
-        })
+        
     }
 
     /**
@@ -99,25 +95,9 @@ function EventVoteZone(props) {
             setPlayer(item);
         }
     }
-
-    // 分享
-    const shareBtn = () => {
-      console.log( window.location.origin + '/eventVoteZoneShare' + '?eventUnionId=' + location.state.eventUnionId + '&voteAreaUnionId=' + location.state.voteAreaUnionId)
-      shareTo({
-        webPage: window.location.origin + '/eventVoteZoneShare' + '?eventUnionId=' + location.state.eventUnionId + '&voteAreaUnionId=' + location.state.voteAreaUnionId,
-        thumbnail: player && player.playerName || '',
-        description: player && player.playerName || '',
-        messageExt: 'messageExt',
-        mediaTagName: 'mediaTagName',
-        thumbnail: player && player.playerHeaderPic || ''
-      }, () => {
-        console.log('分享成功')
-      });
-    }
-
-
+    
     return <div className="event-vote-zone">
-        <PageTitle title="投票专区" rightCon={<div className="event-vote-share" onClick={shareBtn} ><img src={share} /></div>} />
+        <PageTitle title="投票专区"/>
         <div className="event-vote-zone-content">
             <div className="event-vote-zone-content-title">
                 <img src={require('../../../assets/imgs/vote-zone-title.png')} alt=""/>

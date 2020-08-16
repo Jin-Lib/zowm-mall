@@ -188,13 +188,23 @@ function EventList(props) {
                             }
                         </ul>
                     </div>
+                    {/* 
+                      1 已结束
+                      2 进行中
+                      3 即将开始
+                     */}
                     <div className="event-event-list-content-right">
                         <ul>
                             {
                                 eventList && eventList.length > 0
                                     ? eventList.map((item, key) => {
-                                        return (<li key={key} onClick={eventListItemClick(item)}>
+                                        return (<li style={{ position: 'relative' }} key={key} onClick={eventListItemClick(item)}>
                                             <img src={item.eventPicUrl} alt=""/>
+                                            <span style={{position: 'absolute', top: 10, right: 10, backgroundColor: 'rgba(0,0,0,.5)', padding: '8px 14px', color: '#fff', fontSize: '12px', fontFamily: 'PingFangSC-Medium', borderRadius: '18px'}}>
+                                              {
+                                                item.eventState == 1 ? "已结束" : (item.eventState == 2 ? "进行中" : "即将开始")
+                                              }
+                                            </span>
                                         </li>)
                                     }) 
                                     : <div className="no-class-page">

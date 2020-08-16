@@ -430,8 +430,8 @@ class StartCertification extends Component {
                 }} />
               </div>
               <div className="strcture-box">
-                <div className="strcture-item">营业执照</div>
-                <div className="strcture-item">机构形象图</div>
+                <div className="strcture-item">机构的logo</div>
+                <div className="strcture-item">相关资质</div>
               </div>
             </CInputItem>
             
@@ -541,8 +541,8 @@ class StartCertification extends Component {
                 }} />
               </div>
               <div className="strcture-box">
-                <div className="strcture-item">导师头像</div>
-                <div className="strcture-item">相关证书</div>
+                <div className="strcture-item">个人形象照</div>
+                <div className="strcture-item">相关资质</div>
               </div>
             </CInputItem>
             {

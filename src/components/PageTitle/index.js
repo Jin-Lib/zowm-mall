@@ -6,7 +6,6 @@ import { back } from '../../utils/bridge';
 
 export default function PageTitle({ title, shadow, rightCon, onBack, leftIcon }) {
     let history = useHistory();
-    console.log(onBack)
 
     const goBack = () => {
       if(window.location.href.indexOf('token') === -1) {

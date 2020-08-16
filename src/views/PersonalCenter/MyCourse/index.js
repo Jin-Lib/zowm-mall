@@ -7,11 +7,11 @@ import { navigate } from '../../../utils/bridge';
 
 function MyCourse() {
     // 课程列表
-    const [ coursetList, setCoursetList ] = useState();
+    const [ coursetList, setCoursetList ] = useState([]);
 
     // 课程 分页
     const [ pageNum, setPageNum ] = useState(1);
-    const [ pageSize, setPageSize ] = useState(5);
+    const [ pageSize, setPageSize ] = useState(10);
 
     /**
      * 获取课程列表
@@ -29,12 +29,18 @@ function MyCourse() {
         return new Promise(() => {
             request(params)
                 .then((res) => {
+                  try {
                     const { pageResult } = res;
-                    console.log(pageResult)
-                    setCoursetList(pageResult)
+                    let coursetListData = coursetList.concat(pageResult || []);
+                    setCoursetList(coursetListData)
+                  } catch(err) {
+                    console.log(err)
+                  }
+                    
                     Toast.hide();
                 })
                 .catch((error) => {
+                    Toast.hide();
                     const { data } = error;
                     const { error: errMsg } = data || {};
                     Toast.info(errMsg || "当前网络异常, 请稍后重试!")

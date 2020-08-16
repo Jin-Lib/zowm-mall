@@ -3,6 +3,21 @@
     height: 100%;
     overflow: hidden;
     overflow-y: auto;
+
+    .event-share {
+      width: 1.173333rem /* 44/37.5 */;
+      height: 1.173333rem /* 44/37.5 */;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: -.533333rem /* 20/37.5 */;
+      
+      img {
+        width: .48rem /* 18/37.5 */;
+        height: .373333rem /* 14/37.5 */;
+      }
+    }
+
     .event-division-title-right {
         font-family:PingFang SC;
         font-weight:400;
@@ -95,7 +110,7 @@
             }
             .event-division-content-video-box {
                 margin-top: .533333rem /* 20/37.5 */;
-                height: 3.493333rem /* 131/37.5 */;
+                // height: 3.493333rem /* 131/37.5 */;
                 overflow: hidden;
                 overflow-x: auto;
                 ul {
@@ -177,5 +192,12 @@
                 }
             }
         }
+    }
+
+    .empty {
+      font-size: .373333rem /* 14/37.5 */;
+      color: #999;
+      margin: .533333rem /* 20/37.5 */;
+      text-align: center;
     }
 }

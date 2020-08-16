@@ -5,6 +5,7 @@ import { Toast } from 'antd-mobile';
 import { httpApp as request } from '../../../utils'
 import { getQueryString, serializeData } from '../../../utils/common'
 import { navigate, shareTo } from '../../../utils/bridge'
+import { share } from '../../../assets/imgs'
 import './index.scss'
 
 function EventDivision(props) {
@@ -22,6 +23,8 @@ function EventDivision(props) {
     const [ photoList, setPhotoList ] = useState([])
     // 投票专区
     const [ voteList, setVoteList ] = useState([])
+    // 赛事详情
+    const [detail, setDetail] = useState('')
 
     /**
      * 请求赛事视频
@@ -148,29 +151,36 @@ function EventDivision(props) {
     // 分享
     const shareBtn = () => {
       shareTo({
-        webPage: 'http://www.baidu.com',
-        thumbnail: '我喜欢的歌曲分享给你',
-        description: '话说这是一个...',
+        webPage: window.location.href + '?id=' + state.id,
+        thumbnail: detail && detail.eventName || '',
+        description: detail && detail.eventAddress || '',
         messageExt: 'messageExt',
         mediaTagName: 'mediaTagName',
-        thumbnail: 'http://teststatic.weui.com/event/pic/202007/04df1874-ca82-4c7a-ab3c-9e6aa0ca95b0.png'
+        thumbnail: detail && detail.eventPicUrl || ''
       }, () => {
         console.log('分享成功')
       });
     }
 
     return (<div className="event-division">
-        <PageTitle rightCon={<span onClick={shareBtn}>分享</span>}/>
+        <PageTitle title={detail && detail.eventName || ''} rightCon={<div className="event-share" onClick={shareBtn} ><img src={share} /></div>}/>
         <div className="event-division-content">
             <div className="event-division-content-details">
                 <EventDetails
                     id={state.id}
+                    getDetail={(data) => {
+                      setDetail(data)
+                    }}
                     history={history} />
             </div>
-            <div onClick={shareBtn}>分享</div>
             <div className="event-division-content-vote">
                 <ContentTitle
                     title="投票专区"/>
+                {
+                  voteList && Array.isArray(voteList) && voteList.length === 0 && (
+                    <div className="empty">暂无数据</div>
+                  )
+                }
                 <ul>
                     {
                         voteList && Array.isArray(voteList) && voteList.length > 0 && voteList.map((item, index) => {
@@ -193,6 +203,11 @@ function EventDivision(props) {
             <div className="event-division-content-video">
                 <ContentTitle
                     title="赛事视频" />
+                {
+                  voteList && Array.isArray(voteList) && voteList.length === 0 && (
+                    <div className="empty">暂无数据</div>
+                  )
+                }
                 <div className="event-division-content-video-box">
                     <ul>
                         {
@@ -212,11 +227,17 @@ function EventDivision(props) {
             <div className="event-division-content-photo">
                 <ContentTitle
                     title="赛事相册"
-                    rightCon={<span className="event-division-content-video-title-right" onClick={() => {
-                      navigate && navigate({
-                        url: `/photo-dive-list?themeUnionId=${state.id}`,
-                      });
-                    }}>更多</span>}/>
+                    // rightCon={<span className="event-division-content-video-title-right" onClick={() => {
+                    //   navigate && navigate({
+                    //     url: `/photo-dive-list?themeUnionId=${state.id}`,
+                    //   });
+                    // }}>更多</span>}
+                />
+                {
+                  voteList && Array.isArray(voteList) && voteList.length === 0 && (
+                    <div className="empty">暂无数据</div>
+                  )
+                }
                 <div className="event-division-content-photo-box">
                     <ul>
                         {

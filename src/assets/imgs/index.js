@@ -7,6 +7,7 @@ import plus from './player/plus.png';
 import tip from './tip.png';
 import down from './down.png';
 import logo from './logo180.png';
+import share from './share.png';
 
 export {
   upload1,
@@ -17,5 +18,6 @@ export {
   plus,
   tip,
   down,
-  logo
+  logo,
+  share
 };
