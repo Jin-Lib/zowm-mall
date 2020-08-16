@@ -90,6 +90,7 @@ function EventDetails(params) {
             {
                 eventDetailInfo.eventVideocUrl ? (
                   <video
+                    poster={eventDetailInfo.eventPicUrl}
                     controls="controls"
                     preload="auto"
                     playsInline

@@ -106,13 +106,17 @@ function EventVoteZone(props) {
     return <div className="event-vote-zone">
         {/* <PageTitle title="投票专区"/> */}
         <div className="event-vote-zone-content">
-            <div className="event-vote-zone-content-title">
-                <img src={require('../../../assets/imgs/vote-zone-title.png')} alt=""/>
-                <div>
-                    <p>1票相当于6票</p>
-                    <span>购买课程可享受超级投票权益</span>
-                </div>
-            </div>
+            {
+              player && player.superVoteOrNot && (
+                <div className="event-vote-zone-content-title">
+                  <img src={require('../../../assets/imgs/vote-zone-title.png')} alt=""/>
+                  <div>
+                      <p>超级投票</p>
+                      <span>花 {player && player.votePrice} 元给你喜爱的选手投 {player && player.voteNum} 票</span>
+                  </div>
+              </div>
+              )
+            }
             <div className="event-vote-zone-content-info">
                 <img src={player.playerHeaderPic} alt=""/>
                 <div>
