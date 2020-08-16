@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './index.scss';
 import { play, add, plus } from '../../assets/imgs';
-import music from '../../assets/music.mp3';
+// import music from '../../assets/music.mp3';
 
 class Player extends Component {
   constructor(props) {
@@ -122,7 +122,7 @@ class Player extends Component {
     return (
       <div className="player-container">
         <div className="player-box">
-          <audio src={music} id="music" ref={music => this.musicRef = music}></audio>
+          <audio src={''} id="music" ref={music => this.musicRef = music}></audio>
           <canvas id="canvas"></canvas>
           <img src="https://img2.51tietu.net/pic/2017-010823/20170108235247cl2kntbuigu20695.jpg" />
         </div>
