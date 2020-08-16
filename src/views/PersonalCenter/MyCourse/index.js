@@ -74,7 +74,7 @@ function MyCourse() {
           rightCon={
             <div onClick={() => {
               navigate && navigate({
-                url: ''
+                url: '/home-work-list?userRole=1'
               });
             }}>我的作业</div>
           }

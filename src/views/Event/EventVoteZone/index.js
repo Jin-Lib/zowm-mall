@@ -136,7 +136,7 @@ function EventVoteZone(props) {
             </div>
             <div className="event-vote-zone-content-video">
                 <video
-                    muted
+                    // muted
                     autoPlay
                     // controls
                     preload="auto"
