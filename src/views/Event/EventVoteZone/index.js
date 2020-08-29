@@ -124,7 +124,7 @@ function EventVoteZone(props) {
     const shareBtn = () => {
       console.log( window.location.origin + '/eventVoteZoneShare' + '?eventUnionId=' + location.state.eventUnionId + '&voteAreaUnionId=' + location.state.voteAreaUnionId)
       shareTo({
-        webPage: window.location.origin + '/eventVoteZoneShare' + '?eventUnionId=' + location.state.eventUnionId + '&voteAreaUnionId=' + location.state.voteAreaUnionId,
+        webPage: window.location.origin + '/eventVoteZoneShare' + '?eventUnionId=' + location.state.eventUnionId + '&voteAreaUnionId=' + location.state.voteAreaUnionId + '&unionId=' + player.unionId,
         thumbnail: player && player.playerName || '',
         description: player && player.playerName || '',
         messageExt: 'messageExt',
@@ -153,7 +153,7 @@ function EventVoteZone(props) {
             <div className="event-vote-zone-content-info">
                 <img src={player.playerHeaderPic} alt=""/>
                 <div>
-                    <p>{player.playerName}</p>
+                    <p>{player.playerName} <span style={{ fontSize: '15px', color: "#FF3B61", fontWeight: 'bold' }}>#{player.userNo}</span></p>
                     <span>票数：{player.ticketNum}</span>
                 </div>
                 {
@@ -197,7 +197,18 @@ function EventVoteZone(props) {
                                                     'active': playerSub === `${index}${subIndex}`
                                                 })}
                                                 onClick={playerItemClick(`${index}${subIndex}`, sub)}>
-                                            <img src={sub.playerHeaderPic} alt=""/>
+                                            <div className="carousel-lite-item-div">
+                                              <img src={sub.playerHeaderPic} alt=""/>
+                                              {
+                                                sub && sub.orderNum && (
+                                                  <span>
+                                                    {
+                                                      sub.orderNum
+                                                    }
+                                                  </span>
+                                                )
+                                              }
+                                            </div>
                                             <p>{sub.playerName && sub.playerName.length > 4 ? sub.playerName.substr(0, 4) : sub.playerName}</p>
                                             <span style={{
                                                 color: `${index==0 && (subIndex == 0 || subIndex == 1 || subIndex == 2 || subIndex == 3) ? '#FF7B00' : ''}`

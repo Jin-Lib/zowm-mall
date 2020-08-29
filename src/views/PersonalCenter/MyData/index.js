@@ -10,6 +10,8 @@ import { httpApp as request } from '../../../utils'
 
 import Dances from '../../Dances';
 
+import { upload } from '../../../utils/bridge'
+
 import './index.scss'
 
 function closest(el, selector) {
@@ -105,9 +107,9 @@ class MyData extends PureComponent {
      * @returns {any}
      */
     setPhone = (phone) => {
-        this.setState({
-            phone
-        })
+      this.setState({
+        phone
+      })
     }
 
     /**
@@ -193,7 +195,10 @@ class MyData extends PureComponent {
      */
     updateAppUser = () => {
         const { nick, phone, sex, selectDances, userHeadPic } = this.state;
-        console.log('nick, phone, sex', nick, phone, sex, selectDances)
+        if (phone.replace(/\s/g, '').length < 11){
+          Toast.info('手机号格式不对');
+          return;
+        }
         const requestParams = {
             userNickName: nick,
             phone,
@@ -267,7 +272,7 @@ class MyData extends PureComponent {
                 title="我的资料" shadow />
                 <div className="my-data-page-body">
                     <ItemDetail title="头像">
-                        <Upload
+                        {/* <Upload
                             style={{ width: '1.173333rem', height: '1.173333rem', top: '.373333rem' }}
                             onChange={(data) => {
                                 this.setState({
@@ -276,8 +281,23 @@ class MyData extends PureComponent {
                             }}
                         >
                             <img className="my-data-page-body-av" src={userHeadPic} alt=""/>
-                        </Upload>
-                        
+                        </Upload> */}
+                        <img className="my-data-page-body-av" src={userHeadPic} alt="" onClick={() => {
+                          upload({
+                            uploadType: 10
+                          }, (data) => {
+                            console.log(data, 'head img')
+                            if(data && data.success == '1') {
+                              this.setState({
+                                userHeadPic: data.data || ''
+                              });
+                            } else {
+                              Toast.info(data && data.message || '上传失败')
+                            }
+                            
+                          })
+                        }}/>
+                           
                     </ItemDetail>
                     <ItemDetail title="昵称">
                         <InputItem
@@ -296,6 +316,7 @@ class MyData extends PureComponent {
                     </ItemDetail>
                     <ItemDetail title="联系方式">
                         <InputItem
+                            type="phone"
                             className="my-data-page-body-phone"
                             value={phone}
                             onChange={this.setPhone}

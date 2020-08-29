@@ -44,6 +44,20 @@ const MyOrderDetail = ({ history, location: { state } }) => {
         <PageTitle title="订单详情" />
         <div className="my-order-detail-content">
             <GoodsInfo {...orderDetail} history={history} isDetailPage />
+
+            {
+              orderDetail && (orderDetail.sourceType === 6 || orderDetail.sourceType === 7) && (
+                <div className="my-order-detail-order-info">
+                  <h6>收货地址</h6>
+                  <div className="my-order-detail-order-info-content">
+                      <p><span>收货人姓名</span>{orderDetail.receiverName}</p>
+                      <p><span>收货人手机号</span>{orderDetail.receiverPhone}</p>
+                      <p><span>收货人地址</span>{orderDetail.receiverAddr}</p>
+                  </div>
+              </div>
+              )
+            }
+            
             <div className="my-order-detail-order-info">
                 <h6>订单信息</h6>
                 <div className="my-order-detail-order-info-content">

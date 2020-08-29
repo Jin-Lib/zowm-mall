@@ -247,6 +247,13 @@ class StartCertification extends Component {
     });
   }
 
+  cancelSure = () => {
+    Modal.alert('确认取消审核吗？', '', [
+      { text: '取消', onPress: () => {} },
+      { text: '确认', onPress: () => { this.cancelOrganTutor() } },
+    ])
+  }
+
   /**
    * 取消 学校机构 申请
    * @date 2020-07-14
@@ -438,7 +445,7 @@ class StartCertification extends Component {
             {
               (detail.status === 1 || detail.status === 3)
                 ? (<div className="two-button-container">
-                  { (detail.status === 1) && <button onClick={this.cancelOrganTutor}>取消</button> }
+                  { (detail.status === 1) && <button onClick={this.cancelSure}>取消</button> }
                   { (detail.status === 3) && <button onClick={this.applyOrganTutor}>修改</button> }
                 </div>)
                 : ( detail.status !== 2 && <SButton onClick={this.applyOrganTutor}>
@@ -548,7 +555,7 @@ class StartCertification extends Component {
             {
               (detail.status === 1 || detail.status === 3)
                 ? (<div className="two-button-container">
-                    { (detail.status === 1) && <button onClick={this.cancelOrganTutor}>取消</button> }
+                    { (detail.status === 1) && <button onClick={this.cancelSure}>取消</button> }
                     { (detail.status === 3) && <button onClick={this.applyTutor}>修改</button> }
                   </div>)
                 : ( detail.status !== 2 && <SButton onClick={this.applyTutor}>

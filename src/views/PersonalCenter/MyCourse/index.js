@@ -11,7 +11,7 @@ function MyCourse() {
 
     // 课程 分页
     const [ pageNum, setPageNum ] = useState(1);
-    const [ pageSize, setPageSize ] = useState(10);
+    const [ pageSize, setPageSize ] = useState(5);
 
     /**
      * 获取课程列表

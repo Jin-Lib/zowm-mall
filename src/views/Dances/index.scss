@@ -3,6 +3,8 @@
   height: 100%;
   box-sizing: border-box;
   background-color: #fff;
+  padding-bottom: 2.4rem /* 90/37.5 */;
+  overflow-y: auto;
 
   .title-container {
     font-family: PingFangSC-Medium;
@@ -40,11 +42,12 @@
 
   .dances-footer {
     position: fixed;
-    bottom: .8rem /* 30/37.5 */;
+    bottom: 0;
     left: 0;
     width: 100%;
     display: flex;
-    padding: 0 .4rem /* 15/37.5 */;
+    padding: .4rem /* 15/37.5 */ .4rem /* 15/37.5 */;
+    background-color: #fff;
   }
 
   .s-button-container {

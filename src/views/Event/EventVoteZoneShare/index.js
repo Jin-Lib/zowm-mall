@@ -26,6 +26,7 @@ function EventVoteZone(props) {
       eventUnionId: getQueryString('eventUnionId'),
       voteAreaUnionId: getQueryString('voteAreaUnionId')
     };
+    let unionId = getQueryString('unionId');
 
     document.title = '投票专区';
 
@@ -53,10 +54,18 @@ function EventVoteZone(props) {
                         let temp = res.slice(i*n, i*n+n);
                         result.push(temp);
                     }
-                    console.log(result)
                     setPeopleList(result)
                     if(isEmpty(player)) {
-                      setPlayer(res[0] || {})
+                      if(unionId) {
+                        (res || []).forEach((item, index) => {
+                          if(item.unionId == unionId) {
+                            setPlayer(item);
+                            setPlayerSub(index)
+                          }
+                        })
+                      } else {
+                        setPlayer(res[0] || {})
+                      }
                     } else {
                       (res || []).forEach(item => {
                         if(item.unionId == player.unionId) {
@@ -124,7 +133,7 @@ function EventVoteZone(props) {
             <div className="event-vote-zone-content-info">
                 <img src={player.playerHeaderPic} alt=""/>
                 <div>
-                    <p>{player.playerName}</p>
+                    <p>{player.playerName} <span style={{ fontSize: '15px', color: "#FF3B61", fontWeight: 'bold' }}>#{player.userNo}</span></p>
                     <span>票数：{player.ticketNum}</span>
                 </div>
                 <button onClick={sendVoteEvent(player.unionId)}>投票</button>
@@ -161,10 +170,21 @@ function EventVoteZone(props) {
                                         return (<li
                                                 key={subIndex}
                                                 className={classnames('carousel-lite-item', {
-                                                    'active': playerSub === `${index}${subIndex}`
+                                                    'active': player.unionId === sub.unionId//playerSub === `${index}${subIndex}`
                                                 })}
                                                 onClick={playerItemClick(`${index}${subIndex}`, sub)}>
-                                            <img src={sub.playerHeaderPic} alt=""/>
+                                            <div className="carousel-lite-item-div">
+                                              <img src={sub.playerHeaderPic} alt=""/>
+                                              {
+                                                sub && sub.orderNum && (
+                                                  <span>
+                                                    {
+                                                      sub.orderNum
+                                                    }
+                                                  </span>
+                                                )
+                                              }
+                                            </div>
                                             <p>{sub.playerName && sub.playerName.length > 4 ? sub.playerName.substr(0, 4) : sub.playerName}</p>
                                             <span style={{
                                                 color: `${index==0 && (subIndex == 0 || subIndex == 1 || subIndex == 2 || subIndex == 3) ? '#FF7B00' : ''}`

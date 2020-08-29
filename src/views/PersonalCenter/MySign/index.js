@@ -87,14 +87,14 @@ function MySign() {
       };
       request(params)
         .then(response => {
-          var options = {
-            text: response && response.userErCodeUrl || '',
-            width: 200,
-            height: 200,
-            codeWidth: 200,
-            codeHeight: 200,
-            top: 0,
-            left: 0,
+          // var options = {
+          //   text: response && response.userErCodeUrl || '',
+          //   width: 200,
+          //   height: 200,
+          //   codeWidth: 200,
+          //   codeHeight: 200,
+          //   top: 0,
+          //   left: 0,
             /**
              * materials unit options
              */
@@ -112,15 +112,15 @@ function MySign() {
             //     col2: "./materials/electron/col2.png",
             //     single: ["./materials/electron/single.png", "./materials/electron/single_2.png"],
             // }
-          }
+          // }
         /**
           * when the artqrcode loaded, run this function
           */
-          function callBack(status) {
-              console.log(status) // [loaded|success]
-          }
-          var code = new QRCode(document.getElementById("qrcode"), options, callBack);
-          // setQRCode(response && response.userErCodeUrl || '')
+          // function callBack(status) {
+          //     console.log(status) // [loaded|success]
+          // }
+          // var code = new QRCode(document.getElementById("qrcode"), options, callBack);
+          setQRCode(response && response.userErPicUrl || '')
         })
         .catch(error => {
         })
@@ -295,8 +295,8 @@ function MySign() {
                 setShowQR(false)
               }}
               visible={showQR}>
-              <div id="qrcode" style={{ display: 'flex', justifyContent: 'center', height: 200 }}></div>
-              {/* <img className="wechatCode" src={qrCode} alt="" /> */}
+              {/* <div id="qrcode" style={{ display: 'flex', justifyContent: 'center', height: 200 }}></div> */}
+                <img style={{ width: '100%' }} className="wechatCode" src={qrCode} alt="" />
             </Modal>
             
         </div>
