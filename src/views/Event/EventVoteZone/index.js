@@ -6,6 +6,8 @@ import classnames from 'classnames'
 import { isEmpty } from 'loadsh'
 import { share, play } from '../../../assets/imgs'
 import { shareTo, wxPay } from '../../../utils/bridge'
+import { Player } from 'video-react';
+
 import './index.scss'
 
 function EventVoteZone(props) {
@@ -112,11 +114,11 @@ function EventVoteZone(props) {
         return () => {
             setPlayerSub(index);
             setPlayer(item);
-            setTimeout(() => {
-              console.log(payerRef, 'payerRef')
-              payerRef && payerRef.play();
-              setStarted(true);
-            }, 1000)
+            // setTimeout(() => {
+            //   console.log(payerRef, 'payerRef')
+            //   payerRef && payerRef.play();
+            //   setStarted(true);
+            // }, 1000)
         }
     }
 
@@ -126,7 +128,7 @@ function EventVoteZone(props) {
       shareTo({
         webPage: window.location.origin + '/eventVoteZoneShare' + '?eventUnionId=' + location.state.eventUnionId + '&voteAreaUnionId=' + location.state.voteAreaUnionId + '&unionId=' + player.unionId,
         thumbnail: player && player.playerName || '',
-        description: player && player.playerName || '',
+        description: `他在这里参加比赛，快给 ${player && player.playerName} 投票`,
         messageExt: 'messageExt',
         mediaTagName: 'mediaTagName',
         thumbnail: player && player.playerHeaderPic || ''
@@ -162,7 +164,7 @@ function EventVoteZone(props) {
                 <button onClick={sendVoteEvent(player.unionId)}>投票</button>
             </div>
             <div className="event-vote-zone-content-video">
-                <video
+                {/* <video
                     // muted
                     // autoPlay
                     ref={playerR => {
@@ -177,11 +179,18 @@ function EventVoteZone(props) {
                     mtt-playsinline="true"
                     src={player.playerMatchVideo}
                     style={{ backgroundColor: '#000' }}
-                />
-                { !started &&  <img src={play} alt="" onClick={() => {
+                /> */}
+                <Player
+                  preload="auto"
+                  autoPlay={true}
+                  poster={player && player.eventPicUrl || ''}
+                  src={player.playerMatchVideo}
+                >
+                </Player>
+                {/* { !started &&  <img src={play} alt="" onClick={() => {
                   payerRef && payerRef.play();
                   setStarted(true)
-                }} />}
+                }} />} */}
             </div>
             <div className="event-vote-zone-content-people">
                 <ContentTitle title="参赛选手" />

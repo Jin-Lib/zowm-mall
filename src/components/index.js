@@ -21,3 +21,5 @@ export { default as CourseItem } from './CourseItem'
 export { default as GoodsInfo } from './GoodsInfo'
 
 export { default as ItemDetail } from './ItemDetail'
+
+export { default as Video } from './Video'

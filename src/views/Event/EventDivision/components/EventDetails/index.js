@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { PageTitle } from '../../../../../components'
+import { PageTitle, Video } from '../../../../../components'
 import { Toast } from 'antd-mobile';
 import { httpApp as request } from '../../../../../utils'
+import { Player } from 'video-react';
 import classnames from 'classnames';
+
 import './index.scss';
 
 function EventDetails(params) {
@@ -89,15 +91,22 @@ function EventDetails(params) {
             <div style={{height: 10}}></div>
             {
                 eventDetailInfo.eventVideocUrl ? (
-                  <video
-                    poster={eventDetailInfo.eventPicUrl}
-                    controls="controls"
+                  // <Video
+                  //   poster={eventDetailInfo.eventPicUrl}
+                  //   controls="controls"
+                  //   preload="auto"
+                  //   playsInline
+                  //   webkit-playsinline="true"
+                  //   mtt-playsinline="true"
+                  //   style={{ backgroundColor: '#000', height: 180 }}
+                  //   src={eventDetailInfo.eventVideocUrl} />
+                  <Player
                     preload="auto"
-                    playsInline
-                    webkit-playsinline="true"
-                    mtt-playsinline="true"
-                    style={{ backgroundColor: '#000', height: 180 }}
-                    src={eventDetailInfo.eventVideocUrl}></video>
+                    autoPlay={true}
+                    poster={eventDetailInfo.eventPicUrl}
+                  >
+                    <source src={eventDetailInfo.eventVideocUrl} />
+                  </Player>
                 ) : null
             }
         </div>

@@ -6,6 +6,8 @@ import classnames from 'classnames'
 import { isEmpty } from 'loadsh'
 import { getQueryString } from '../../../utils/common'
 import { play } from '../../../assets/imgs'
+import { Player } from 'video-react';
+
 import './index.scss'
 
 function EventVoteZone(props) {
@@ -108,11 +110,11 @@ function EventVoteZone(props) {
         return () => {
             setPlayerSub(index);
             setPlayer(item);
-            setTimeout(() => {
-              console.log(payerRef, 'payerRef')
-              payerRef && payerRef.play();
-              setStarted(true);
-            }, 1000)
+            // setTimeout(() => {
+            //   console.log(payerRef, 'payerRef')
+            //   payerRef && payerRef.play();
+            //   setStarted(true);
+            // }, 1000)
         }
     }
     
@@ -139,7 +141,7 @@ function EventVoteZone(props) {
                 <button onClick={sendVoteEvent(player.unionId)}>投票</button>
             </div>
             <div className="event-vote-zone-content-video">
-                <video
+                {/* <video
                     // muted
                     // autoPlay
                     // controls
@@ -157,7 +159,14 @@ function EventVoteZone(props) {
                 { !started &&  <img src={play} alt="" onClick={() => {
                   payerRef && payerRef.play();
                   setStarted(true)
-                }} />}
+                }} />} */}
+                <Player
+                  preload="auto"
+                  autoPlay={true}
+                  poster={player && player.eventPicUrl || ''}
+                >
+                  <source src={player.playerMatchVideo} />
+                </Player>
             </div>
             <div className="event-vote-zone-content-people">
                 <ContentTitle title="参赛选手" />
