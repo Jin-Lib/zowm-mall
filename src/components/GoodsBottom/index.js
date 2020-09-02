@@ -39,7 +39,33 @@ function GoodsBottom({ buyNow, prodId }) {
       // 获取微信信息
       getWXInfo('ZOWM_GUAN_FANG_WECHAT', 'wxName');
       getWXInfo('ZOWM_GUAN_FANG_ER_CODE', 'wxUrl');
+
+      getIsCollect();
     }, [])
+
+
+    /**
+     * 是否收藏
+     */
+    const getIsCollect = () => {
+
+      const params = {
+          url: `/p/user/collection/isCollection`,
+          method: "GET",
+          data: {
+              prodId: prodId,
+          },
+      };
+      http(params)
+          .then(res => {
+            if(typeof res === "boolean") {
+              SetIsCollect(res)
+            }
+              
+          })
+          .catch(() => {
+          })
+    }
 
 
     const collectEvent = () => {

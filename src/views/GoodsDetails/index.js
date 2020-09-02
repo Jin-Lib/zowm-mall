@@ -73,7 +73,6 @@ class GoodsDetails extends PureComponent {
     componentDidMount() {
         // 请求商品信息
         this.getProdInfo();
-
     }
 
     /**

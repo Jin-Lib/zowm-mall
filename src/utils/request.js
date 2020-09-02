@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Toast } from 'antd-mobile';
+import { navigate } from './bridge'
 
 const isDevelopment = process.env.NODE_ENV == 'development'
 
@@ -15,6 +16,14 @@ const successFunc = (response) => {
   const { code, message } = response && response.data || {};
   if(code) {
     if(code !== 200) {
+
+      // 登录过期
+      if(code === 700) {
+        navigate && navigate({
+          url: '/login'
+        });
+      }
+
       setTimeout(() => {
         Toast.info(message || '')
       }, 500)
