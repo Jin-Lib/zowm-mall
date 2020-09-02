@@ -163,9 +163,11 @@ function EventVoteZone(props) {
                 <Player
                   preload="auto"
                   autoPlay={true}
+                  height="100%"
+                  fluid={false}
                   poster={player && player.eventPicUrl || ''}
+                  src={player.playerMatchVideo} 
                 >
-                  <source src={player.playerMatchVideo} />
                 </Player>
             </div>
             <div className="event-vote-zone-content-people">

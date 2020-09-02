@@ -182,7 +182,9 @@ function EventVoteZone(props) {
                 /> */}
                 <Player
                   preload="auto"
+                  height="100%"
                   autoPlay={true}
+                  fluid={false}
                   poster={player && player.eventPicUrl || ''}
                   src={player.playerMatchVideo}
                 >
