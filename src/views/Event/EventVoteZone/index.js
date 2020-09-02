@@ -155,7 +155,7 @@ function EventVoteZone(props) {
             <div className="event-vote-zone-content-info">
                 <img src={player.playerHeaderPic} alt=""/>
                 <div>
-                    <p>{player.playerName} <span style={{ fontSize: '15px', color: "#FF3B61", fontWeight: 'bold' }}>#{player.userNo}</span></p>
+                    <p>{player.playerName} <span style={{ fontSize: '15px', color: "#FF3B61", fontWeight: 'bold' }}>{player.userNo ? `#${player.userNo}` : ''}</span></p>
                     <span>票数：{player.ticketNum}</span>
                 </div>
                 {
