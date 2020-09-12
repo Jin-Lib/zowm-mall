@@ -75,7 +75,7 @@ function EventVoteZone(props) {
                     Toast.hide();
                     getVoteInfo(location.state)
                     if(res && !res.code) {
-                      Toast.info('投票成功');
+                      Toast.info('投票成功', 1);
                     }
                 })
         })
@@ -87,21 +87,41 @@ function EventVoteZone(props) {
      * @returns {any}
      */
     const sendVoteEvent = (id) => {
+      if(location.state) {
+        if(location.state.state === 1) {
+          Toast.info('活动已结束，无法投票', 1);
+          return;
+        }
+        if(location.state.state === 3) {
+          Toast.info('活动即将开始，无法投票', 1);
+          return;
+        }
+      }
 
-        return sendVoteTicket.bind(this, {
-            playerUnionId: id,
-            ticketNum: 1,
-            type: 0,
-        })
+      return sendVoteTicket.bind(this, {
+          playerUnionId: id,
+          ticketNum: 1,
+          type: 0,
+      })
     }
 
     const sendUperVoteEvent = (objectId) => {
+      if(location.state) {
+        if(location.state.state === 1) {
+          Toast.info('活动已结束，无法投票', 1);
+          return;
+        }
+        if(location.state.state === 3) {
+          Toast.info('活动即将开始，无法投票', 1);
+          return;
+        }
+      }
       wxPay({
         objectId,
         orderSourceType: 8
       }, (data) => {
         console.log(data, 'pay');
-        Toast.info('投票成功');
+        Toast.info('投票成功', 1);
       })
     }
 
@@ -161,7 +181,7 @@ function EventVoteZone(props) {
                 {
                   player && player.superVoteOrNot && <button className="super-btn" onClick={() => {sendUperVoteEvent(player.unionId)}}>超级投票</button>
                 }
-                <button onClick={sendVoteEvent(player.unionId)}>投票</button>
+                <button onClick={() => { sendVoteEvent(player.unionId) }}>投票</button>
             </div>
             <div className="event-vote-zone-content-video">
                 {/* <video

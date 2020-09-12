@@ -196,7 +196,7 @@ class MyData extends PureComponent {
     updateAppUser = () => {
         const { nick, phone, sex, selectDances, userHeadPic } = this.state;
         if (phone.replace(/\s/g, '').length < 11){
-          Toast.info('手机号格式不对');
+          Toast.info('手机号格式不对', 1);
           return;
         }
         const requestParams = {

@@ -78,3 +78,20 @@
     padding-right: .4rem /* 15/37.5 */;
     background: white;
 }
+
+.video-react .video-react-big-play-button {
+  width: 2rem !important;
+  height: 2rem !important;
+  top: 50% !important;
+  left: 50% !important;
+  margin-top: -1rem !important;
+  margin-left: -1rem !important;
+  background-image: url('../../../../../assets/imgs/player/play.png');
+  background-color: rgba(0,0,0,0);
+  background-size: 2rem 2rem;
+  border: 0;
+
+  &::before {
+    display: none !important;
+  }
+}

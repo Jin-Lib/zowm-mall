@@ -92,7 +92,7 @@ export default class SubmitOrders extends Component{
     submitPay = () => {
         // 判断是否选择地址 如未选择请先选择
         if (!this.addressInfo) {
-            Toast.info('请先选择地址');
+            Toast.info('请先选择地址', 1);
             return;
         }
         // 根据订单id获取

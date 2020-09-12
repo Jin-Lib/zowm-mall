@@ -329,7 +329,7 @@ class GoodsDetails extends PureComponent {
                     totalCartNum: ths.state.totalCartNum + ths.state.prodNum
                 });
                 Toast.hideLoading();
-                Toast.info("加入购物车成功")
+                Toast.info("加入购物车成功", 1)
             })
             .catch((error) => {
                 const { data } = error;

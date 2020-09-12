@@ -143,7 +143,8 @@ function EventDivision(props) {
         return () => {
             history.push('/eventVoteZone', {
                 eventUnionId: state.id,
-                voteAreaUnionId: item.unionId
+                voteAreaUnionId: item.unionId,
+                state: item.state
             })
         }
     }

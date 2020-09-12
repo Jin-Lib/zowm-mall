@@ -138,7 +138,7 @@ class StartCertification extends Component {
       .then((res) => {
         this.getOrganTutorDetail();
         Toast.hide();
-        Toast.info(res || "申请成功")
+        Toast.info(res || "申请成功", 1)
       })
       .catch((error) => {
         const { data } = error;
@@ -173,7 +173,7 @@ class StartCertification extends Component {
       .then((res) => {
         this.getOrganTutorDetail();
         Toast.hide();
-        Toast.info(res || "申请成功")
+        Toast.info(res || "申请成功", 1)
       })
       .catch((error) => {
         console.log(error);
@@ -367,6 +367,11 @@ class StartCertification extends Component {
           tip={tabsTip} 
           className="mt-44"
           onClick={(active) => {
+            if(detail && (detail.status === 1 || detail.status === 2)) {
+              Toast.info('审核中和通过无法切换', 1);
+              return;
+            }
+
             this.setState({
               institutions: {
                 ...institutions,

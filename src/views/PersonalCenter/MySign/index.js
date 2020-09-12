@@ -161,11 +161,12 @@ function MySign() {
                 const { havaSignInDaySum, continuitySignInDaySum, signInDayDtoList, signOrNot} = result
                 setSignInDayDtoList(signInDayDtoList)
                 setIsSignButton(!signOrNot)
-                let day = havaSignInDaySum.toString().split()
-                if (day.length < 3) {
-                    day.length = 3
-                    day = day.reverse();
-                    day = day.fill(0, 0, 3-day.length-1)
+                let day = havaSignInDaySum.toString().split('')
+                let len = day.length;
+                if (len < 3) {
+                  for(let i = 0; i < 3 - len; i++) {
+                    day.unshift('0');
+                  }
                 }
                 setDay(day)
             } else {

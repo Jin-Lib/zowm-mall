@@ -25,7 +25,7 @@ const successFunc = (response) => {
       }
 
       setTimeout(() => {
-        Toast.info(message || '')
+        Toast.info(message || '', 1)
       }, 500)
 
       // return Promise.reject(response)
@@ -43,7 +43,7 @@ const failFunc = (error) => {
   let { code, message } = error && error.response && error.response.data || {};
 
   if (code) {
-    Toast.info(message || '请求错误');
+    Toast.info(message || '请求错误', 1);
 
     // switch (code) {
     //   case 1000:
