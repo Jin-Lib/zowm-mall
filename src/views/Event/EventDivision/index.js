@@ -164,7 +164,7 @@ function EventDivision(props) {
     }
 
     return (<div className="event-division">
-        <PageTitle title={detail && detail.eventName || ''} rightCon={<div className="event-share" onClick={shareBtn} ><img src={share} /></div>}/>
+        <PageTitle title={'赛事详情'} rightCon={<div className="event-share" onClick={shareBtn} ><img src={share} /></div>}/>
         <div className="event-division-content">
             <div className="event-division-content-details">
                 <EventDetails

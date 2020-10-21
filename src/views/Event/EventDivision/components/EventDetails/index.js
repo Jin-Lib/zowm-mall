@@ -77,11 +77,12 @@ function EventDetails(params) {
 
     return (<div className={wrapperClassNames}>
         {
-            showMore ? <PageTitle title={eventDetailInfo && eventDetailInfo.eventName} /> : null
+            showMore ? <PageTitle title='赛事详情' /> : null
         }
         {/* <h6 className="event-details-title">{eventDetailInfo.eventName}</h6> */}
         <div style={{}}>
-          <div style={{ fontFamily: 'PingFangSC-Regular', fontSize: '14px', color: "#aaa" }}>日期：<span style={{ color: '#222' }}>{eventDetailInfo.eventStartTime} - {eventDetailInfo.eventEndTime}</span></div>
+            <div style={{ fontFamily: 'PingFangSC-Regular', fontSize: '16px', color: "#aaa" }}>名称：<span style={{ color: '#222' }}>{eventDetailInfo.eventName}</span></div>
+            <div style={{ fontFamily: 'PingFangSC-Regular', fontSize: '14px', color: "#aaa" }}>日期：<span style={{ color: '#222' }}>{eventDetailInfo.eventStartTime} - {eventDetailInfo.eventEndTime}</span></div>
           <div style={{ fontFamily: 'PingFangSC-Regular', fontSize: '14px', color: "#aaa", marginTop: '8px' }}>地点：<span style={{ color: '#222' }}>{eventDetailInfo.eventAddress}</span></div>
         </div>
         <div className="event-details-propaganda">
