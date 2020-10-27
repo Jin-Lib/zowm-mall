@@ -3,7 +3,7 @@ import VConsole from 'vconsole';
 
 class Layout extends Component {
   componentDidMount() {
-    new VConsole();
+   // new VConsole();
   }
 
   render() {
