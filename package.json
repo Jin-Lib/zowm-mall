@@ -10,7 +10,7 @@
     "antd": "^4.4.1",
     "antd-mobile": "^2.3.3",
     "antd-mobile-demo-data": "^0.3.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "loadsh": "0.0.4",
     "node-sass": "^4.14.1",
